@@ -1,0 +1,65 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const painIcons = [
+  // Scattered data icon
+  `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  // Repetitive tasks icon
+  `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  // Competition icon
+  `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+];
+---
+
+<section class="reveal-section py-24 relative" id="el-problema">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-xs text-[var(--color-accent)] font-body uppercase tracking-widest mb-4">{t.whyNow.label}</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-[var(--color-text)] max-w-3xl mx-auto leading-tight">
+        {t.whyNow.heading}
+      </h2>
+    </div>
+
+    <!-- Pain point cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      {[
+        { title: t.whyNow.pain1Title, body: t.whyNow.pain1Body, icon: painIcons[0] },
+        { title: t.whyNow.pain2Title, body: t.whyNow.pain2Body, icon: painIcons[1] },
+        { title: t.whyNow.pain3Title, body: t.whyNow.pain3Body, icon: painIcons[2] },
+      ].map(({ title, body, icon }) => (
+        <article class="border-glow rounded-2xl p-8 bg-[var(--color-surface)]">
+          <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-[var(--color-accent)]/10 text-[var(--color-accent)] mb-5" set:html={icon} />
+          <h3 class="font-display font-700 text-lg text-[var(--color-text)] mb-3">{title}</h3>
+          <p class="text-[var(--color-muted)] text-sm leading-relaxed">{body}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Stats bar -->
+    <div class="border border-[var(--color-border)] rounded-2xl bg-[var(--color-surface)] p-8">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-border)]">
+        {[
+          { value: t.whyNow.stat1, label: t.whyNow.stat1Label },
+          { value: t.whyNow.stat2, label: t.whyNow.stat2Label },
+          { value: t.whyNow.stat3, label: t.whyNow.stat3Label },
+        ].map(({ value, label }, i) => (
+          <div class={`flex flex-col items-center text-center ${i > 0 ? "pt-8 sm:pt-0 sm:pl-8" : ""}`}>
+            <span class="font-display font-800 text-3xl text-gradient mb-2">{value}</span>
+            <span class="text-sm text-[var(--color-muted)]">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+

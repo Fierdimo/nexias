@@ -1,0 +1,151 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations, getRouteForLang } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+  currentPath?: string;
+}
+
+const { lang, currentPath = "/" } = Astro.props;
+const t = useTranslations(lang);
+const otherLang = lang === "es" ? "en" : "es";
+const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : currentPath.replace(/^\/en/, ""));
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  id="main-header"
+>
+  <div class="absolute inset-0 bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-border)]/0 transition-all duration-300" id="header-bg"></div>
+
+  <nav class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href={lang === "es" ? "/" : "/en/"} class="flex items-center gap-2 group" aria-label="Nexia — inicio">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="#0D1526"/>
+        <path d="M8 24V8h3.2l9.6 11.2V8H24v16h-3.2L11.2 12.8V24H8z" fill="#E8EDF5"/>
+        <path d="M11.2 8l9.6 11.2" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span class="font-display font-700 text-lg text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
+        Nexia
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-8 list-none">
+      {[
+        { href: "#servicios", label: t.nav.services },
+        { href: "#como-funciona", label: t.nav.howItWorks },
+        { href: "#resultados", label: t.nav.results },
+        { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
+      ].map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class="text-sm text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors relative after:absolute after:bottom-[-2px] after:left-0 after:w-0 after:h-px after:bg-[var(--color-accent)] after:transition-all hover:after:w-full"
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right side: lang switcher + CTA -->
+    <div class="hidden md:flex items-center gap-4">
+      <a
+        href={otherLangPath}
+        class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] transition-colors font-body uppercase tracking-wide"
+        aria-label={lang === "es" ? "Switch to English" : "Cambiar a Español"}
+      >
+        {lang === "es" ? "EN" : "ES"}
+      </a>
+      <a href="#contacto" class="btn-primary text-sm py-2 px-5">
+        {t.nav.cta}
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden p-2 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg id="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round"/>
+      </svg>
+      <svg id="icon-close" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden absolute top-16 left-0 right-0 bg-[var(--color-bg)]/95 backdrop-blur-md border-b border-[var(--color-border)]"
+    role="navigation"
+    aria-label="Menú móvil"
+  >
+    <ul class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 list-none">
+      {[
+        { href: "#servicios", label: t.nav.services },
+        { href: "#como-funciona", label: t.nav.howItWorks },
+        { href: "#resultados", label: t.nav.results },
+        { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
+      ].map(({ href, label }) => (
+        <li>
+          <a href={href} class="block py-3 px-2 text-[var(--color-muted)] hover:text-[var(--color-text)] border-b border-[var(--color-border)] transition-colors">
+            {label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-3 flex items-center justify-between">
+        <a href={otherLangPath} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] uppercase tracking-wide transition-colors">
+          {lang === "es" ? "English" : "Español"}
+        </a>
+        <a href="#contacto" class="btn-primary text-sm py-2 px-5">
+          {t.nav.cta}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script is:inline>
+  // Header scroll effect
+  const header = document.getElementById("main-header");
+  const headerBg = document.getElementById("header-bg");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
+      headerBg?.classList.add("border-[var(--color-border)]");
+    } else {
+      headerBg?.classList.remove("border-[var(--color-border)]");
+    }
+  }, { passive: true });
+
+  // Mobile menu toggle
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const iconMenu = document.getElementById("icon-menu");
+  const iconClose = document.getElementById("icon-close");
+
+  btn?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    btn.setAttribute("aria-expanded", String(isOpen));
+    iconMenu?.classList.toggle("hidden", isOpen);
+    iconClose?.classList.toggle("hidden", !isOpen);
+  });
+
+  // Close menu on link click
+  menu?.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      menu.classList.add("hidden");
+      btn?.setAttribute("aria-expanded", "false");
+      iconMenu?.classList.remove("hidden");
+      iconClose?.classList.add("hidden");
+    });
+  });
+</script>

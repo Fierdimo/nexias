@@ -1,0 +1,78 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="reveal-section py-24 relative bg-[var(--color-surface)]" id="resultados">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-xs text-[var(--color-accent)] font-body uppercase tracking-widest mb-4">{t.results.label}</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-[var(--color-text)] max-w-3xl mx-auto leading-tight">
+        {t.results.heading}
+      </h2>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+      {t.results.metrics.map((m) => (
+        <div class="flex flex-col items-center text-center p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg)]">
+          <div class="flex items-end gap-1 mb-2">
+            <span
+              class="font-display font-800 text-4xl text-[var(--color-accent)] counter"
+              data-target={m.value}
+              aria-label={`${m.value}${m.suffix} ${m.label}`}
+            >0</span>
+            <span class="font-display font-700 text-2xl text-[var(--color-accent)] pb-1">{m.suffix}</span>
+          </div>
+          <span class="text-sm text-[var(--color-muted)]">{m.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- Case studies -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {t.results.cases.map((c) => (
+        <article class="border-glow rounded-2xl p-8 bg-[var(--color-bg)] flex flex-col gap-4">
+          <span class="inline-block text-xs px-3 py-1 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 self-start">
+            {c.sector}
+          </span>
+          <h3 class="font-display font-700 text-lg text-[var(--color-text)] leading-snug">{c.title}</h3>
+          <p class="text-[var(--color-muted)] text-sm leading-relaxed">{c.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced && typeof gsap !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.querySelectorAll<HTMLElement>(".counter").forEach((el) => {
+      const target = parseInt(el.dataset.target ?? "0", 10);
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: target,
+        duration: 2,
+        ease: "power1.out",
+        onUpdate() {
+          el.textContent = Math.round(obj.val).toLocaleString("es-CO");
+        },
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          once: true,
+        },
+      });
+    });
+  }
+</script>

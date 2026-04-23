@@ -1,0 +1,86 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="reveal-section py-24 relative" id="faq">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-xs text-[var(--color-accent)] font-body uppercase tracking-widest mb-4">{t.faq.label}</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl text-[var(--color-text)] leading-tight">
+        {t.faq.heading}
+      </h2>
+    </div>
+
+    <!-- Accordion -->
+    <div class="flex flex-col gap-3" role="list">
+      {t.faq.items.map((item, i) => (
+        <div
+          class="faq-item border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] overflow-hidden"
+          role="listitem"
+        >
+          <button
+            class="faq-trigger w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[var(--color-border)]/20 transition-colors"
+            aria-expanded="false"
+            aria-controls={`faq-answer-${i}`}
+          >
+            <span class="font-display font-700 text-base text-[var(--color-text)] leading-snug">
+              {item.q}
+            </span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-muted)] transition-transform duration-300" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M2 4l4 4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id={`faq-answer-${i}`}
+            class="faq-answer overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out"
+          >
+            <p class="px-6 pb-5 text-[var(--color-muted)] text-sm leading-relaxed">
+              {item.a}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll(".faq-trigger").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const answer = document.getElementById(btn.getAttribute("aria-controls"));
+      const icon = btn.querySelector(".faq-icon");
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+      // Close all others
+      document.querySelectorAll(".faq-trigger").forEach((other) => {
+        if (other !== btn) {
+          other.setAttribute("aria-expanded", "false");
+          const otherAnswer = document.getElementById(other.getAttribute("aria-controls"));
+          const otherIcon = other.querySelector(".faq-icon");
+          if (otherAnswer) otherAnswer.style.maxHeight = "0";
+          if (otherIcon) otherIcon.style.transform = "";
+        }
+      });
+
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      if (answer) {
+        answer.style.maxHeight = isOpen ? "0" : answer.scrollHeight + "px";
+      }
+      if (icon) {
+        icon.style.transform = isOpen ? "" : "rotate(180deg)";
+      }
+    });
+  });
+</script>

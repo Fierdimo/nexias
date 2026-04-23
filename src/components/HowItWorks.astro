@@ -1,0 +1,49 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="reveal-section py-24 relative" id="como-funciona">
+  <!-- Subtle divider glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-[var(--color-accent)]/30" aria-hidden="true"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-xs text-[var(--color-accent)] font-body uppercase tracking-widest mb-4">{t.howItWorks.label}</span>
+      <h2 class="font-display font-800 text-3xl sm:text-4xl lg:text-5xl text-[var(--color-text)] max-w-3xl mx-auto leading-tight">
+        {t.howItWorks.heading}
+      </h2>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      <!-- Connector line (desktop) -->
+      <div class="hidden md:block absolute top-12 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px bg-gradient-to-r from-[var(--color-accent)]/40 via-[var(--color-accent2)]/40 to-[var(--color-accent)]/40" aria-hidden="true"></div>
+
+      {t.howItWorks.steps.map((step) => (
+        <div class="relative flex flex-col items-center text-center">
+          <!-- Step number -->
+          <div class="relative z-10 w-24 h-24 flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] mb-6">
+            <span class="font-display font-800 text-2xl text-gradient">{step.number}</span>
+          </div>
+
+          <!-- Time badge -->
+          <span class="inline-block text-xs px-3 py-1 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-muted)] mb-4">
+            {step.time}
+          </span>
+
+          <h3 class="font-display font-700 text-xl text-[var(--color-text)] mb-3">{step.title}</h3>
+          <p class="text-[var(--color-muted)] text-sm leading-relaxed max-w-xs">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,366 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout
+  lang="es"
+  title="Calculadora de ROI — Nexia Demos"
+  description="Calcula en segundos cuánto puede ahorrar tu empresa con automatización de procesos."
+>
+  <Header lang="es" currentPath="/demos/calculadora-roi" />
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Breadcrumb -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/demos/" class="hover:text-[var(--color-accent)] transition-colors">Demos</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Calculadora de ROI</span>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
+      <div class="max-w-2xl">
+        <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[var(--color-accent)] mb-3">
+          Demo 1 — Diagnóstico de datos
+        </p>
+        <h1 class="font-display font-800 text-4xl sm:text-5xl text-[var(--color-text)] mb-4 leading-tight">
+          ¿Cuánto cuesta<br/><span class="text-gradient">no automatizar?</span>
+        </h1>
+        <p class="text-base text-[var(--color-muted)] leading-relaxed">
+          Ingresa tus datos operativos y calcula al instante el potencial de ahorro y el retorno de inversión de un proyecto de automatización.
+        </p>
+      </div>
+    </section>
+
+    <!-- Calculator grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+
+        <!-- Left: Form -->
+        <div class="border border-[var(--color-border)] rounded-2xl p-7 bg-[var(--color-surface)]" id="roi-form-card">
+          <h2 class="font-display font-700 text-xl text-[var(--color-text)] mb-6">Cuéntanos sobre tu equipo</h2>
+
+          <div class="space-y-5">
+            <!-- Empleados -->
+            <div>
+              <label for="empleados" class="block text-sm font-body font-medium text-[var(--color-text)] mb-2">
+                ¿Cuántos empleados hacen trabajo repetitivo?
+              </label>
+              <div class="flex items-center gap-3">
+                <input
+                  type="range"
+                  id="empleados"
+                  min="1"
+                  max="100"
+                  value="5"
+                  class="roi-slider flex-1"
+                  aria-valuemin="1"
+                  aria-valuemax="100"
+                />
+                <span id="empleados-val" class="w-12 text-right font-display font-700 text-lg text-[var(--color-accent)]">5</span>
+              </div>
+              <div class="flex justify-between text-xs text-[var(--color-muted)] mt-1">
+                <span>1 persona</span>
+                <span>100 personas</span>
+              </div>
+            </div>
+
+            <!-- Horas manuales / semana -->
+            <div>
+              <label for="horas" class="block text-sm font-body font-medium text-[var(--color-text)] mb-2">
+                Horas semanales dedicadas a tareas manuales por persona
+              </label>
+              <div class="flex items-center gap-3">
+                <input
+                  type="range"
+                  id="horas"
+                  min="1"
+                  max="40"
+                  value="10"
+                  class="roi-slider flex-1"
+                  aria-valuemin="1"
+                  aria-valuemax="40"
+                />
+                <span id="horas-val" class="w-12 text-right font-display font-700 text-lg text-[var(--color-accent)]">10</span>
+              </div>
+              <div class="flex justify-between text-xs text-[var(--color-muted)] mt-1">
+                <span>1 hora</span>
+                <span>40 horas</span>
+              </div>
+            </div>
+
+            <!-- Costo hora promedio -->
+            <div>
+              <label for="costo" class="block text-sm font-body font-medium text-[var(--color-text)] mb-2">
+                Costo promedio por hora de empleado (COP)
+              </label>
+              <div class="flex items-center gap-3">
+                <input
+                  type="range"
+                  id="costo"
+                  min="5000"
+                  max="80000"
+                  step="1000"
+                  value="15000"
+                  class="roi-slider flex-1"
+                  aria-valuemin="5000"
+                  aria-valuemax="80000"
+                />
+                <span id="costo-val" class="w-20 text-right font-display font-700 text-base text-[var(--color-accent)]">$15.000</span>
+              </div>
+              <div class="flex justify-between text-xs text-[var(--color-muted)] mt-1">
+                <span>$5.000</span>
+                <span>$80.000</span>
+              </div>
+            </div>
+
+            <!-- Tasa de automatización -->
+            <div>
+              <label for="tasa" class="block text-sm font-body font-medium text-[var(--color-text)] mb-2">
+                Porcentaje de tareas automatizables (estimado)
+              </label>
+              <div class="flex items-center gap-3">
+                <input
+                  type="range"
+                  id="tasa"
+                  min="20"
+                  max="90"
+                  value="60"
+                  class="roi-slider flex-1"
+                  aria-valuemin="20"
+                  aria-valuemax="90"
+                />
+                <span id="tasa-val" class="w-12 text-right font-display font-700 text-lg text-[var(--color-accent)]">60%</span>
+              </div>
+              <div class="flex justify-between text-xs text-[var(--color-muted)] mt-1">
+                <span>20%</span>
+                <span>90%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footnote -->
+          <p class="text-xs text-[var(--color-muted)] mt-6 leading-relaxed">
+            * Cálculo basado en costo de oportunidad del tiempo liberado. Un proyecto de automatización con Nexia parte desde 6–12× el costo mensual liberado.
+          </p>
+        </div>
+
+        <!-- Right: Results -->
+        <div class="sticky top-24 space-y-5" id="roi-results">
+          <!-- Main metric -->
+          <div class="border border-[var(--color-accent)]/30 rounded-2xl p-7 bg-[var(--color-accent)]/5 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--color-accent)] opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+            <p class="text-xs font-body font-medium tracking-widest uppercase text-[var(--color-accent)] mb-2">
+              Ahorro potencial anual
+            </p>
+            <div class="flex items-end gap-2 mb-1">
+              <span class="font-display font-800 text-5xl text-[var(--color-text)]" id="saving-annual">$0</span>
+            </div>
+            <p class="text-sm text-[var(--color-muted)] font-body">pesos colombianos por año</p>
+          </div>
+
+          <!-- Secondary metrics grid -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+              <p class="text-xs text-[var(--color-muted)] font-body mb-1">Ahorro mensual</p>
+              <p class="font-display font-700 text-2xl text-[var(--color-text)]" id="saving-monthly">$0</p>
+            </div>
+            <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+              <p class="text-xs text-[var(--color-muted)] font-body mb-1">Horas liberadas/año</p>
+              <p class="font-display font-700 text-2xl text-[var(--color-text)]" id="hours-freed">0</p>
+            </div>
+            <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+              <p class="text-xs text-[var(--color-muted)] font-body mb-1">Meses para ROI 3×</p>
+              <p class="font-display font-700 text-2xl text-[var(--color-text)]" id="roi-months">—</p>
+            </div>
+            <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+              <p class="text-xs text-[var(--color-muted)] font-body mb-1">Inversión estimada</p>
+              <p class="font-display font-700 text-2xl text-[var(--color-text)]" id="inv-estimate">$0</p>
+            </div>
+          </div>
+
+          <!-- ROI bar -->
+          <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+            <div class="flex justify-between text-xs text-[var(--color-muted)] font-body mb-2">
+              <span>Retorno de inversión (primer año)</span>
+              <span id="roi-pct" class="text-[var(--color-accent)] font-medium">0%</span>
+            </div>
+            <div class="h-2 bg-[var(--color-border)] rounded-full overflow-hidden">
+              <div id="roi-bar" class="h-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent2)] rounded-full transition-all duration-700" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="/#contacto"
+            id="roi-cta"
+            class="btn-primary w-full text-center text-sm py-3.5 block"
+          >
+            Quiero estos resultados en mi empresa →
+          </a>
+          <p class="text-xs text-center text-[var(--color-muted)] font-body">
+            Diagnóstico gratuito · 30 minutos · Sin compromiso
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How we calculate section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+      <div class="border border-[var(--color-border)] rounded-2xl p-7 bg-[var(--color-surface)]">
+        <h3 class="font-display font-700 text-lg text-[var(--color-text)] mb-4">¿Cómo calculamos esto?</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-[var(--color-muted)] font-body leading-relaxed">
+          <div>
+            <p class="text-[var(--color-text)] font-medium mb-1">Costo de oportunidad</p>
+            <p>Calculamos el valor del tiempo que tu equipo libera al eliminar tareas manuales. Ese tiempo puede reinvertirse en trabajo de mayor valor.</p>
+          </div>
+          <div>
+            <p class="text-[var(--color-text)] font-medium mb-1">Inversión estimada</p>
+            <p>Estimamos el costo de un proyecto de automatización como 3× el costo mensual liberado, un múltiplo conservador basado en proyectos reales.</p>
+          </div>
+          <div>
+            <p class="text-[var(--color-text)] font-medium mb-1">ROI del primer año</p>
+            <p>Comparamos el ahorro anual vs. la inversión. Un ROI del 200% significa que recuperas tu inversión y ganas el doble en 12 meses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang="es" />
+</Layout>
+
+<style>
+  .roi-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+  }
+  .roi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+    transition: box-shadow 0.2s;
+  }
+  .roi-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.7);
+  }
+  .roi-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+  }
+</style>
+
+<script>
+  // ── ROI Calculator logic ──────────────────────────────────────
+  const sliders = {
+    empleados: document.getElementById("empleados") as HTMLInputElement,
+    horas:     document.getElementById("horas")     as HTMLInputElement,
+    costo:     document.getElementById("costo")     as HTMLInputElement,
+    tasa:      document.getElementById("tasa")      as HTMLInputElement,
+  };
+
+  const displays = {
+    empleados: document.getElementById("empleados-val")!,
+    horas:     document.getElementById("horas-val")!,
+    costo:     document.getElementById("costo-val")!,
+    tasa:      document.getElementById("tasa-val")!,
+  };
+
+  function formatCOP(n: number): string {
+    if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1).replace(".", ",")} mil M`;
+    if (n >= 1_000_000)     return `$${Math.round(n / 1_000_000).toLocaleString("es-CO")} M`;
+    return `$${Math.round(n).toLocaleString("es-CO")}`;
+  }
+
+  function calculate() {
+    const emp  = +sliders.empleados.value;
+    const hrs  = +sliders.horas.value;
+    const cost = +sliders.costo.value;
+    const rate = +sliders.tasa.value / 100;
+
+    const weeklyHoursTotal = emp * hrs;
+    const automatedHours   = weeklyHoursTotal * rate;
+    const annualHours      = automatedHours * 52;
+    const monthlySaving    = automatedHours * cost * (52 / 12);
+    const annualSaving     = monthlySaving * 12;
+    const investment       = monthlySaving * 3;
+    const roiMonths        = investment > 0 ? Math.ceil(investment / monthlySaving) : 0;
+    const roiPct           = investment > 0 ? Math.round((annualSaving / investment) * 100) : 0;
+
+    // Update displays
+    document.getElementById("saving-annual")!.textContent  = formatCOP(annualSaving);
+    document.getElementById("saving-monthly")!.textContent = formatCOP(monthlySaving);
+    document.getElementById("hours-freed")!.textContent    = Math.round(annualHours).toLocaleString("es-CO") + " h";
+    document.getElementById("roi-months")!.textContent     = roiMonths > 0 ? `${roiMonths} meses` : "< 1 mes";
+    document.getElementById("inv-estimate")!.textContent   = formatCOP(investment);
+    document.getElementById("roi-pct")!.textContent        = `${Math.min(roiPct, 999)}%`;
+
+    const barPct = Math.min((roiPct / 500) * 100, 100);
+    (document.getElementById("roi-bar") as HTMLElement).style.width = `${barPct}%`;
+
+    // Pre-fill contact link
+    const cta = document.getElementById("roi-cta") as HTMLAnchorElement;
+    const msg = `Ahorro potencial: ${formatCOP(annualSaving)}/año | ${emp} empleados | ${hrs}h/semana`;
+    cta.href = `/#contacto?roi=${encodeURIComponent(msg)}`;
+  }
+
+  function syncSlider(key: keyof typeof sliders) {
+    const el = sliders[key];
+    const val = +el.value;
+    if (key === "costo") {
+      displays.costo.textContent = `$${val.toLocaleString("es-CO")}`;
+    } else if (key === "tasa") {
+      displays.tasa.textContent = `${val}%`;
+    } else {
+      displays[key].textContent = String(val);
+    }
+    calculate();
+  }
+
+  (Object.keys(sliders) as Array<keyof typeof sliders>).forEach((key) => {
+    sliders[key].addEventListener("input", () => syncSlider(key));
+    // Sync gradient fill for range inputs
+    sliders[key].addEventListener("input", () => {
+      const s = sliders[key];
+      const pct = ((+s.value - +s.min) / (+s.max - +s.min)) * 100;
+      s.style.background = `linear-gradient(to right, var(--color-accent) ${pct}%, var(--color-border) ${pct}%)`;
+    });
+  });
+
+  // Initial calculation + range fill
+  (Object.keys(sliders) as Array<keyof typeof sliders>).forEach((key) => {
+    syncSlider(key);
+    const s = sliders[key];
+    const pct = ((+s.value - +s.min) / (+s.max - +s.min)) * 100;
+    s.style.background = `linear-gradient(to right, var(--color-accent) ${pct}%, var(--color-border) ${pct}%)`;
+  });
+
+  // GSAP entrance
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced && typeof gsap !== "undefined") {
+    gsap.from(["#roi-form-card", "#roi-results"], {
+      opacity: 0, y: 30,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: "power2.out",
+      delay: 0.1,
+    });
+  }
+</script>

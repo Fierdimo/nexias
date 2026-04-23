@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  lang?: "es" | "en";
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = "Nexia — Consultoría de IA y Automatización para Empresas Colombianas",
+  description = "Automatizamos procesos, construimos dashboards inteligentes y desplegamos agentes de IA para que tu empresa compita en la era de los datos. Proyectos concretos, resultados medibles.",
+  lang = "es",
+  ogImage = "/og-image.jpg",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
+    <meta property="og:site_name" content="Nexia" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts: Syne + DM Sans -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP + ScrollTrigger via CDN -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"
+      is:inline
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"
+      is:inline
+    ></script>
+
+
+  </head>
+  <body class="min-h-screen overflow-x-hidden">
+    <!-- Cursor glow (desktop) -->
+    <div id="cursor-glow" aria-hidden="true"></div>
+
+    <slot />
+
+    <!-- Cursor glow script -->
+    <script is:inline>
+      (function () {
+        const glow = document.getElementById("cursor-glow");
+        if (!glow || window.matchMedia("(hover: none)").matches) return;
+        let raf;
+        let mx = -9999, my = -9999;
+        document.addEventListener("mousemove", (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+          if (!raf) {
+            raf = requestAnimationFrame(() => {
+              glow.style.left = mx + "px";
+              glow.style.top = my + "px";
+              raf = null;
+            });
+          }
+        });
+        document.addEventListener("mouseleave", () => {
+          glow.style.opacity = "0";
+        });
+        document.addEventListener("mouseenter", () => {
+          glow.style.opacity = "1";
+        });
+      })();
+    </script>
+  </body>
+</html>

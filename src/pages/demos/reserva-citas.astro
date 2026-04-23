@@ -1,0 +1,523 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout
+  lang="es"
+  title="Reserva de citas — Nexia Demos"
+  description="Demo interactivo de reserva de citas multi-paso: elige servicio, fecha, horario y recibe confirmación por email."
+>
+  <Header lang="es" currentPath="/demos/reserva-citas" />
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Breadcrumb -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/demos/" class="hover:text-[var(--color-accent)] transition-colors">Demos</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Reserva de citas</span>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+      <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-amber-400 mb-2">Demo 4 — Automatización</p>
+      <h1 class="font-display font-800 text-3xl sm:text-4xl text-[var(--color-text)] leading-tight mb-2">
+        Agenda tu <span class="text-gradient">diagnóstico</span>
+      </h1>
+      <p class="text-sm text-[var(--color-muted)] font-body">Flujo de 4 pasos · Confirmación por email · Estado guardado localmente</p>
+    </div>
+
+    <!-- Stepper + form -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Step progress -->
+      <div class="flex items-center gap-0 mb-8" id="step-progress">
+        {[
+          { n: 1, label: "Servicio" },
+          { n: 2, label: "Fecha y hora" },
+          { n: 3, label: "Tus datos" },
+          { n: 4, label: "Confirmación" },
+        ].map((s, i) => (
+          <div class="flex items-center flex-1">
+            <div class={`step-circle flex flex-col items-center ${i < 3 ? "flex-1" : ""}`} data-step={s.n}>
+              <div
+                class={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-display font-700 transition-all duration-300 step-dot`}
+                data-step={s.n}
+              >
+                {s.n}
+              </div>
+              <span class="text-[10px] text-[var(--color-muted)] font-body mt-1 hidden sm:block">{s.label}</span>
+            </div>
+            {i < 3 && <div class="h-px flex-1 bg-[var(--color-border)] mx-1 step-line" data-after={s.n}></div>}
+          </div>
+        ))}
+      </div>
+
+      <!-- Step panels -->
+      <div class="border border-[var(--color-border)] rounded-2xl bg-[var(--color-surface)] overflow-hidden">
+
+        <!-- Step 1: Servicio -->
+        <div class="step-panel p-7" data-step="1">
+          <h2 class="font-display font-700 text-lg text-[var(--color-text)] mb-1">¿Qué servicio te interesa?</h2>
+          <p class="text-sm text-[var(--color-muted)] font-body mb-6">Selecciona el área en la que quieres trabajar con Nexia.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="service-grid">
+            {[
+              { id: "diagnostico",    name: "Diagnóstico de datos",    desc: "Mapa de oportunidades + ROI estimado",     icon: "🔍", time: "1–2 semanas" },
+              { id: "bi",             name: "Analítica y BI",           desc: "Dashboards e insights predictivos",        icon: "📊", time: "4–6 semanas" },
+              { id: "rpa",            name: "Automatización RPA",       desc: "Eliminar tareas repetitivas",              icon: "⚙️", time: "3–8 semanas" },
+              { id: "ia",             name: "Agentes de IA",            desc: "Chatbots y asistentes inteligentes",       icon: "🤖", time: "4–8 semanas" },
+              { id: "acompanamiento", name: "Acompañamiento mensual",   desc: "Monitoreo y mejoras continuas",            icon: "🔄", time: "Mensual" },
+            ].map((svc) => (
+              <button
+                class="service-option text-left border border-[var(--color-border)] rounded-xl p-4 hover:border-[var(--color-accent)]/50 transition-all group"
+                data-service={svc.id}
+                data-name={svc.name}
+                type="button"
+              >
+                <div class="flex items-start justify-between mb-2">
+                  <span class="text-xl">{svc.icon}</span>
+                  <span class="text-[10px] text-[var(--color-muted)] font-body bg-[var(--color-bg)] px-2 py-0.5 rounded-full">{svc.time}</span>
+                </div>
+                <p class="font-display font-700 text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-0.5">{svc.name}</p>
+                <p class="text-xs text-[var(--color-muted)] font-body">{svc.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 2: Calendar -->
+        <div class="step-panel p-7 hidden" data-step="2">
+          <h2 class="font-display font-700 text-lg text-[var(--color-text)] mb-1">¿Cuándo nos reunimos?</h2>
+          <p class="text-sm text-[var(--color-muted)] font-body mb-6">Elige la fecha y hora que mejor te quede. Horarios disponibles en zona horaria Colombia (UTC-5).</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Calendar -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <button id="cal-prev" class="p-1 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors" aria-label="Mes anterior" type="button">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <h3 class="font-display font-700 text-sm text-[var(--color-text)]" id="cal-month-label"></h3>
+                <button id="cal-next" class="p-1 text-[var(--color-muted)] hover:text-[var(--color-text)] transition-colors" aria-label="Mes siguiente" type="button">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+              <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center text-xs">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+
+            <!-- Time slots -->
+            <div>
+              <p class="text-xs font-body font-medium text-[var(--color-text)] mb-3">Horarios disponibles</p>
+              <div class="grid grid-cols-2 gap-2" id="time-slots">
+                {["9:00 am","10:00 am","11:00 am","2:00 pm","3:00 pm","4:00 pm","5:00 pm","6:00 pm"].map((t) => (
+                  <button
+                    class="time-slot border border-[var(--color-border)] rounded-lg px-3 py-2 text-xs font-body text-[var(--color-muted)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text)] transition-all"
+                    data-time={t}
+                    type="button"
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+              <p id="selected-datetime" class="text-xs text-[var(--color-accent)] font-body mt-4 hidden"></p>
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-8">
+            <button type="button" class="step-back btn-secondary text-sm py-2.5 px-5" data-go="1">← Volver</button>
+            <button type="button" id="step2-next" class="btn-primary text-sm py-2.5 px-5 ml-auto opacity-50 cursor-not-allowed" disabled>Continuar →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact info -->
+        <div class="step-panel p-7 hidden" data-step="3">
+          <h2 class="font-display font-700 text-lg text-[var(--color-text)] mb-1">Tus datos de contacto</h2>
+          <p class="text-sm text-[var(--color-muted)] font-body mb-6">Para enviarte la confirmación y coordinar la llamada.</p>
+
+          <form id="booking-form" class="space-y-4" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="b-nombre" class="block text-xs font-body font-medium text-[var(--color-text)] mb-1.5">Nombre completo *</label>
+                <input id="b-nombre" name="nombre" type="text" required maxlength="80"
+                  class="booking-input w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]/60 font-body"
+                  placeholder="María García" />
+              </div>
+              <div>
+                <label for="b-email" class="block text-xs font-body font-medium text-[var(--color-text)] mb-1.5">Email *</label>
+                <input id="b-email" name="email" type="email" required maxlength="120"
+                  class="booking-input w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]/60 font-body"
+                  placeholder="maria@empresa.co" />
+              </div>
+            </div>
+            <div>
+              <label for="b-whatsapp" class="block text-xs font-body font-medium text-[var(--color-text)] mb-1.5">WhatsApp (con código de país) *</label>
+              <input id="b-whatsapp" name="whatsapp" type="tel" required maxlength="20"
+                class="booking-input w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]/60 font-body"
+                placeholder="+57 300 000 0000" />
+            </div>
+            <div>
+              <label for="b-empresa" class="block text-xs font-body font-medium text-[var(--color-text)] mb-1.5">Empresa (opcional)</label>
+              <input id="b-empresa" name="empresa" type="text" maxlength="80"
+                class="w-full bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg px-4 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]/60 font-body"
+                placeholder="Tu empresa S.A.S." />
+            </div>
+            <!-- Honeypot -->
+            <input name="website" type="text" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          </form>
+
+          <div class="flex gap-3 mt-8">
+            <button type="button" class="step-back btn-secondary text-sm py-2.5 px-5" data-go="2">← Volver</button>
+            <button type="button" id="step3-next" class="btn-primary text-sm py-2.5 px-5 ml-auto">Confirmar reserva →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Confirmation -->
+        <div class="step-panel p-7 hidden" data-step="4">
+          <div class="text-center py-8">
+            <div class="w-16 h-16 rounded-full bg-emerald-400/15 flex items-center justify-center mx-auto mb-5">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="12" stroke="#34D399" stroke-width="2"/>
+                <path d="M8 14l4 4 8-8" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2 class="font-display font-700 text-2xl text-[var(--color-text)] mb-2">¡Reserva confirmada!</h2>
+            <p class="text-sm text-[var(--color-muted)] font-body mb-6">Te enviamos la confirmación por email. Nos vemos pronto.</p>
+
+            <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-bg)] text-left mb-6 space-y-2" id="confirm-summary">
+              <!-- Filled by JS -->
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <button type="button" id="new-booking" class="btn-secondary text-sm py-2.5 px-6">
+                Nueva reserva
+              </button>
+              <a href="/#contacto" class="btn-primary text-sm py-2.5 px-6">
+                Ver todos los servicios →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech note -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+        <p class="text-xs text-[var(--color-muted)] font-body text-center leading-relaxed">
+          Este demo envía emails reales con <strong class="text-[var(--color-text)]">Resend API</strong> cuando se configura la variable de entorno <code class="text-[var(--color-accent)] text-[11px]">RESEND_API_KEY</code> en Vercel. El estado del formulario se guarda en <code class="text-[var(--color-accent)] text-[11px]">localStorage</code>.
+        </p>
+      </div>
+    </div>
+  </main>
+  <Footer lang="es" />
+</Layout>
+
+<script>
+  // ── State ─────────────────────────────────────────────────────
+  interface BookingState {
+    step:     number;
+    servicio: string;
+    svName:   string;
+    fecha:    string;
+    hora:     string;
+  }
+
+  const STORAGE_KEY = "nexia-booking-state";
+
+  function loadState(): BookingState {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw) as BookingState;
+    } catch {}
+    return { step: 1, servicio: "", svName: "", fecha: "", hora: "" };
+  }
+
+  function saveState(s: BookingState) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+  }
+
+  let state = loadState();
+
+  // ── Stepper rendering ─────────────────────────────────────────
+  function renderStepper(active: number) {
+    document.querySelectorAll<HTMLElement>(".step-dot").forEach((dot) => {
+      const n = +(dot.dataset.step!);
+      if (n < active) {
+        dot.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-display font-700 transition-all duration-300 step-dot bg-[var(--color-accent)] text-[#070B14]";
+        dot.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#070B14" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      } else if (n === active) {
+        dot.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-display font-700 transition-all duration-300 step-dot bg-[var(--color-accent)] text-[#070B14]";
+        dot.textContent = String(n);
+      } else {
+        dot.className = "w-8 h-8 rounded-full flex items-center justify-center text-xs font-display font-700 transition-all duration-300 step-dot bg-[var(--color-border)] text-[var(--color-muted)]";
+        dot.textContent = String(n);
+      }
+    });
+    document.querySelectorAll<HTMLElement>(".step-line").forEach((line) => {
+      const after = +(line.dataset.after!);
+      line.style.background = after < active ? "var(--color-accent)" : "var(--color-border)";
+    });
+  }
+
+  function goToStep(n: number) {
+    state.step = n;
+    saveState(state);
+    document.querySelectorAll<HTMLElement>(".step-panel").forEach((panel) => {
+      panel.classList.toggle("hidden", +(panel.dataset.step!) !== n);
+    });
+    renderStepper(n);
+  }
+
+  // ── Step 1: Service selection ─────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>(".service-option").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      state.servicio = btn.dataset.service!;
+      state.svName   = btn.dataset.name!;
+      saveState(state);
+      document.querySelectorAll(".service-option").forEach((b) => {
+        b.classList.remove("border-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+      });
+      btn.classList.add("border-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+      setTimeout(() => goToStep(2), 250);
+    });
+  });
+
+  // ── Step 2: Calendar ──────────────────────────────────────────
+  let calYear  = new Date().getFullYear();
+  let calMonth = new Date().getMonth();
+
+  const DAYS_ES    = ["Do","Lu","Ma","Mi","Ju","Vi","Sá"];
+  const MONTHS_ES  = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  // Weekdays that are unavailable (0=Sun, 6=Sat)
+  const BUSY_DAYS  = new Set<string>(); // Simulated busy days
+
+  function getSimulatedBusy(year: number, month: number): Set<string> {
+    // Randomly mark ~4 days per month as busy
+    const busy = new Set<string>();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let i = 0; i < 4; i++) {
+      const day = Math.floor(Math.random() * daysInMonth) + 1;
+      busy.add(`${year}-${String(month + 1).padStart(2,"0")}-${String(day).padStart(2,"0")}`);
+    }
+    return busy;
+  }
+
+  let busyDays = getSimulatedBusy(calYear, calMonth);
+  let selectedDate = "";
+
+  function renderCalendar() {
+    const grid   = document.getElementById("calendar-grid")!;
+    const label  = document.getElementById("cal-month-label")!;
+    label.textContent = `${MONTHS_ES[calMonth]} ${calYear}`;
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let html = DAYS_ES.map(d => `<div class="text-[10px] text-[var(--color-muted)] font-body pb-1">${d}</div>`).join("");
+
+    // Blanks
+    for (let i = 0; i < firstDay; i++) html += `<div></div>`;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${calYear}-${String(calMonth + 1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      const date    = new Date(calYear, calMonth, d);
+      const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+      const isPast  = date < today;
+      const isBusy  = busyDays.has(dateStr);
+      const isSelected = dateStr === selectedDate;
+      const isFar   = (date.getTime() - today.getTime()) > 7 * 24 * 3600 * 1000;
+
+      let cls = "w-7 h-7 mx-auto rounded-lg flex items-center justify-center text-[11px] font-body transition-all ";
+      let disabled = false;
+
+      if (isPast || isFar || isWeekend) {
+        cls += "text-[var(--color-muted)]/30 cursor-not-allowed";
+        disabled = true;
+      } else if (isBusy) {
+        cls += "text-[var(--color-muted)]/40 cursor-not-allowed line-through";
+        disabled = true;
+      } else if (isSelected) {
+        cls += "bg-[var(--color-accent)] text-[#070B14] font-700 cursor-pointer";
+      } else {
+        cls += "text-[var(--color-muted)] hover:bg-[var(--color-accent)]/15 hover:text-[var(--color-text)] cursor-pointer";
+      }
+
+      html += `<div><button type="button" class="${cls} cal-day" data-date="${dateStr}" ${disabled ? "disabled" : ""}>${d}</button></div>`;
+    }
+
+    grid.innerHTML = html;
+
+    // Bind day clicks
+    grid.querySelectorAll<HTMLButtonElement>(".cal-day:not([disabled])").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectedDate = btn.dataset.date!;
+        state.fecha  = selectedDate;
+        saveState(state);
+        renderCalendar();
+        checkStep2Valid();
+      });
+    });
+  }
+
+  document.getElementById("cal-prev")?.addEventListener("click", () => {
+    calMonth--;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    busyDays = getSimulatedBusy(calYear, calMonth);
+    renderCalendar();
+  });
+
+  document.getElementById("cal-next")?.addEventListener("click", () => {
+    calMonth++;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    busyDays = getSimulatedBusy(calYear, calMonth);
+    renderCalendar();
+  });
+
+  // Time slots
+  document.querySelectorAll<HTMLButtonElement>(".time-slot").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".time-slot").forEach((b) => {
+        b.classList.remove("border-[var(--color-accent)]", "text-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+        b.classList.add("border-[var(--color-border)]", "text-[var(--color-muted)]");
+      });
+      btn.classList.add("border-[var(--color-accent)]", "text-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+      btn.classList.remove("border-[var(--color-border)]", "text-[var(--color-muted)]");
+      state.hora = btn.dataset.time!;
+      saveState(state);
+      checkStep2Valid();
+    });
+  });
+
+  function checkStep2Valid() {
+    const btn = document.getElementById("step2-next") as HTMLButtonElement;
+    const label = document.getElementById("selected-datetime")!;
+    if (state.fecha && state.hora) {
+      btn.disabled = false;
+      btn.classList.remove("opacity-50", "cursor-not-allowed");
+      label.textContent = `Seleccionado: ${state.fecha} a las ${state.hora}`;
+      label.classList.remove("hidden");
+    } else {
+      btn.disabled = true;
+      btn.classList.add("opacity-50", "cursor-not-allowed");
+      label.classList.add("hidden");
+    }
+  }
+
+  document.getElementById("step2-next")?.addEventListener("click", () => goToStep(3));
+
+  // ── Step 3: Submit ────────────────────────────────────────────
+  document.getElementById("step3-next")?.addEventListener("click", async () => {
+    const nombreEl  = document.getElementById("b-nombre")   as HTMLInputElement;
+    const emailEl   = document.getElementById("b-email")    as HTMLInputElement;
+    const waEl      = document.getElementById("b-whatsapp") as HTMLInputElement;
+    const honeypot  = document.querySelector<HTMLInputElement>('input[name="website"]');
+
+    // Honeypot check
+    if (honeypot?.value) return;
+
+    // Validate
+    const inputs = [nombreEl, emailEl, waEl];
+    let valid = true;
+    inputs.forEach((inp) => {
+      if (!inp.value.trim()) {
+        inp.classList.add("border-red-500/60");
+        valid = false;
+      } else {
+        inp.classList.remove("border-red-500/60");
+      }
+    });
+    if (!valid) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      emailEl.classList.add("border-red-500/60");
+      return;
+    }
+
+    const btn = document.getElementById("step3-next") as HTMLButtonElement;
+    btn.textContent = "Enviando...";
+    btn.disabled    = true;
+
+    try {
+      await fetch("/api/reserva", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre:   nombreEl.value.trim(),
+          email:    emailEl.value.trim(),
+          whatsapp: waEl.value.trim(),
+          servicio: state.svName,
+          fecha:    state.fecha,
+          hora:     state.hora,
+        }),
+      });
+    } catch {}
+
+    // Show confirmation regardless (demo mode always succeeds)
+    const summary = document.getElementById("confirm-summary")!;
+    summary.innerHTML = [
+      ["Servicio",  state.svName],
+      ["Fecha",     state.fecha],
+      ["Hora",      state.hora + " (Colombia)"],
+      ["Nombre",    nombreEl.value.trim()],
+      ["Email",     emailEl.value.trim()],
+      ["WhatsApp",  waEl.value.trim()],
+    ].map(([k, v]) => `
+      <div class="flex justify-between text-sm font-body py-1 border-b border-[var(--color-border)]/50 last:border-0">
+        <span class="text-[var(--color-muted)]">${k}</span>
+        <span class="text-[var(--color-text)] font-medium">${v}</span>
+      </div>`).join("");
+
+    // Clear localStorage
+    try { localStorage.removeItem(STORAGE_KEY); } catch {}
+    state = { step: 4, servicio: "", svName: "", fecha: "", hora: "" };
+
+    goToStep(4);
+  });
+
+  // ── Back buttons ──────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>(".step-back").forEach((btn) => {
+    btn.addEventListener("click", () => goToStep(+(btn.dataset.go!)));
+  });
+
+  // ── New booking ───────────────────────────────────────────────
+  document.getElementById("new-booking")?.addEventListener("click", () => {
+    state = { step: 1, servicio: "", svName: "", fecha: "", hora: "" };
+    saveState(state);
+    selectedDate = "";
+    document.querySelectorAll(".service-option").forEach((b) => {
+      b.classList.remove("border-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+    });
+    goToStep(1);
+  });
+
+  // ── Init ──────────────────────────────────────────────────────
+  renderCalendar();
+  renderStepper(state.step);
+
+  // Restore step from localStorage
+  if (state.step > 1 && state.step < 4) {
+    goToStep(state.step);
+  } else {
+    goToStep(1);
+  }
+
+  // Restore fecha/hora selection visually
+  if (state.hora) {
+    document.querySelectorAll<HTMLButtonElement>(".time-slot").forEach((btn) => {
+      if (btn.dataset.time === state.hora) {
+        btn.classList.add("border-[var(--color-accent)]", "text-[var(--color-accent)]", "bg-[var(--color-accent)]/5");
+        btn.classList.remove("border-[var(--color-border)]");
+      }
+    });
+  }
+  if (state.fecha) {
+    selectedDate = state.fecha;
+    renderCalendar();
+    checkStep2Valid();
+  }
+</script>

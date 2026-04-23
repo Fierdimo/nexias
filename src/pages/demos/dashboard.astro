@@ -1,0 +1,405 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout
+  lang="es"
+  title="Dashboard de Analítica — Nexia Demos"
+  description="Dashboard interactivo con KPIs en tiempo real, gráficas de ventas y analítica de categorías para un negocio colombiano."
+>
+  <Header lang="es" currentPath="/demos/dashboard" />
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Breadcrumb -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/demos/" class="hover:text-[var(--color-accent)] transition-colors">Demos</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Dashboard de analítica</span>
+      </nav>
+    </div>
+
+    <!-- Header row -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[#7B5EA7] mb-2">Demo 2 — Analítica y BI</p>
+        <h1 class="font-display font-800 text-3xl sm:text-4xl text-[var(--color-text)] leading-tight">
+          Dashboard <span class="text-gradient">La Mesa</span>
+        </h1>
+        <p class="text-sm text-[var(--color-muted)] mt-1 font-body">Restaurante ficticio · Datos simulados actualizados en tiempo real</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Time filter -->
+        <div class="flex bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg overflow-hidden text-xs font-body">
+          {["hoy", "semana", "mes"].map((p) => (
+            <button
+              data-period={p}
+              class={`period-btn px-3 py-2 transition-colors ${p === "semana" ? "bg-[var(--color-accent)] text-[#070B14] font-medium" : "text-[var(--color-muted)] hover:text-[var(--color-text)]"}`}
+            >
+              {p.charAt(0).toUpperCase() + p.slice(1)}
+            </button>
+          ))}
+        </div>
+        <!-- Live indicator -->
+        <div class="flex items-center gap-1.5 text-xs text-emerald-400 font-body">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>En vivo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4" id="kpi-grid">
+        <!-- Ventas del día -->
+        <div class="kpi-card border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-8 h-8 rounded-lg bg-[var(--color-accent)]/10 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 10l4-4 3 3 5-6" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span id="kpi-ventas-delta" class="text-xs font-body font-medium text-emerald-400">+12%</span>
+          </div>
+          <p class="font-display font-700 text-2xl text-[var(--color-text)] mb-0.5" id="kpi-ventas">$0</p>
+          <p class="text-xs text-[var(--color-muted)] font-body">Ventas del día</p>
+        </div>
+
+        <!-- Ticket promedio -->
+        <div class="kpi-card border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-8 h-8 rounded-lg bg-[#7B5EA7]/10 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="5" width="12" height="8" rx="1.5" stroke="#7B5EA7" stroke-width="1.5"/><path d="M5 5V3.5a3 3 0 016 0V5" stroke="#7B5EA7" stroke-width="1.5"/></svg>
+            </div>
+            <span id="kpi-ticket-delta" class="text-xs font-body font-medium text-emerald-400">+5%</span>
+          </div>
+          <p class="font-display font-700 text-2xl text-[var(--color-text)] mb-0.5" id="kpi-ticket">$0</p>
+          <p class="text-xs text-[var(--color-muted)] font-body">Ticket promedio</p>
+        </div>
+
+        <!-- Mesas atendidas -->
+        <div class="kpi-card border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-400/10 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="#FBBF24" stroke-width="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <span id="kpi-mesas-delta" class="text-xs font-body font-medium text-emerald-400">+8</span>
+          </div>
+          <p class="font-display font-700 text-2xl text-[var(--color-text)] mb-0.5" id="kpi-mesas">0</p>
+          <p class="text-xs text-[var(--color-muted)] font-body">Mesas atendidas</p>
+        </div>
+
+        <!-- Satisfacción -->
+        <div class="kpi-card border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-400/10 flex items-center justify-center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="#34D399" stroke-width="1.5"/><path d="M5.5 9.5c.5 1 3.5 1 4.5 0" stroke="#34D399" stroke-width="1.5" stroke-linecap="round"/><circle cx="5.5" cy="7" r="0.75" fill="#34D399"/><circle cx="10.5" cy="7" r="0.75" fill="#34D399"/></svg>
+            </div>
+            <span id="kpi-satisf-delta" class="text-xs font-body font-medium text-emerald-400">+0.2</span>
+          </div>
+          <p class="font-display font-700 text-2xl text-[var(--color-text)] mb-0.5" id="kpi-satisf">4.8</p>
+          <p class="text-xs text-[var(--color-muted)] font-body">Satisfacción (/ 5)</p>
+        </div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Line chart: Ventas -->
+        <div class="lg:col-span-2 border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h2 class="font-display font-700 text-base text-[var(--color-text)]">Ventas por período</h2>
+              <p class="text-xs text-[var(--color-muted)] font-body mt-0.5" id="chart-period-label">Últimos 7 días</p>
+            </div>
+            <span class="text-xs bg-[var(--color-accent)]/10 text-[var(--color-accent)] font-body font-medium px-2.5 py-1 rounded-full">COP</span>
+          </div>
+          <div class="relative h-48">
+            <canvas id="ventas-chart" aria-label="Gráfica de ventas"></canvas>
+          </div>
+        </div>
+
+        <!-- Donut chart: Categorías -->
+        <div class="border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+          <h2 class="font-display font-700 text-base text-[var(--color-text)] mb-1">Categorías</h2>
+          <p class="text-xs text-[var(--color-muted)] font-body mb-5">Distribución de ventas</p>
+          <div class="relative h-36 flex items-center justify-center">
+            <canvas id="cat-chart" aria-label="Gráfica de categorías"></canvas>
+          </div>
+          <div id="cat-legend" class="mt-4 space-y-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Recent orders table -->
+      <div class="border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-display font-700 text-base text-[var(--color-text)]">Últimos pedidos</h2>
+          <span class="text-xs text-[var(--color-muted)] font-body">Actualización automática cada 5s</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm font-body" id="orders-table">
+            <thead>
+              <tr class="text-[var(--color-muted)] text-xs border-b border-[var(--color-border)]">
+                <th class="text-left py-2 pr-4 font-medium">Mesa</th>
+                <th class="text-left py-2 pr-4 font-medium">Plato</th>
+                <th class="text-left py-2 pr-4 font-medium">Categoría</th>
+                <th class="text-right py-2 font-medium">Total</th>
+                <th class="text-right py-2 pl-4 font-medium">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body" class="divide-y divide-[var(--color-border)]/50"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div class="border border-[#7B5EA7]/30 rounded-2xl p-6 bg-[#7B5EA7]/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <p class="font-display font-700 text-base text-[var(--color-text)]">¿Quieres un dashboard así para tu negocio?</p>
+          <p class="text-sm text-[var(--color-muted)] font-body mt-1">Diseñamos dashboards conectados a tus datos reales en 4–6 semanas.</p>
+        </div>
+        <a href="/#contacto" class="btn-primary text-sm py-2.5 px-6 whitespace-nowrap flex-shrink-0">
+          Solicitar diagnóstico →
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer lang="es" />
+</Layout>
+
+<script>
+  // ── Chart.js is loaded via CDN below ──────────────────────────
+  declare const Chart: any;
+
+  // ── Data simulation ───────────────────────────────────────────
+  const CATEGORIES = ["Platos principales", "Bebidas", "Entradas", "Postres", "Combos"];
+  const CAT_COLORS  = ["#00D4FF", "#7B5EA7", "#FBBF24", "#34D399", "#F87171"];
+  const PLATOS      = ["Bandeja paisa", "Ajiaco santafereño", "Arroz con pollo", "Sudado de res", "Sancocho trifásico", "Cazuela de mariscos"];
+  const ESTADOS     = ["Entregado", "En preparación", "En camino"];
+  const STATUS_COLORS: Record<string, string> = {
+    "Entregado":       "text-emerald-400",
+    "En preparación":  "text-amber-400",
+    "En camino":       "text-[var(--color-accent)]",
+  };
+
+  function rand(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function formatCOP(n: number): string {
+    return `$${n.toLocaleString("es-CO")}`;
+  }
+
+  // ── Period data generators ────────────────────────────────────
+  type Period = "hoy" | "semana" | "mes";
+  let currentPeriod: Period = "semana";
+
+  function getLabels(period: Period): string[] {
+    if (period === "hoy") {
+      return ["8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
+    }
+    if (period === "semana") {
+      return ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+    }
+    const days = Array.from({ length: 30 }, (_, i) => `${i + 1}`);
+    return days;
+  }
+
+  function getBaseData(period: Period): number[] {
+    if (period === "hoy")   return getLabels(period).map(() => rand(400_000, 2_200_000));
+    if (period === "semana") return [1_850_000, 2_100_000, 1_750_000, 2_400_000, 3_100_000, 4_200_000, 2_800_000];
+    return getLabels(period).map(() => rand(1_200_000, 5_000_000));
+  }
+
+  function getKPIs(period: Period) {
+    const mult = period === "hoy" ? 1 : period === "semana" ? 7 : 30;
+    return {
+      ventas:  rand(1_800_000, 4_200_000) * mult,
+      ticket:  rand(38_000, 72_000),
+      mesas:   rand(40, 120) * mult,
+      satisf:  (rand(44, 50) / 10).toFixed(1),
+    };
+  }
+
+  function getCatData(): number[] {
+    return [rand(35, 45), rand(20, 28), rand(12, 18), rand(8, 14), rand(5, 10)];
+  }
+
+  function generateOrders() {
+    return Array.from({ length: 8 }, (_, i) => ({
+      mesa:     rand(1, 25),
+      plato:    PLATOS[rand(0, PLATOS.length - 1)],
+      cat:      CATEGORIES[rand(0, CATEGORIES.length - 1)],
+      total:    rand(25_000, 180_000),
+      estado:   ESTADOS[rand(0, ESTADOS.length - 1)],
+    }));
+  }
+
+  // ── Chart instances ───────────────────────────────────────────
+  let ventasChart: any = null;
+  let catChart: any    = null;
+
+  function initCharts() {
+    const ctxV = (document.getElementById("ventas-chart") as HTMLCanvasElement).getContext("2d");
+    const ctxC = (document.getElementById("cat-chart")    as HTMLCanvasElement).getContext("2d");
+
+    const data = getBaseData(currentPeriod);
+
+    ventasChart = new Chart(ctxV, {
+      type: "line",
+      data: {
+        labels:   getLabels(currentPeriod),
+        datasets: [{
+          data,
+          borderColor:     "#00D4FF",
+          backgroundColor: "rgba(0,212,255,0.08)",
+          borderWidth:     2,
+          pointRadius:     3,
+          pointBackgroundColor: "#00D4FF",
+          tension:         0.4,
+          fill:            true,
+        }],
+      },
+      options: {
+        responsive:          true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: {
+          backgroundColor: "#0D1526",
+          borderColor:     "rgba(0,212,255,0.3)",
+          borderWidth:     1,
+          titleColor:      "#E8EDF5",
+          bodyColor:       "#6B7FA3",
+          callbacks: {
+            label: (ctx: any) => ` ${formatCOP(ctx.raw)}`,
+          },
+        }},
+        scales: {
+          x: { grid: { color: "rgba(26,43,74,0.8)" }, ticks: { color: "#6B7FA3", font: { size: 11 } } },
+          y: { grid: { color: "rgba(26,43,74,0.8)" }, ticks: {
+            color: "#6B7FA3", font: { size: 11 },
+            callback: (v: number) => v >= 1_000_000 ? `$${(v/1_000_000).toFixed(1)}M` : `$${(v/1000).toFixed(0)}k`,
+          }},
+        },
+      },
+    });
+
+    const catData = getCatData();
+    catChart = new Chart(ctxC, {
+      type: "doughnut",
+      data: {
+        labels:   CATEGORIES,
+        datasets: [{ data: catData, backgroundColor: CAT_COLORS, borderWidth: 0, hoverOffset: 4 }],
+      },
+      options: {
+        responsive:          true,
+        maintainAspectRatio: false,
+        cutout:              "70%",
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: "#0D1526",
+            borderColor:     "rgba(0,212,255,0.3)",
+            borderWidth:     1,
+            titleColor:      "#E8EDF5",
+            bodyColor:       "#6B7FA3",
+            callbacks: { label: (ctx: any) => ` ${ctx.parsed}%` },
+          },
+        },
+      },
+    });
+
+    renderCatLegend(catData);
+  }
+
+  function renderCatLegend(data: number[]) {
+    const total = data.reduce((a, b) => a + b, 0);
+    const el = document.getElementById("cat-legend")!;
+    el.innerHTML = CATEGORIES.map((cat, i) => `
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:${CAT_COLORS[i]}"></span>
+          <span class="text-xs text-[var(--color-muted)] font-body">${cat}</span>
+        </div>
+        <span class="text-xs font-body font-medium text-[var(--color-text)]">${data[i]}%</span>
+      </div>
+    `).join("");
+  }
+
+  function renderOrders() {
+    const tbody = document.getElementById("orders-body")!;
+    const orders = generateOrders();
+    tbody.innerHTML = orders.map(o => `
+      <tr>
+        <td class="py-2.5 pr-4 text-[var(--color-muted)]">Mesa ${o.mesa}</td>
+        <td class="py-2.5 pr-4 text-[var(--color-text)]">${o.plato}</td>
+        <td class="py-2.5 pr-4 text-[var(--color-muted)] text-xs">${o.cat}</td>
+        <td class="py-2.5 text-right text-[var(--color-text)] font-medium">${formatCOP(o.total)}</td>
+        <td class="py-2.5 pl-4 text-right text-xs font-medium ${STATUS_COLORS[o.estado]}">${o.estado}</td>
+      </tr>
+    `).join("");
+  }
+
+  function updateKPIs() {
+    const kpis = getKPIs(currentPeriod);
+    document.getElementById("kpi-ventas")!.textContent  = formatCOP(kpis.ventas);
+    document.getElementById("kpi-ticket")!.textContent  = formatCOP(kpis.ticket);
+    document.getElementById("kpi-mesas")!.textContent   = String(kpis.mesas);
+    document.getElementById("kpi-satisf")!.textContent  = kpis.satisf;
+  }
+
+  function refreshCharts() {
+    if (!ventasChart || !catChart) return;
+
+    // Update ventas chart
+    ventasChart.data.labels   = getLabels(currentPeriod);
+    ventasChart.data.datasets[0].data = getBaseData(currentPeriod);
+    ventasChart.update("active");
+
+    // Update cat chart
+    const catData = getCatData();
+    catChart.data.datasets[0].data = catData;
+    catChart.update("active");
+    renderCatLegend(catData);
+
+    updateKPIs();
+    renderOrders();
+
+    // Update period label
+    const labels: Record<Period, string> = { hoy: "Hoy", semana: "Últimos 7 días", mes: "Último mes" };
+    document.getElementById("chart-period-label")!.textContent = labels[currentPeriod];
+  }
+
+  // ── Period buttons ────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>(".period-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll<HTMLButtonElement>(".period-btn").forEach((b) => {
+        b.classList.remove("bg-[var(--color-accent)]", "text-[#070B14]", "font-medium");
+        b.classList.add("text-[var(--color-muted)]");
+      });
+      btn.classList.add("bg-[var(--color-accent)]", "text-[#070B14]", "font-medium");
+      btn.classList.remove("text-[var(--color-muted)]");
+      currentPeriod = btn.dataset.period as Period;
+      refreshCharts();
+    });
+  });
+
+  // ── Init ──────────────────────────────────────────────────────
+  function onChartJsReady() {
+    initCharts();
+    updateKPIs();
+    renderOrders();
+    setInterval(refreshCharts, 5000);
+  }
+
+  // Chart.js loaded via CDN script tag below
+  if (typeof Chart !== "undefined") {
+    onChartJsReady();
+  } else {
+    document.addEventListener("chartjs-ready", onChartJsReady);
+  }
+</script>
+
+<!-- Chart.js via CDN -->
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" onload="document.dispatchEvent(new Event('chartjs-ready'))"></script>

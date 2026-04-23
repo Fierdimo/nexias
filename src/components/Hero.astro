@@ -1,0 +1,95 @@
+---
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden bg-grid-blueprint" id="inicio">
+  <!-- Glow blobs -->
+  <div
+    class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full opacity-30 animate-blob-float pointer-events-none"
+    style="background: radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%); filter: blur(60px);"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute bottom-[-5%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
+    style="background: radial-gradient(circle, rgba(123,94,167,0.3) 0%, transparent 70%); filter: blur(80px); animation: blob-float 10s ease-in-out infinite reverse;"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <div class="max-w-4xl">
+      <!-- Eyebrow label -->
+      <div class="hero-item inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/60">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" aria-hidden="true"></span>
+        <span class="text-xs text-[var(--color-muted)] font-body tracking-wide">
+          {lang === "es" ? "Consultoría de IA · Colombia" : "AI Consulting · Colombia"}
+        </span>
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="hero-item font-display font-800 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.08] tracking-tight mb-6">
+        <span class="text-gradient">{lang === "es" ? "Automatiza lo repetitivo." : "Automate the repetitive."}</span>
+        <br />
+        <span class="text-[var(--color-text)]">{lang === "es" ? "Decide con datos." : "Decide with data."}</span>
+        <br />
+        <span class="text-[var(--color-text)]">{lang === "es" ? "Escala sin límites." : "Scale without limits."}</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="hero-item text-lg sm:text-xl text-[var(--color-muted)] max-w-2xl leading-relaxed mb-10">
+        {t.hero.sub}
+      </p>
+
+      <!-- CTAs -->
+      <div class="hero-item flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-16">
+        <a href="#contacto" class="btn-primary font-medium text-base">
+          {t.hero.ctaPrimary}
+        </a>
+        <a href="#como-funciona" class="btn-secondary text-base">
+          {t.hero.ctaSecondary}
+        </a>
+      </div>
+
+      <!-- Social proof numbers -->
+      <div class="hero-item flex flex-wrap gap-8 sm:gap-12">
+        {[
+          { value: t.hero.proof1Value, label: t.hero.proof1Label },
+          { value: t.hero.proof2Value, label: t.hero.proof2Label },
+          { value: t.hero.proof3Value, label: t.hero.proof3Label },
+        ].map(({ value, label }) => (
+          <div class="flex flex-col">
+            <span class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-accent)]">{value}</span>
+            <span class="text-xs sm:text-sm text-[var(--color-muted)]">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style="background: linear-gradient(to top, var(--color-bg), transparent);" aria-hidden="true"></div>
+</section>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced && typeof gsap !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+    const items = document.querySelectorAll(".hero-item");
+    gsap.set(items, { opacity: 0, y: 40 });
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      stagger: 0.15,
+      ease: "power3.out",
+      delay: 0.2,
+    });
+  }
+</script>

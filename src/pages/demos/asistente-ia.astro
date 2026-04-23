@@ -1,0 +1,343 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout
+  lang="es"
+  title="Asistente de IA — Nexia Demos"
+  description="Habla con el asistente virtual de La Mesa, un restaurante ficticio. Demo en vivo de un agente de IA construido con OpenAI y tecnología de Nexia."
+>
+  <Header lang="es" currentPath="/demos/asistente-ia" />
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Breadcrumb -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/demos/" class="hover:text-[var(--color-accent)] transition-colors">Demos</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Asistente de IA</span>
+      </nav>
+    </div>
+
+    <!-- Header -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
+      <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-emerald-400 mb-2">Demo 3 — Agentes de IA</p>
+      <h1 class="font-display font-800 text-3xl sm:text-4xl text-[var(--color-text)] leading-tight mb-2">
+        Asistente de <span class="text-gradient">La Mesa</span>
+      </h1>
+      <p class="text-sm text-[var(--color-muted)] font-body">
+        Restaurante ficticio colombiano · Powered by Kimi k2.6 · Respuesta en tiempo real
+      </p>
+    </div>
+
+    <!-- Chat layout -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Sidebar info -->
+        <div class="space-y-4">
+          <!-- Bot card -->
+          <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full bg-emerald-400/15 flex items-center justify-center flex-shrink-0">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="10" r="9" stroke="#34D399" stroke-width="1.5"/>
+                  <path d="M6 10a1 1 0 102 0 1 1 0 00-2 0zm5 0a1 1 0 102 0 1 1 0 00-2 0z" fill="#34D399"/>
+                  <path d="M6.5 14c.9 1.5 6.1 1.5 7 0" stroke="#34D399" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-display font-700 text-sm text-[var(--color-text)]">Asistente La Mesa</p>
+                <div class="flex items-center gap-1.5 mt-0.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-xs text-emerald-400 font-body">En línea</span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-2 text-xs text-[var(--color-muted)] font-body">
+              <p>📍 Carrera 13 #93-40, Bogotá</p>
+              <p>🕐 Lun–Vie 12pm–10pm · Sáb–Dom 11am–11pm</p>
+              <p>📞 +57 1 234 5678</p>
+            </div>
+          </div>
+
+          <!-- Suggestions -->
+          <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
+            <p class="text-xs font-body font-medium text-[var(--color-text)] mb-3">Preguntas sugeridas</p>
+            <div class="space-y-2" id="suggestions">
+              {[
+                "¿Cuál es el plato del día?",
+                "¿Tienen bandeja paisa?",
+                "Quiero hacer una reserva para 4 personas",
+                "¿A qué hora cierran el sábado?",
+                "¿Cuáles son las opciones vegetarianas?",
+              ].map((s) => (
+                <button
+                  class="suggestion-btn w-full text-left text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 rounded-lg px-3 py-2 transition-all font-body"
+                  data-text={s}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <!-- Rate limit note -->
+          <p class="text-xs text-[var(--color-muted)] font-body text-center px-2">
+            Demo limitado a 10 mensajes por sesión. Para producción se configura según tus necesidades.
+          </p>
+        </div>
+
+        <!-- Chat window -->
+        <div class="lg:col-span-2 flex flex-col" style="height: 580px;">
+          <div class="flex-1 overflow-y-auto border border-[var(--color-border)] rounded-t-xl bg-[var(--color-surface)] p-4 space-y-4" id="chat-messages">
+            <!-- Welcome message -->
+            <div class="flex items-start gap-3">
+              <div class="w-7 h-7 rounded-full bg-emerald-400/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#34D399" stroke-width="1.2"/><path d="M4 7a.7.7 0 101.4 0A.7.7 0 004 7zm4 0a.7.7 0 101.4 0A.7.7 0 008 7z" fill="#34D399"/><path d="M4.5 9.5c.6 1 4.4 1 5 0" stroke="#34D399" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="max-w-[85%]">
+                <div class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-[var(--color-text)] font-body leading-relaxed">
+                  ¡Bienvenido/a a <strong>La Mesa</strong>! 🍽️ Soy el asistente virtual del restaurante. Puedo ayudarte con nuestro menú, horarios y reservas. ¿En qué te puedo servir?
+                </div>
+                <p class="text-[10px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ahora</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input bar -->
+          <div class="border border-[var(--color-border)] border-t-0 rounded-b-xl bg-[var(--color-surface)] p-3">
+            <div id="messages-limit" class="hidden text-center text-xs text-amber-400 font-body mb-2 py-1.5 bg-amber-400/5 rounded-lg border border-amber-400/20">
+              Límite de demo alcanzado. <a href="/#contacto" class="underline hover:text-amber-300">Contacta a Nexia</a> para implementarlo en tu negocio.
+            </div>
+            <form id="chat-form" class="flex gap-2" autocomplete="off">
+              <input
+                id="chat-input"
+                type="text"
+                placeholder="Escribe tu mensaje..."
+                maxlength="300"
+                class="flex-1 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-xl px-4 py-2.5 text-sm text-[var(--color-text)] placeholder:text-[var(--color-muted)] focus:outline-none focus:border-[var(--color-accent)]/60 font-body transition-colors"
+                aria-label="Mensaje"
+              />
+              <button
+                type="submit"
+                id="send-btn"
+                class="w-10 h-10 rounded-xl bg-[var(--color-accent)] flex items-center justify-center transition-all hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+                aria-label="Enviar"
+              >
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 8h12M10 4l4 4-4 4" stroke="#070B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tech note -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="text-sm font-body">
+          <p class="text-[var(--color-text)] font-medium mb-0.5">¿Cómo funciona este demo?</p>
+          <p class="text-[var(--color-muted)] text-xs leading-relaxed">
+            El mensaje del usuario llega a una función serverless segura que consulta el modelo de lenguaje y retorna la respuesta en tiempo real vía Streaming SSE. La lógica de negocio vive en el servidor — nunca expuesta al cliente. Desde un solo agente conversacional hasta arquitecturas multi-agente con memoria, herramientas y orquestación: cada implementación se ajusta a la complejidad del negocio.
+          </p>
+        </div>
+        <a href="/#contacto" class="btn-primary text-sm py-2.5 px-5 whitespace-nowrap flex-shrink-0">
+          Quiero uno así →
+        </a>
+      </div>
+    </div>
+  </main>
+  <Footer lang="es" />
+</Layout>
+
+<script>
+  const form       = document.getElementById("chat-form")      as HTMLFormElement;
+  const input      = document.getElementById("chat-input")     as HTMLInputElement;
+  const sendBtn    = document.getElementById("send-btn")       as HTMLButtonElement;
+  const messages   = document.getElementById("chat-messages")! as HTMLDivElement;
+  const limitBanner = document.getElementById("messages-limit")! as HTMLDivElement;
+
+  interface Message { role: "user" | "assistant"; content: string; }
+  const history: Message[] = [];
+  let msgCount   = 0;
+  const MAX_MSGS = 10;
+  let isStreaming = false;
+
+  function now(): string {
+    return new Date().toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function scrollToBottom() {
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function appendUserMessage(text: string) {
+    const div = document.createElement("div");
+    div.className = "flex items-end justify-end gap-2";
+    div.innerHTML = `
+      <div class="max-w-[80%]">
+        <div class="bg-[var(--color-accent)] rounded-2xl rounded-br-sm px-4 py-3 text-sm text-[#070B14] font-body leading-relaxed">${escapeHtml(text)}</div>
+        <p class="text-[10px] text-[var(--color-muted)] mt-1 mr-1 text-right font-body">Tú · ${now()}</p>
+      </div>`;
+    messages.appendChild(div);
+    scrollToBottom();
+  }
+
+  function appendBotMessage(): HTMLElement {
+    const wrapper = document.createElement("div");
+    wrapper.className = "flex items-start gap-3";
+    wrapper.innerHTML = `
+      <div class="w-7 h-7 rounded-full bg-emerald-400/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#34D399" stroke-width="1.2"/><path d="M4 7a.7.7 0 101.4 0A.7.7 0 004 7zm4 0a.7.7 0 101.4 0A.7.7 0 008 7z" fill="#34D399"/><path d="M4.5 9.5c.6 1 4.4 1 5 0" stroke="#34D399" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="max-w-[85%]">
+        <div class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-[var(--color-text)] font-body leading-relaxed bot-text">
+          <span class="typing-cursor inline-block w-1 h-3.5 bg-emerald-400 rounded-sm ml-0.5 animate-pulse"></span>
+        </div>
+        <p class="text-[10px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ${now()}</p>
+      </div>`;
+    messages.appendChild(wrapper);
+    scrollToBottom();
+    return wrapper.querySelector(".bot-text")!;
+  }
+
+  function appendTypingIndicator(): HTMLElement {
+    const div = document.createElement("div");
+    div.className = "flex items-start gap-3 typing-indicator";
+    div.innerHTML = `
+      <div class="w-7 h-7 rounded-full bg-emerald-400/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#34D399" stroke-width="1.2"/></svg>
+      </div>
+      <div class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-muted)] animate-bounce" style="animation-delay:0ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-muted)] animate-bounce" style="animation-delay:150ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-muted)] animate-bounce" style="animation-delay:300ms"></span>
+      </div>`;
+    messages.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function escapeHtml(s: string): string {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function setDisabled(disabled: boolean) {
+    input.disabled   = disabled;
+    sendBtn.disabled = disabled;
+    isStreaming      = disabled;
+  }
+
+  async function sendMessage(text: string) {
+    if (!text.trim() || isStreaming || msgCount >= MAX_MSGS) return;
+
+    msgCount++;
+    if (msgCount >= MAX_MSGS) {
+      limitBanner.classList.remove("hidden");
+    }
+
+    history.push({ role: "user", content: text });
+    appendUserMessage(text);
+    input.value = "";
+
+    setDisabled(true);
+    const indicator = appendTypingIndicator();
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      indicator.remove();
+
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({ error: "Error desconocido." }));
+        const botEl = appendBotMessage();
+        botEl.querySelector(".typing-cursor")?.remove();
+        botEl.textContent = (err as { error?: string }).error ?? "Error al conectar.";
+        setDisabled(false);
+        return;
+      }
+
+      const botEl = appendBotMessage();
+      const cursor = botEl.querySelector(".typing-cursor");
+      let accumulated = "";
+
+      const reader = response.body!.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        const lines  = chunk.split("\n");
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) {
+            if (line.trim()) console.debug("[chat] raw non-data line:", JSON.stringify(line));
+            continue;
+          }
+          const data = line.slice(6).trim();
+          if (data === "[DONE]") { console.debug("[chat] [DONE] received, accumulated length:", accumulated.length); continue; }
+          try {
+            const parsed = JSON.parse(data);
+            const delta  = parsed?.choices?.[0]?.delta?.content;
+            if (typeof delta === "string") {
+              accumulated += delta;
+              // Render the text (cursor stays at end)
+              botEl.textContent = accumulated;
+              if (cursor) botEl.appendChild(cursor);
+              scrollToBottom();
+            } else {
+              console.debug("[chat] chunk without content delta:", JSON.stringify(parsed));
+            }
+          } catch {
+            console.debug("[chat] malformed JSON line:", JSON.stringify(line));
+          }
+        }
+      }
+
+      cursor?.remove();
+      if (accumulated.trim()) {
+        history.push({ role: "assistant", content: accumulated });
+      } else {
+        // Empty response: show a graceful fallback instead of blank bubble
+        const fallback = "Disculpa, no pude procesar esa respuesta. ¿Puedes reformular tu pregunta?";
+        botEl.textContent = fallback;
+        // Remove last user message so history stays valid for next turn
+        history.pop();
+        scrollToBottom();
+      }
+    } catch (err) {
+      indicator.remove();
+      const botEl = appendBotMessage();
+      botEl.querySelector(".typing-cursor")?.remove();
+      botEl.textContent = "Error de conexión. Inténtalo de nuevo.";
+    } finally {
+      setDisabled(false);
+      if (msgCount < MAX_MSGS) input.focus();
+    }
+  }
+
+  // Form submit
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendMessage(input.value.trim());
+  });
+
+  // Suggestion buttons
+  document.querySelectorAll<HTMLButtonElement>(".suggestion-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (isStreaming || msgCount >= MAX_MSGS) return;
+      sendMessage(btn.dataset.text!);
+    });
+  });
+</script>

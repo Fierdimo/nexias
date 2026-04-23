@@ -1,0 +1,182 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const demos = [
+  {
+    slug: "calculadora-roi",
+    title: "Calculadora de ROI",
+    desc: "Ingresa tus datos operativos y calcula en segundos cuánto puedes ahorrar con automatización. Sin compromiso.",
+    badge: "Diagnóstico de datos",
+    badgeColor: "text-[var(--color-accent)] bg-[var(--color-accent)]/10",
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="8" fill="rgba(0,212,255,0.1)"/>
+      <path d="M8 20l4-8 4 5 3-4 3 7" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="19" cy="9" r="2.5" stroke="#00D4FF" stroke-width="1.5"/>
+    </svg>`,
+    cta: "Calcular ahorro →",
+    live: true,
+    tag: "Sin dependencias externas",
+  },
+  {
+    slug: "dashboard",
+    title: "Dashboard de analítica",
+    desc: "Dashboard interactivo con KPIs, gráficas en tiempo real y datos simulados de un negocio colombiano.",
+    badge: "Analítica y BI",
+    badgeColor: "text-[#7B5EA7] bg-[#7B5EA7]/10",
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="8" fill="rgba(123,94,167,0.1)"/>
+      <rect x="7" y="16" width="4" height="5" rx="1" fill="#7B5EA7"/>
+      <rect x="12" y="12" width="4" height="9" rx="1" fill="#7B5EA7" opacity="0.7"/>
+      <rect x="17" y="8" width="4" height="13" rx="1" fill="#7B5EA7" opacity="0.5"/>
+    </svg>`,
+    cta: "Ver dashboard →",
+    live: true,
+    tag: "Chart.js · Datos simulados",
+  },
+  {
+    slug: "asistente-ia",
+    title: "Asistente de IA",
+    desc: "Chat en tiempo real con un agente entrenado para un restaurante ficticio. Preguntas, reservas, menú.",
+    badge: "Agentes de IA",
+    badgeColor: "text-emerald-400 bg-emerald-400/10",
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="8" fill="rgba(52,211,153,0.1)"/>
+      <path d="M7 10a3 3 0 013-3h8a3 3 0 013 3v5a3 3 0 01-3 3h-2l-3 3v-3H10a3 3 0 01-3-3v-5z" stroke="#34D399" stroke-width="1.5"/>
+      <path d="M11 13h6M11 10.5h3" stroke="#34D399" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+    cta: "Hablar con el asistente →",
+    live: true,
+    tag: "Kimi moonshot-v1-8k · Streaming",
+  },
+  {
+    slug: "reserva-citas",
+    title: "Reserva de citas",
+    desc: "Flujo de agendamiento multi-paso: elige servicio, fecha, horario y recibe confirmación por email.",
+    badge: "Automatización",
+    badgeColor: "text-amber-400 bg-amber-400/10",
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="28" height="28" rx="8" fill="rgba(251,191,36,0.1)"/>
+      <rect x="7" y="9" width="14" height="12" rx="2" stroke="#FBBF24" stroke-width="1.5"/>
+      <path d="M7 12.5h14M11 7v4M17 7v4" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M11 16l2 2 4-3" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+    cta: "Reservar demo →",
+    live: true,
+    tag: "Resend · Calendario interactivo",
+  },
+];
+---
+
+<Layout
+  lang="es"
+  title="Demos en vivo — Nexia"
+  description="Prueba en acción las soluciones de Nexia: calculadora de ROI, dashboard de analítica, asistente de IA y reserva de citas."
+>
+  <Header lang="es" currentPath="/demos/" />
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Header section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 text-center">
+      <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[var(--color-accent)] mb-4">
+        Demos interactivos
+      </p>
+      <h1 class="font-display font-800 text-4xl sm:text-5xl md:text-6xl text-[var(--color-text)] mb-6 leading-tight">
+        La web como<br/>
+        <span class="text-gradient">prueba del servicio</span>
+      </h1>
+      <p class="text-lg text-[var(--color-muted)] max-w-2xl mx-auto leading-relaxed">
+        No te decimos que podemos hacerlo. Te lo mostramos. Cuatro demos funcionando en vivo, 
+        construidas con las mismas tecnologías que usaríamos en tu empresa.
+      </p>
+    </section>
+
+    <!-- Demo cards grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {demos.map((demo, i) => (
+          <a
+            href={`/demos/${demo.slug}`}
+            class="group relative block border-glow rounded-2xl p-7 bg-[var(--color-surface)] overflow-hidden transition-transform duration-200 hover:-translate-y-1"
+            style={`animation-delay: ${i * 80}ms`}
+          >
+            <!-- Subtle grid bg -->
+            <div class="absolute inset-0 opacity-30 pointer-events-none demo-card-grid"></div>
+
+            <!-- Live badge -->
+            {demo.live && (
+              <div class="absolute top-5 right-5 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-[10px] font-body font-medium text-emerald-400 uppercase tracking-wider">Live</span>
+              </div>
+            )}
+
+            <div class="relative">
+              <!-- Icon -->
+              <div class="mb-5" set:html={demo.icon} />
+
+              <!-- Badge -->
+              <span class={`inline-block text-[11px] font-body font-medium px-2.5 py-1 rounded-full mb-3 ${demo.badgeColor}`}>
+                {demo.badge}
+              </span>
+
+              <!-- Title -->
+              <h2 class="font-display font-700 text-xl text-[var(--color-text)] mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                {demo.title}
+              </h2>
+
+              <!-- Description -->
+              <p class="text-sm text-[var(--color-muted)] leading-relaxed mb-6">
+                {demo.desc}
+              </p>
+
+              <!-- Footer -->
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] text-[var(--color-muted)]/60 font-body">
+                  {demo.tag}
+                </span>
+                <span class="text-sm font-body font-medium text-[var(--color-accent)] flex items-center gap-1 group-hover:gap-2 transition-all">
+                  {demo.cta}
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 text-center">
+      <div class="border border-[var(--color-border)] rounded-2xl p-8 bg-[var(--color-surface)]">
+        <p class="text-sm text-[var(--color-muted)] mb-2 font-body">¿Lo que ves te interesa para tu empresa?</p>
+        <h3 class="font-display font-700 text-xl text-[var(--color-text)] mb-4">
+          Agenda un diagnóstico gratuito de 30 minutos
+        </h3>
+        <a href="/#contacto" class="btn-primary text-sm py-2.5 px-6">
+          Hablar con el equipo →
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer lang="es" />
+</Layout>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced && typeof gsap !== "undefined") {
+    gsap.from(".group", {
+      opacity: 0,
+      y: 30,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: "power2.out",
+      delay: 0.2,
+    });
+  }
+</script>
+
+<style>
+  .demo-card-grid {
+    background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 .5H32M.5 0v32' stroke='%231A2B4A' stroke-width='0.5'/%3E%3C/svg%3E");
+  }
+</style>
