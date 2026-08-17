@@ -33,7 +33,15 @@ export function organization(lang: Lang, description: string) {
     },
     areaServed: { "@type": "Country", name: "Colombia" },
     knowsLanguage: ["es-CO", "en-US"],
-    sameAs: ["https://www.linkedin.com/company/nexias"],
+    // Perfil del fundador: para una práctica de una persona es la referencia
+    // real. Un sameAs que apunta a un 404 le estropea a Google la resolución
+    // de la entidad, así que aquí solo van perfiles que existen.
+    sameAs: ["https://www.linkedin.com/in/gregorio-morales-pajaro/"],
+    founder: {
+      "@type": "Person",
+      name: "Gregorio Morales Pajaro",
+      url: "https://www.linkedin.com/in/gregorio-morales-pajaro/",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: lang === "en" ? "AI and automation services" : "Servicios de IA y automatización",
