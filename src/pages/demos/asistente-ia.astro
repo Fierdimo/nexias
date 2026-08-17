@@ -2,12 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { breadcrumbs } from "../../lib/schema";
 ---
 
 <Layout
   lang="es"
-  title="Asistente de IA — Nexia Demos"
-  description="Habla con el asistente virtual de La Mesa, un restaurante ficticio. Demo en vivo de un agente de IA construido con OpenAI y tecnología de Nexia."
+  title="Asistente de IA — Nexias Demos"
+  description="Habla con el asistente virtual de La Mesa, un restaurante ficticio. Demo en vivo de un agente de IA construido con OpenAI y tecnología de Nexias."
+  schema={[breadcrumbs([{ name: "Inicio", path: "/" }, { name: "Demos", path: "/demos/" }, { name: "Asistente de IA", path: "/demos/asistente-ia/" }])]}
 >
   <Header lang="es" currentPath="/demos/asistente-ia" />
   <main class="min-h-screen pt-24 pb-20">
@@ -109,7 +111,7 @@ import Footer from "../../components/Footer.astro";
           <!-- Input bar -->
           <div class="border border-[var(--color-border)] border-t-0 rounded-b-xl bg-[var(--color-surface)] p-3">
             <div id="messages-limit" class="hidden text-center text-xs text-amber-400 font-body mb-2 py-1.5 bg-amber-400/5 rounded-lg border border-amber-400/20">
-              Límite de demo alcanzado. <a href="/#contacto" class="underline hover:text-amber-300">Contacta a Nexia</a> para implementarlo en tu negocio.
+              Límite de demo alcanzado. <a href="/#contacto" class="underline hover:text-amber-300">Contacta a Nexias</a> para implementarlo en tu negocio.
             </div>
             <form id="chat-form" class="flex gap-2" autocomplete="off">
               <input

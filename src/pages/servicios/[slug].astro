@@ -1,0 +1,222 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { breadcrumbs, service, faqFor } from "../../lib/schema";
+import { servicios } from "../../data/servicios";
+
+export function getStaticPaths() {
+  return servicios.map((s) => ({ params: { slug: s.slug }, props: { servicio: s } }));
+}
+
+const { servicio } = Astro.props;
+const path = `/servicios/${servicio.slug}/`;
+const otros = servicios.filter((s) => s.slug !== servicio.slug);
+const waLink = `https://wa.me/573028308008?text=${encodeURIComponent(
+  `Hola, quiero saber más sobre ${servicio.nav}`,
+)}`;
+---
+
+<Layout
+  lang="es"
+  title={servicio.title}
+  description={servicio.description}
+  schema={[
+    service({
+      name: servicio.nav,
+      description: servicio.description,
+      path,
+      serviceType: servicio.keyword.split("/")[0].trim(),
+    }),
+    faqFor(path, servicio.faq),
+    breadcrumbs([
+      { name: "Inicio", path: "/" },
+      { name: "Servicios", path: "/servicios/" },
+      { name: servicio.nav, path },
+    ]),
+  ]}
+>
+  <Header lang="es" currentPath={path} />
+
+  <main class="min-h-screen pt-24 pb-20">
+    <!-- Breadcrumb -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-accent)] transition-colors">Inicio</a>
+        <span>›</span>
+        <a href="/servicios/" class="hover:text-[var(--color-accent)] transition-colors">Servicios</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">{servicio.nav}</span>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-14">
+      <div class="max-w-3xl">
+        <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[var(--color-accent)] mb-4">
+          Servicio
+        </p>
+        <h1 class="font-display font-800 text-4xl sm:text-5xl text-[var(--color-text)] mb-5 leading-[1.12]">
+          {servicio.h1}
+        </h1>
+        <p class="text-lg text-[var(--color-muted)] leading-relaxed">{servicio.lead}</p>
+
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a
+            href="/#contacto"
+            class="inline-flex items-center px-6 py-3 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg)] font-body font-medium text-sm hover:shadow-glow-cyan transition-shadow"
+          >
+            Agenda tu diagnóstico gratuito
+          </a>
+          {servicio.demo && (
+            <a
+              href={servicio.demo.href}
+              class="inline-flex items-center px-6 py-3 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] font-body font-medium text-sm hover:border-[var(--color-accent)] transition-colors"
+            >
+              {servicio.demo.label} →
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Señales -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">
+        Señales de que lo necesitas
+      </h2>
+      <ul class="grid gap-3 sm:grid-cols-2 max-w-4xl">
+        {servicio.senales.map((s) => (
+          <li class="flex gap-3 text-[var(--color-muted)] font-body leading-relaxed">
+            <span class="text-[var(--color-accent)] shrink-0" aria-hidden="true">▸</span>
+            <span>{s}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Entregables -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">Qué recibes</h2>
+      <div class="grid gap-5 md:grid-cols-3">
+        {servicio.entregables.map((e) => (
+          <div class="border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+            <h3 class="font-display font-700 text-lg text-[var(--color-text)] mb-2">{e.titulo}</h3>
+            <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed">{e.detalle}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Proceso -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">Cómo trabajamos</h2>
+      <ol class="grid gap-5 md:grid-cols-3">
+        {servicio.proceso.map((p, i) => (
+          <li class="border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+            <div class="flex items-baseline justify-between mb-3">
+              <span class="font-display font-800 text-2xl text-[var(--color-accent)]">{i + 1}</span>
+              <span class="text-xs font-body text-[var(--color-muted)] uppercase tracking-wider">{p.tiempo}</span>
+            </div>
+            <h3 class="font-display font-700 text-lg text-[var(--color-text)] mb-2">{p.paso}</h3>
+            <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed">{p.detalle}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- Ejemplos por sector -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-3">
+        Ejemplos de aplicación por sector
+      </h2>
+      <p class="text-sm text-[var(--color-muted)] font-body mb-8 max-w-2xl">
+        Casos de uso representativos del servicio, no clientes referenciados.
+      </p>
+      <div class="grid gap-5 md:grid-cols-3">
+        {servicio.ejemplos.map((c) => (
+          <div class="border border-[var(--color-border)] rounded-xl p-6 bg-[var(--color-surface)]">
+            <p class="text-xs font-body uppercase tracking-widest text-[var(--color-accent)] mb-3">{c.sector}</p>
+            <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed">{c.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Herramientas -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">Con qué se integra</h2>
+      <ul class="flex flex-wrap gap-2.5">
+        {servicio.herramientas.map((h) => (
+          <li class="border border-[var(--color-border)] rounded-full px-4 py-2 text-sm font-body text-[var(--color-text)] bg-[var(--color-surface)]">
+            {h}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- FAQ -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">Preguntas frecuentes</h2>
+      <div class="flex flex-col gap-3">
+        {servicio.faq.map((item) => (
+          <details class="border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] overflow-hidden group">
+            <summary
+              class="cursor-pointer list-none px-6 py-4 font-body font-medium text-[var(--color-text)] flex justify-between items-center gap-4"
+            >
+              <span>{item.q}</span>
+              <span class="text-[var(--color-accent)] shrink-0 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="px-6 pb-5 text-sm text-[var(--color-muted)] font-body leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Otros servicios -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-border)]">
+      <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-8">Otros servicios</h2>
+      <div class="grid gap-4 sm:grid-cols-3">
+        {otros.map((s) => (
+          <a
+            href={`/servicios/${s.slug}/`}
+            class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors"
+          >
+            <h3 class="font-display font-700 text-base text-[var(--color-text)] mb-1.5">{s.nav}</h3>
+            <p class="text-xs text-[var(--color-muted)] font-body leading-relaxed">{s.h1}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-[var(--color-border)]">
+      <div class="border border-[var(--color-border)] rounded-2xl p-10 bg-[var(--color-surface)] text-center">
+        <h2 class="font-display font-800 text-2xl sm:text-3xl text-[var(--color-text)] mb-3">
+          Empieza con un diagnóstico gratuito
+        </h2>
+        <p class="text-[var(--color-muted)] font-body mb-8 max-w-xl mx-auto leading-relaxed">
+          30 minutos, sin compromiso. Sales con un mapa claro de dónde están las oportunidades en tu empresa.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a
+            href="/#contacto"
+            class="inline-flex items-center px-6 py-3 rounded-lg bg-[var(--color-accent)] text-[var(--color-bg)] font-body font-medium text-sm hover:shadow-glow-cyan transition-shadow"
+          >
+            Agendar por el formulario
+          </a>
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center px-6 py-3 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] font-body font-medium text-sm hover:border-[var(--color-accent)] transition-colors"
+          >
+            Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang="es" />
+</Layout>

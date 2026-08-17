@@ -2,12 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { breadcrumbs } from "../../lib/schema";
 ---
 
 <Layout
   lang="es"
-  title="Calculadora de ROI — Nexia Demos"
+  title="Calculadora de ROI — Nexias Demos"
   description="Calcula en segundos cuánto puede ahorrar tu empresa con automatización de procesos."
+  schema={[breadcrumbs([{ name: "Inicio", path: "/" }, { name: "Demos", path: "/demos/" }, { name: "Calculadora de ROI", path: "/demos/calculadora-roi/" }])]}
 >
   <Header lang="es" currentPath="/demos/calculadora-roi" />
   <main class="min-h-screen pt-24 pb-20">
@@ -144,7 +146,7 @@ import Footer from "../../components/Footer.astro";
 
           <!-- Footnote -->
           <p class="text-xs text-[var(--color-muted)] mt-6 leading-relaxed">
-            * Cálculo basado en costo de oportunidad del tiempo liberado. Un proyecto de automatización con Nexia parte desde 6–12× el costo mensual liberado.
+            * Cálculo basado en costo de oportunidad del tiempo liberado. Un proyecto de automatización con Nexias parte desde 6–12× el costo mensual liberado.
           </p>
         </div>
 

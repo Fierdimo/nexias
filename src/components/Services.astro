@@ -62,6 +62,15 @@ const serviceIcons = [
 
           <h3 class="font-display font-700 text-lg text-[var(--color-text)] leading-tight">{service.name}</h3>
           <p class="text-[var(--color-muted)] text-sm leading-relaxed flex-1">{service.desc}</p>
+
+          {"page" in service && service.page && (
+            <a
+              href={service.page}
+              class="text-sm font-body text-[var(--color-accent)] hover:underline mt-1"
+            >
+              Ver servicio →
+            </a>
+          )}
         </article>
       ))}
     </div>

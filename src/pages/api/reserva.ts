@@ -44,7 +44,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     const fromAddress = (import.meta.env.RESEND_FROM as string | undefined) ?? "onboarding@resend.dev";
     const emailHtml = `
       <div style="font-family: sans-serif; color: #222; max-width: 520px; margin: 0 auto;">
-        <h2 style="color: #00D4FF;">✅ Reserva confirmada — Nexia</h2>
+        <h2 style="color: #00D4FF;">✅ Reserva confirmada — Nexias</h2>
         <p>Hola <strong>${payload.nombre}</strong>,</p>
         <p>Tu cita de diagnóstico ha sido confirmada:</p>
         <table style="width:100%; border-collapse:collapse; margin:16px 0;">
@@ -54,7 +54,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
           <tr><td style="padding:8px 12px; background:#f5f5f5; font-weight:600;">WhatsApp</td><td style="padding:8px 12px;">${payload.whatsapp}</td></tr>
         </table>
         <p>Nos comunicaremos contigo al WhatsApp proporcionado para confirmar los detalles. Si necesitas cambiar la cita, escríbenos con al menos 24 horas de anticipación.</p>
-        <p style="color:#888; font-size:13px;">— El equipo de Nexia · nexia.co</p>
+        <p style="color:#888; font-size:13px;">— El equipo de Nexias · nexias.dev</p>
       </div>`;
 
     await fetch("https://api.resend.com/emails", {

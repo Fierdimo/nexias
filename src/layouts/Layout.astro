@@ -7,15 +7,43 @@ export interface Props {
   lang?: "es" | "en";
   ogImage?: string;
   canonicalURL?: string;
+  /**
+   * Rutas equivalentes en cada idioma. Solo se emiten etiquetas hreflang
+   * cuando la página existe de verdad en ambos idiomas — apuntar a una
+   * traducción inexistente le dice a Google que indexe un 404.
+   */
+  alternates?: { es: string; en: string } | null;
+  /** Nodos JSON-LD; se emiten como un solo `@graph`. */
+  schema?: Record<string, unknown>[];
 }
 
 const {
-  title = "Nexia — Consultoría de IA y Automatización para Empresas Colombianas",
+  title = "Nexias — Consultoría de IA y Automatización para Empresas Colombianas",
   description = "Automatizamos procesos, construimos dashboards inteligentes y desplegamos agentes de IA para que tu empresa compita en la era de los datos. Proyectos concretos, resultados medibles.",
   lang = "es",
   ogImage = "/og-image.jpg",
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  alternates = null,
+  schema = [],
 } = Astro.props;
+
+/**
+ * `set:html` no escapa nada, así que un "</script>" dentro de una respuesta del
+ * FAQ cerraría la etiqueta antes de tiempo. Escapar "<" lo evita sin romper el
+ * JSON, porque < es un escape válido dentro de una cadena JSON.
+ */
+const jsonLd =
+  schema.length > 0
+    ? JSON.stringify({ "@context": "https://schema.org", "@graph": schema }).replace(/</g, "\\u003c")
+    : null;
+
+const hreflangs = alternates
+  ? [
+      { hreflang: "es-CO", href: new URL(alternates.es, Astro.site).href },
+      { hreflang: "en-US", href: new URL(alternates.en, Astro.site).href },
+      { hreflang: "x-default", href: new URL(alternates.es, Astro.site).href },
+    ]
+  : [];
 ---
 
 <!doctype html>
@@ -30,6 +58,9 @@ const {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="robots" content="index, follow" />
+    {hreflangs.map((alt) => (
+      <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+    ))}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -37,14 +68,20 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nexias — consultoría de IA y automatización para empresas colombianas" />
     <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
-    <meta property="og:site_name" content="Nexia" />
+    <meta property="og:site_name" content="Nexias" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+
+    <!-- Structured data -->
+    {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLd} />}
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

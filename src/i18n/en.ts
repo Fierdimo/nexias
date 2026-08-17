@@ -138,7 +138,7 @@ export const en = {
     heading: "What people always ask before getting started",
     items: [
       {
-        q: "How much does a Nexia project cost?",
+        q: "How much does a Nexias project cost?",
         a: "Every project is different. Closed projects start from diagnosis with a defined scope. In the free diagnosis we establish the exact scope and budget. No surprises.",
       },
       {

@@ -21,21 +21,21 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
 
   <nav class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href={lang === "es" ? "/" : "/en/"} class="flex items-center gap-2 group" aria-label="Nexia — inicio">
+    <a href={lang === "es" ? "/" : "/en/"} class="flex items-center gap-2 group" aria-label="Nexias — inicio">
       <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect width="32" height="32" rx="7" fill="#0D1526"/>
         <path d="M8 24V8h3.2l9.6 11.2V8H24v16h-3.2L11.2 12.8V24H8z" fill="#E8EDF5"/>
         <path d="M11.2 8l9.6 11.2" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       <span class="font-display font-700 text-lg text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors">
-        Nexia
+        Nexias
       </span>
     </a>
 
     <!-- Desktop nav -->
     <ul class="hidden md:flex items-center gap-8 list-none">
       {[
-        { href: "#servicios", label: t.nav.services },
+        { href: lang === "es" ? "/servicios/" : "#servicios", label: t.nav.services },
         { href: "#como-funciona", label: t.nav.howItWorks },
         { href: "#resultados", label: t.nav.results },
         { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
@@ -91,7 +91,7 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
   >
     <ul class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 list-none">
       {[
-        { href: "#servicios", label: t.nav.services },
+        { href: lang === "es" ? "/servicios/" : "#servicios", label: t.nav.services },
         { href: "#como-funciona", label: t.nav.howItWorks },
         { href: "#resultados", label: t.nav.results },
         { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },

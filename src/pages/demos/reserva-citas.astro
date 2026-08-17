@@ -2,12 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { breadcrumbs } from "../../lib/schema";
 ---
 
 <Layout
   lang="es"
-  title="Reserva de citas — Nexia Demos"
+  title="Reserva de citas — Nexias Demos"
   description="Demo interactivo de reserva de citas multi-paso: elige servicio, fecha, horario y recibe confirmación por email."
+  schema={[breadcrumbs([{ name: "Inicio", path: "/" }, { name: "Demos", path: "/demos/" }, { name: "Reserva de citas", path: "/demos/reserva-citas/" }])]}
 >
   <Header lang="es" currentPath="/demos/reserva-citas" />
   <main class="min-h-screen pt-24 pb-20">
@@ -61,7 +63,7 @@ import Footer from "../../components/Footer.astro";
         <!-- Step 1: Servicio -->
         <div class="step-panel p-7" data-step="1">
           <h2 class="font-display font-700 text-lg text-[var(--color-text)] mb-1">¿Qué servicio te interesa?</h2>
-          <p class="text-sm text-[var(--color-muted)] font-body mb-6">Selecciona el área en la que quieres trabajar con Nexia.</p>
+          <p class="text-sm text-[var(--color-muted)] font-body mb-6">Selecciona el área en la que quieres trabajar con Nexias.</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="service-grid">
             {[
               { id: "diagnostico",    name: "Diagnóstico de datos",    desc: "Mapa de oportunidades + ROI estimado",     icon: "🔍", time: "1–2 semanas" },

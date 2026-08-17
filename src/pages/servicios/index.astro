@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { breadcrumbs } from "../../lib/schema";
+import { servicios } from "../../data/servicios";
+
+const description =
+  "Automatización RPA, agentes de IA por WhatsApp, dashboards de BI y diagnóstico de procesos para empresas colombianas. Diagnóstico inicial gratuito.";
+---
+
+<Layout
+  lang="es"
+  title="Servicios de IA y Automatización para Empresas | Nexias"
+  description={description}
+  schema={[
+    breadcrumbs([
+      { name: "Inicio", path: "/" },
+      { name: "Servicios", path: "/servicios/" },
+    ]),
+  ]}
+>
+  <Header lang="es" currentPath="/servicios/" />
+
+  <main class="min-h-screen pt-24 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-accent)] transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Servicios</span>
+      </nav>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-14">
+      <div class="max-w-3xl">
+        <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[var(--color-accent)] mb-4">
+          Servicios
+        </p>
+        <h1 class="font-display font-800 text-4xl sm:text-5xl text-[var(--color-text)] mb-5 leading-[1.12]">
+          Servicios de IA y automatización para empresas colombianas
+        </h1>
+        <p class="text-lg text-[var(--color-muted)] leading-relaxed">
+          Cuatro líneas de trabajo que cubren el ciclo completo: entender dónde está la oportunidad, construir la
+          solución y sostenerla en el tiempo. Puedes empezar por cualquiera, aunque casi siempre conviene el
+          diagnóstico.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="grid gap-5 md:grid-cols-2">
+        {servicios.map((s) => (
+          <a
+            href={`/servicios/${s.slug}/`}
+            class="border border-[var(--color-border)] rounded-2xl p-7 bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors flex flex-col"
+          >
+            <h2 class="font-display font-700 text-xl text-[var(--color-text)] mb-2">{s.nav}</h2>
+            <p class="text-sm text-[var(--color-accent)] font-body mb-3">{s.h1}</p>
+            <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed flex-1">{s.lead}</p>
+            <span class="text-sm font-body text-[var(--color-text)] mt-5">Ver servicio →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer lang="es" />
+</Layout>

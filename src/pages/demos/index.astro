@@ -67,12 +67,14 @@ const demos = [
     tag: "Resend · Calendario interactivo",
   },
 ];
+import { breadcrumbs } from "../../lib/schema";
 ---
 
 <Layout
   lang="es"
-  title="Demos en vivo — Nexia"
-  description="Prueba en acción las soluciones de Nexia: calculadora de ROI, dashboard de analítica, asistente de IA y reserva de citas."
+  title="Demos en vivo — Nexias"
+  description="Prueba en acción las soluciones de Nexias: calculadora de ROI, dashboard de analítica, asistente de IA y reserva de citas."
+  schema={[breadcrumbs([{ name: "Inicio", path: "/" }, { name: "Demos", path: "/demos/" }])]}
 >
   <Header lang="es" currentPath="/demos/" />
   <main class="min-h-screen pt-24 pb-20">

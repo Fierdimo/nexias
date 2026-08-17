@@ -53,20 +53,24 @@ export const es = {
     list: [
       {
         name: "Diagnóstico de datos y procesos",
+        page: "/servicios/diagnostico-datos-procesos/",
         desc: "Mapeamos tus operaciones y encontramos las oportunidades de mayor retorno. Entregable: lista priorizada de automatizaciones con ROI estimado.",
       },
       {
         name: "Analítica y BI predictivo",
+        page: "/servicios/analitica-datos-dashboards-bi/",
         desc: "Dashboards e insights que anticipan demanda, riesgo y rendimiento. Toma decisiones antes de que el problema ocurra.",
         demo: "/demos/dashboard",
       },
       {
         name: "Automatización RPA + APIs",
+        page: "/servicios/automatizacion-procesos-rpa/",
         desc: "Eliminamos tareas repetitivas: conciliaciones contables, reportes automáticos, flujos de aprobación y carga de datos.",
         badge: true,
       },
       {
         name: "Asistentes y agentes de IA",
+        page: "/servicios/agentes-ia-whatsapp/",
         desc: "Chatbots y agentes que atienden clientes, generan leads y apoyan a tu equipo interno — disponibles 24/7.",
         demo: "/demos/asistente-ia",
       },
@@ -138,7 +142,7 @@ export const es = {
     heading: "Lo que siempre preguntan antes de empezar",
     items: [
       {
-        q: "¿Cuánto cuesta un proyecto con Nexia?",
+        q: "¿Cuánto cuesta un proyecto con Nexias?",
         a: "Cada proyecto es diferente. Los proyectos cerrados parten desde diagnósticos de alcance definido. En el diagnóstico gratuito establecemos el alcance y el presupuesto exacto. Sin sorpresas.",
       },
       {
