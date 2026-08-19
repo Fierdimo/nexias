@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="relative flex items-center pt-32 pb-20 lg:pt-36 lg:pb-24 overflow-hidden bg-grid-blueprint" id="inicio">
+<section class="relative flex items-center pt-24 pb-12 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 overflow-hidden bg-grid-blueprint" id="inicio">
   <!-- Glow blobs -->
   <div
     class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full opacity-60 animate-blob-float pointer-events-none"
@@ -56,15 +56,15 @@ const t = useTranslations(lang);
       </div>
 
       <!-- Social proof numbers -->
-      <div class="hero-item flex flex-wrap gap-8 sm:gap-12">
+      <div class="hero-item grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:gap-12">
         {[
           { value: t.hero.proof1Value, label: t.hero.proof1Label },
           { value: t.hero.proof2Value, label: t.hero.proof2Label },
           { value: t.hero.proof3Value, label: t.hero.proof3Label },
         ].map(({ value, label }) => (
           <div class="flex flex-col">
-            <span class="font-display font-800 text-xl sm:text-2xl text-[var(--color-accent)]">{value}</span>
-            <span class="text-xs sm:text-sm text-[var(--color-muted)] max-w-[16ch]">{label}</span>
+            <span class="font-display font-800 text-sm sm:text-2xl whitespace-nowrap text-[var(--color-accent)]">{value}</span>
+            <span class="text-[11px] leading-snug sm:text-sm text-[var(--color-muted)] sm:max-w-[16ch]">{label}</span>
           </div>
         ))}
       </div>
