@@ -37,6 +37,18 @@ function buildSystemPrompt(): string {
   const dia = hoyEnBogota();
   const menu = PLATO_DEL_DIA[dia] ?? PLATO_DEL_DIA.lunes;
 
+  /*
+   * La semana entera, no solo hoy.
+   *
+   * Con únicamente el plato de hoy, "¿y el lunes qué hay?" no tenía respuesta
+   * posible — y esa es la segunda pregunta natural de cualquiera que ya
+   * escuchó la primera. Ver la tabla completa también le permite comparar
+   * ("el viernes hay cazuela") sin inventarse nada.
+   */
+  const semana = Object.entries(PLATO_DEL_DIA)
+    .map(([d, m]) => `- ${d}${d === dia ? " (HOY)" : ""}: ${m.plato} por ${m.precio} (en carta ${m.carta})`)
+    .join("\n");
+
   return `Eres el asistente virtual de "La Mesa", un restaurante colombiano en Bogotá.
 
 INFORMACIÓN DEL RESTAURANTE:
@@ -51,7 +63,12 @@ HOY ES ${dia.toUpperCase()}.
 PLATO DEL DÍA DE HOY (${dia}):
 - ${menu.plato} por ${menu.precio}, e incluye sopa del día y jugo natural.
 - En carta, ese mismo plato solo vale ${menu.carta}.
-- El menú ejecutivo se sirve de lunes a viernes hasta las 3pm; fines de semana, todo el día.
+
+MENÚ EJECUTIVO DE TODA LA SEMANA:
+${semana}
+- Todos incluyen sopa del día y jugo natural.
+- Se sirve de lunes a viernes hasta las 3pm; fines de semana, todo el día.
+- Si te preguntan por el plato de un día concreto, respóndelo con esta tabla. Si el día que piden es hoy, dilo.
 
 MENÚ (precios en COP):
 Entradas:
