@@ -25,23 +25,23 @@ export const en = {
 
   // WhyNow / The Problem
   whyNow: {
-    label: "The problem",
-    heading: "Your team works hard. But works manually.",
-    pain1Title: "Scattered data, blind decisions",
+    label: "What happens today",
+    heading: "It is not that your team does it badly. They just cannot keep up.",
+    pain1Title: "The phone rings when there is nobody to answer",
     pain1Body:
-      "Information lives in spreadsheets, emails and disconnected systems. Without a unified view, decisions come late and with incomplete data.",
-    pain2Title: "Repetitive tasks draining talent",
+      "Seven in the evening, a Saturday, mid-appointment. The call comes in, nobody takes it, and that person rarely calls back.",
+    pain2Title: "The same five questions, every single day",
     pain2Body:
-      "Reconciliations, reports, data entry, approvals — processes that consume hours every day and can be automated this week.",
-    pain3Title: "Your competition already uses AI. Does your company?",
+      "How much, what time you open, whether you take that insurance. Your people answer the same thing twenty times a day instead of helping whoever is already waiting.",
+    pain3Title: "What you cannot get to simply does not happen",
     pain3Body:
-      "In Colombia, companies that adopted automation report +40% productive capacity. Every month you wait is an advantage you concede.",
+      "The appointment nobody confirmed. The account left uncalled. The renewal that lapsed on Tuesday. Nobody did anything wrong — there was no time, and that is it.",
     stat1: "How many?",
-    stat1Label: "calls a day never get made for lack of time",
+    stat1Label: "calls go unmade every day",
     stat2: "What is it worth?",
-    stat2Label: "is one missed appointment or unrecovered debt worth",
-    stat3: "What happens?",
-    stat3Label: "to whoever writes at 9pm or on a Sunday",
+    stat2Label: "is one appointment lost for want of a confirmation",
+    stat3: "And Sunday?",
+    stat3Label: "when someone writes and nobody is there",
   },
 
   // Services
