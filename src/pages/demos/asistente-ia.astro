@@ -106,19 +106,19 @@ const sugerencias = [
               <p class="font-display font-700 text-sm leading-tight truncate">Asistente La Mesa</p>
               <div class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
-                <span class="text-[11px] opacity-90 font-body">En línea</span>
+                <span class="text-[13px] opacity-90 font-body">En línea</span>
               </div>
             </div>
           </header>
 
           <div class="flex-1 overflow-y-auto bg-[var(--color-surface)] p-4 space-y-4 lg:border lg:border-[var(--color-border)] lg:rounded-t-xl" id="chat-messages">
             <div class="flex items-start gap-3">
-              <div class="w-7 h-7 rounded-full bg-[var(--color-accent)] flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[10px] font-display font-800">LM</div>
+              <div class="w-7 h-7 rounded-full bg-[var(--color-accent)] flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[12px] font-display font-800">LM</div>
               <div class="max-w-[85%]">
                 <div class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-[var(--color-text)] font-body leading-relaxed">
                   ¡Bienvenido/a a <strong>La Mesa</strong>! 🍽️ Soy el asistente virtual del restaurante. Puedo ayudarte con el menú, horarios y reservas. ¿En qué te puedo servir?
                 </div>
-                <p class="text-[10px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ahora</p>
+                <p class="text-[12px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ahora</p>
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@ const sugerencias = [
     div.innerHTML = `
       <div class="max-w-[80%]">
         <div class="bg-[var(--color-accent)] rounded-2xl rounded-br-sm px-4 py-3 text-sm text-white font-body leading-relaxed">${escapeHtml(text)}</div>
-        <p class="text-[10px] text-[var(--color-muted)] mt-1 mr-1 text-right font-body">Tú · ${now()}</p>
+        <p class="text-[12px] text-[var(--color-muted)] mt-1 mr-1 text-right font-body">Tú · ${now()}</p>
       </div>`;
     messages.appendChild(div);
     scrollToBottom();
@@ -239,7 +239,7 @@ const sugerencias = [
         <div class="bg-[var(--color-bg)] border border-[var(--color-border)] rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-[var(--color-text)] font-body leading-relaxed bot-text">
           <span class="typing-cursor inline-block w-1 h-3.5 bg-emerald-400 rounded-sm ml-0.5 animate-pulse"></span>
         </div>
-        <p class="text-[10px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ${now()}</p>
+        <p class="text-[12px] text-[var(--color-muted)] mt-1 ml-1 font-body">Asistente · ${now()}</p>
       </div>`;
     messages.appendChild(wrapper);
     scrollToBottom();

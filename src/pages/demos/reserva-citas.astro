@@ -50,7 +50,7 @@ import { breadcrumbs } from "../../lib/schema";
               >
                 {s.n}
               </div>
-              <span class="text-[10px] text-[var(--color-muted)] font-body mt-1 hidden sm:block">{s.label}</span>
+              <span class="text-[12px] text-[var(--color-muted)] font-body mt-1 hidden sm:block">{s.label}</span>
             </div>
             {i < 3 && <div class="h-px flex-1 bg-[var(--color-border)] mx-1 step-line" data-after={s.n}></div>}
           </div>
@@ -80,7 +80,7 @@ import { breadcrumbs } from "../../lib/schema";
               >
                 <div class="flex items-start justify-between mb-2">
                   <span class="text-xl">{svc.icon}</span>
-                  <span class="text-[10px] text-[var(--color-muted)] font-body bg-[var(--color-bg)] px-2 py-0.5 rounded-full">{svc.time}</span>
+                  <span class="text-[12px] text-[var(--color-muted)] font-body bg-[var(--color-bg)] px-2 py-0.5 rounded-full">{svc.time}</span>
                 </div>
                 <p class="font-display font-700 text-sm text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors mb-0.5">{svc.name}</p>
                 <p class="text-xs text-[var(--color-muted)] font-body">{svc.desc}</p>
@@ -210,7 +210,7 @@ import { breadcrumbs } from "../../lib/schema";
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
       <div class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)]">
         <p class="text-xs text-[var(--color-muted)] font-body text-center leading-relaxed">
-          Este demo envía emails reales con <strong class="text-[var(--color-text)]">Resend API</strong> cuando se configura la variable de entorno <code class="text-[var(--color-accent)] text-[11px]">RESEND_API_KEY</code> en Vercel. El estado del formulario se guarda en <code class="text-[var(--color-accent)] text-[11px]">localStorage</code>.
+          Este demo envía emails reales con <strong class="text-[var(--color-text)]">Resend API</strong> cuando se configura la variable de entorno <code class="text-[var(--color-accent)] text-[13px]">RESEND_API_KEY</code> en Vercel. El estado del formulario se guarda en <code class="text-[var(--color-accent)] text-[13px]">localStorage</code>.
         </p>
       </div>
     </div>
@@ -321,7 +321,7 @@ import { breadcrumbs } from "../../lib/schema";
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    let html = DAYS_ES.map(d => `<div class="text-[10px] text-[var(--color-muted)] font-body pb-1">${d}</div>`).join("");
+    let html = DAYS_ES.map(d => `<div class="text-[12px] text-[var(--color-muted)] font-body pb-1">${d}</div>`).join("");
 
     // Blanks
     for (let i = 0; i < firstDay; i++) html += `<div></div>`;
@@ -335,7 +335,7 @@ import { breadcrumbs } from "../../lib/schema";
       const isSelected = dateStr === selectedDate;
       const isFar   = (date.getTime() - today.getTime()) > 7 * 24 * 3600 * 1000;
 
-      let cls = "w-7 h-7 mx-auto rounded-lg flex items-center justify-center text-[11px] font-body transition-all ";
+      let cls = "w-7 h-7 mx-auto rounded-lg flex items-center justify-center text-[13px] font-body transition-all ";
       let disabled = false;
 
       if (isPast || isFar || isWeekend) {

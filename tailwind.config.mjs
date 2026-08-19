@@ -12,6 +12,24 @@ export default {
         "text-main": "var(--color-text)",
         muted: "var(--color-muted)",
       },
+      /*
+       * La escala de lectura sube un escalón completo.
+       *
+       * El sitio corría con text-sm (14px) en 42 sitios y text-xs (12px) en
+       * 22: casi todo el texto por debajo del umbral cómodo. Para el
+       * comprador de esto —dueños de clínica, jefes de cartera, corredores,
+       * gente que no tiene veinte años— 14px es trabajo, no lectura.
+       *
+       * Se cambia aquí y no clase por clase: así ninguna se queda atrás y las
+       * proporciones entre niveles se conservan. Los tamaños de titular
+       * (xl en adelante) no se tocan; ya crecieron al cambiar de tipografía.
+       */
+      fontSize: {
+        xs:   ["0.875rem", { lineHeight: "1.5" }],   // 14px, antes 12
+        sm:   ["1rem",     { lineHeight: "1.6" }],   // 16px, antes 14
+        base: ["1.125rem", { lineHeight: "1.65" }],  // 18px, antes 16
+        lg:   ["1.25rem",  { lineHeight: "1.6" }],   // 20px, antes 18
+      },
       fontFamily: {
         display: ["Fraunces", "Georgia", "serif"],
         body: ["DM Sans", "sans-serif"],
