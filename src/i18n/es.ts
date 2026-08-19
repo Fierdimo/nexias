@@ -9,17 +9,26 @@ export const es = {
   },
 
   // Hero
+  //
+  // El titular nombra lo que el agente HACE y a quién le sirve. La versión
+  // anterior ("Automatiza lo repetitivo. Decide con datos. Escala sin límites")
+  // la podía firmar cualquier consultora de IA del mundo, y por eso no la
+  // firmaba nadie.
   hero: {
-    headline: "Automatiza lo repetitivo. Decide con datos. Escala sin límites.",
-    sub: "Convertimos los procesos manuales de tu empresa en sistemas inteligentes que trabajan 24/7. Consultoría de IA y automatización para negocios colombianos.",
+    headlineA: "Agentes de IA",
+    headlineB: "que llaman, responden",
+    headlineC: "y agendan por ti.",
+    sub: "Y automatizamos el trabajo repetitivo que hoy le consume horas a tu equipo. Para clínicas, cobranza, seguros y empresas de servicios en Colombia.",
     ctaPrimary: "Agenda tu diagnóstico gratuito",
-    ctaSecondary: "Ver cómo funciona ↓",
-    proof1Value: "12+",
-    proof1Label: "empresas piloto",
-    proof2Value: "2.400+",
-    proof2Label: "horas liberadas",
-    proof3Value: "6",
-    proof3Label: "sectores atendidos",
+    ctaSecondary: "Habla con un agente ahora",
+    // Cifras del producto, verificables. Antes había conteos de clientes que
+    // no existían: una afirmación que el primer prospecto curioso desmonta.
+    proof1Value: "24/7",
+    proof1Label: "sin turnos, ausencias ni rotación",
+    proof2Value: "< 1 seg",
+    proof2Label: "para responder en la llamada",
+    proof3Value: "Ley 2300",
+    proof3Label: "cumplimiento auditable en cobranza",
   },
 
   // WhyNow / El Problema
@@ -32,15 +41,15 @@ export const es = {
     pain2Title: "Tareas repetitivas que drenan talento",
     pain2Body:
       "Conciliaciones, reportes, carga de datos, aprobaciones — procesos que consumen horas cada día y que pueden automatizarse esta semana.",
-    pain3Title: "La competencia ya usa IA. ¿Y tu empresa?",
+    pain3Title: "Lo que no alcanzas a atender, lo atiende otro",
     pain3Body:
-      "En Colombia, empresas que adoptaron automatización reportan +40% de capacidad productiva. Cada mes que esperas es una ventaja que cedes.",
-    stat1: "67%",
-    stat1Label: "de pymes colombianas sin equipo interno de datos",
-    stat2: "+40%",
-    stat2Label: "de capacidad productiva con automatización RPA",
-    stat3: "3× más rápido",
-    stat3Label: "en tomar decisiones con dashboards en tiempo real",
+      "El cliente que escribe un domingo, la cita que nadie confirmó, la cartera que no se alcanzó a llamar. No es que se haga mal: es que no se hace.",
+    stat1: "¿Cuántas?",
+    stat1Label: "llamadas al día quedan sin hacer por falta de tiempo",
+    stat2: "¿Cuánto vale?",
+    stat2Label: "una cita perdida o una cartera que no se recuperó",
+    stat3: "¿Qué pasa?",
+    stat3Label: "con quien te escribe a las 9 de la noche o un domingo",
   },
 
   // Services
@@ -108,30 +117,37 @@ export const es = {
   },
 
   // Results
+  //
+  // Aquí vivían "12+ empresas transformadas", "2.400+ horas liberadas" y tres
+  // casos de clientes que no existen. Un prospecto que pide la referencia deja
+  // la conversación muerta, y la SIC sanciona la publicidad engañosa
+  // (Ley 1480). Se reemplazan por hechos del producto, que además son mejores:
+  // son comprobables en el demo, en vivo, durante la propia reunión.
   results: {
-    label: "Resultados",
-    heading: "Impacto real, medido en tiempo y dinero",
+    label: "Lo que ya funciona",
+    heading: "No te pedimos que nos creas. Pruébalo.",
+    sub: "El agente de la demo está en vivo y responde ahora mismo. Estos son los ejemplos de aplicación por sector, no clientes referenciados.",
     metrics: [
-      { value: 40, suffix: "%", label: "más capacidad productiva" },
-      { value: 2400, suffix: "+", label: "horas liberadas en proyectos piloto" },
-      { value: 12, suffix: "+", label: "empresas transformadas" },
-      { value: 6, suffix: "", label: "sectores atendidos" },
+      { value: 24, suffix: "/7", label: "atiende sin turnos ni ausencias" },
+      { value: 100, suffix: "%", label: "de las llamadas quedan transcritas y analizadas" },
+      { value: 2300, suffix: "", label: "Ley 2300: cada intento queda auditado" },
+      { value: 30, suffix: " min", label: "dura el diagnóstico gratuito" },
     ],
     cases: [
       {
-        title: "Aprobaciones: de días a horas",
-        body: "Una empresa del sector financiero automatizó su flujo de aprobación de créditos. El tiempo de respuesta bajó de 3 días a 4 horas.",
-        sector: "Servicios financieros",
+        title: "La cartera que no se alcanzó a llamar",
+        body: "El agente marca el portafolio completo, filtra y solo escala a una persona al deudor que contestó y mostró intención de pago. Tu equipo deja de marcar y solo negocia.",
+        sector: "Cobranza",
       },
       {
-        title: "+40% capacidad sin contratar",
-        body: "Un operador de turismo automatizó la generación de itinerarios y cotizaciones. Su equipo ahora atiende el doble de clientes.",
-        sector: "Turismo",
+        title: "La silla vacía de las 3 de la tarde",
+        body: "Confirma las citas del día siguiente y reagenda en la misma llamada. También reactiva a los pacientes que no vuelven hace un año, que hoy son una base muerta en el sistema.",
+        sector: "Salud y estética",
       },
       {
-        title: "Cero errores en conciliación contable",
-        body: "Restaurante de cadena con 6 locales eliminó 14 horas semanales de trabajo manual en conciliación de ventas y proveedores.",
-        sector: "Restaurantes",
+        title: "La renovación que se venció el martes",
+        body: "Llama antes del vencimiento de la póliza o del SOAT, resuelve las dudas con la información real del corredor y deja la renovación lista para confirmar.",
+        sector: "Seguros",
       },
     ],
   },
@@ -155,7 +171,7 @@ export const es = {
       },
       {
         q: "¿Qué tamaño mínimo debe tener mi empresa?",
-        a: "No hay mínimo. Hemos trabajado con emprendimientos de 5 personas y con empresas de 200+. Lo que importa es que tengan procesos repetitivos o decisiones que mejorar con datos.",
+        a: "No hay mínimo. Lo que importa no es el tamaño, sino que existan procesos repetitivos o decisiones que hoy se toman sin datos. Eso pasa igual con 5 personas que con 200.",
       },
       {
         q: "¿Mis datos están seguros?",

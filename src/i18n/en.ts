@@ -10,16 +10,18 @@ export const en = {
 
   // Hero
   hero: {
-    headline: "Automate the repetitive. Decide with data. Scale without limits.",
-    sub: "We turn your company's manual processes into intelligent systems that work 24/7. AI consulting and automation for Colombian businesses.",
-    ctaPrimary: "Book your free diagnosis",
-    ctaSecondary: "See how it works ↓",
-    proof1Value: "12+",
-    proof1Label: "pilot companies",
-    proof2Value: "2,400+",
-    proof2Label: "hours freed",
-    proof3Value: "6",
-    proof3Label: "sectors served",
+    headlineA: "AI agents",
+    headlineB: "that call, answer",
+    headlineC: "and book for you.",
+    sub: "Plus automation for the repetitive work eating your team's hours. For clinics, collections, insurance and service businesses in Colombia.",
+    ctaPrimary: "Book your free assessment",
+    ctaSecondary: "Talk to an agent now",
+    proof1Value: "24/7",
+    proof1Label: "no shifts, absences or turnover",
+    proof2Value: "< 1 sec",
+    proof2Label: "to reply on the call",
+    proof3Value: "Ley 2300",
+    proof3Label: "auditable compliance for collections",
   },
 
   // WhyNow / The Problem
@@ -35,12 +37,12 @@ export const en = {
     pain3Title: "Your competition already uses AI. Does your company?",
     pain3Body:
       "In Colombia, companies that adopted automation report +40% productive capacity. Every month you wait is an advantage you concede.",
-    stat1: "67%",
-    stat1Label: "of Colombian SMBs without an internal data team",
-    stat2: "+40%",
-    stat2Label: "productive capacity gain with RPA automation",
-    stat3: "3× faster",
-    stat3Label: "decision-making with real-time dashboards",
+    stat1: "How many?",
+    stat1Label: "calls a day never get made for lack of time",
+    stat2: "What is it worth?",
+    stat2Label: "is one missed appointment or unrecovered debt worth",
+    stat3: "What happens?",
+    stat3Label: "to whoever writes at 9pm or on a Sunday",
   },
 
   // Services
@@ -105,29 +107,30 @@ export const en = {
 
   // Results
   results: {
-    label: "Results",
-    heading: "Real impact, measured in time and money",
+    label: "What already works",
+    heading: "Don't take our word for it. Try it.",
+    sub: "The demo agent is live and answering right now. These are sector use cases, not referenced clients.",
     metrics: [
-      { value: 40, suffix: "%", label: "more productive capacity" },
-      { value: 2400, suffix: "+", label: "hours freed in pilot projects" },
-      { value: 12, suffix: "+", label: "companies transformed" },
-      { value: 6, suffix: "", label: "sectors served" },
+      { value: 24, suffix: "/7", label: "answers with no shifts or absences" },
+      { value: 100, suffix: "%", label: "of calls are transcribed and analysed" },
+      { value: 2300, suffix: "", label: "Ley 2300: every attempt is audited" },
+      { value: 30, suffix: " min", label: "is all the free assessment takes" },
     ],
     cases: [
       {
-        title: "Approvals: from days to hours",
-        body: "A financial services company automated its credit approval workflow. Response time dropped from 3 days to 4 hours.",
-        sector: "Financial services",
+        title: "The accounts nobody had time to call",
+        body: "The agent dials the whole portfolio, filters, and only escalates to a person the debtor who answered and showed intent to pay.",
+        sector: "Collections",
       },
       {
-        title: "+40% capacity without hiring",
-        body: "A tourism operator automated itinerary and quote generation. Their team now handles twice as many clients.",
-        sector: "Tourism",
+        title: "The empty chair at 3pm",
+        body: "Confirms tomorrow's appointments and reschedules on the same call. It also reactivates patients who haven't returned in a year.",
+        sector: "Health & aesthetics",
       },
       {
-        title: "Zero errors in accounting reconciliation",
-        body: "A restaurant chain with 6 locations eliminated 14 hours of weekly manual work in sales and vendor reconciliation.",
-        sector: "Restaurants",
+        title: "The renewal that lapsed on Tuesday",
+        body: "Calls before the policy expires, answers questions from the broker's real information, and leaves the renewal ready to confirm.",
+        sector: "Insurance",
       },
     ],
   },

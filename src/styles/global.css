@@ -6,11 +6,11 @@
 :root {
   --color-bg:       #070B14;
   --color-surface:  #0D1526;
-  --color-border:   #1A2B4A;
+  --color-border:   #2E4670;
   --color-accent:   #00D4FF;
   --color-accent2:  #7B5EA7;
   --color-text:     #E8EDF5;
-  --color-muted:    #6B7FA3;
+  --color-muted:    #93A6C4;
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -106,4 +106,28 @@ h1, h2, h3, h4, h5, h6 {
 *:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+}
+
+/* ── Entrada del hero, sin depender de JavaScript ──────────── */
+/*
+ * Antes esto lo hacía GSAP: el script ponía los elementos en opacity 0 y los
+ * animaba de vuelta. GSAP llega por CDN, así que un bloqueador, una red lenta
+ * o un error posterior dejaban el hero vacío — en la única página cuyo trabajo
+ * es la primera impresión.
+ *
+ * `both` aplica el estado inicial durante el retardo, pero si las animaciones
+ * no corren en absoluto el contenido queda visible. El peor caso pasa de "no
+ * hay hero" a "el hero no se desliza".
+ */
+.hero-item {
+  animation: fade-up 0.7s ease-out both;
+}
+.hero-item:nth-child(1) { animation-delay: 0.05s; }
+.hero-item:nth-child(2) { animation-delay: 0.15s; }
+.hero-item:nth-child(3) { animation-delay: 0.25s; }
+.hero-item:nth-child(4) { animation-delay: 0.35s; }
+.hero-item:nth-child(5) { animation-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-item { animation: none; }
 }
