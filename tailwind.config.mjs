@@ -13,7 +13,7 @@ export default {
         muted: "var(--color-muted)",
       },
       fontFamily: {
-        display: ["Syne", "sans-serif"],
+        display: ["Fraunces", "Georgia", "serif"],
         body: ["DM Sans", "sans-serif"],
       },
       fontWeight: {

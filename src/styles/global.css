@@ -32,9 +32,22 @@ body {
 }
 
 /* ── Typography ───────────────────────────────────────────── */
+/*
+ * Fraunces en vez de Syne.
+ *
+ * Syne es una tipografía de cartel: muy ancha, interletrado apretado y formas
+ * poco convencionales en la g, la q y la e. A tamaño de titular se leía como
+ * un bloque denso, y obligaba a topar el hero en 52px y partirlo en tres
+ * líneas para que cupiera. Una serif con oficio comunica además solidez, que
+ * es lo que necesita quien va a confiarnos su cartera o su agenda.
+ *
+ * `opsz` es el eje de tamaño óptico: a tamaños grandes afina los remates y
+ * abre el contraste, que es justo lo que hace legible un titular.
+ */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Syne", sans-serif;
+  font-family: "Fraunces", Georgia, serif;
   font-weight: 700;
+  font-optical-sizing: auto;
 }
 
 /* ── Gradient text ────────────────────────────────────────── */
