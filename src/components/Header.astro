@@ -11,6 +11,26 @@ const { lang, currentPath = "/" } = Astro.props;
 const t = useTranslations(lang);
 const otherLang = lang === "es" ? "en" : "es";
 const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : currentPath.replace(/^\/en/, ""));
+
+/*
+ * Los enlaces del nav, en un solo sitio.
+ *
+ * Estaban escritos dos veces —escritorio y móvil— y por eso arreglarlos en uno
+ * dejaba el otro roto. Y eran anclas desnudas: "#como-funciona" y "#resultados"
+ * solo existen en la portada, así que desde /servicios/ o desde un demo no
+ * hacían absolutamente nada. Ahora apuntan a la portada y luego bajan, que
+ * funciona desde cualquier página, incluida la propia portada.
+ */
+const home = lang === "es" ? "/" : "/en/";
+const navItems = [
+  // Servicios sí tiene página propia en español, con su contenido y su SEO;
+  // en inglés esa página no existe, así que cae a la sección de la portada.
+  { href: lang === "es" ? "/servicios/" : `${home}#servicios`, label: t.nav.services },
+  { href: `${home}#como-funciona`, label: t.nav.howItWorks },
+  { href: `${home}#resultados`, label: t.nav.results },
+  { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
+];
+const ctaHref = `${home}#contacto`;
 ---
 
 <header
@@ -34,12 +54,7 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
 
     <!-- Desktop nav -->
     <ul class="hidden md:flex items-center gap-8 list-none">
-      {[
-        { href: lang === "es" ? "/servicios/" : "#servicios", label: t.nav.services },
-        { href: "#como-funciona", label: t.nav.howItWorks },
-        { href: "#resultados", label: t.nav.results },
-        { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
-      ].map(({ href, label }) => (
+      {navItems.map(({ href, label }) => (
         <li>
           <a
             href={href}
@@ -60,7 +75,7 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
       >
         {lang === "es" ? "EN" : "ES"}
       </a>
-      <a href="#contacto" class="btn-primary text-sm py-2 px-5">
+      <a href={ctaHref} class="btn-primary text-sm py-2 px-5">
         {t.nav.cta}
       </a>
     </div>
@@ -90,12 +105,7 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
     aria-label="Menú móvil"
   >
     <ul class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 list-none">
-      {[
-        { href: lang === "es" ? "/servicios/" : "#servicios", label: t.nav.services },
-        { href: "#como-funciona", label: t.nav.howItWorks },
-        { href: "#resultados", label: t.nav.results },
-        { href: lang === "es" ? "/demos/" : "/en/demos/", label: t.nav.demos },
-      ].map(({ href, label }) => (
+      {navItems.map(({ href, label }) => (
         <li>
           <a href={href} class="block py-3 px-2 text-[var(--color-muted)] hover:text-[var(--color-text)] border-b border-[var(--color-border)] transition-colors">
             {label}
@@ -106,7 +116,7 @@ const otherLangPath = getRouteForLang(otherLang, currentPath === "/" ? "" : curr
         <a href={otherLangPath} class="text-xs text-[var(--color-muted)] hover:text-[var(--color-accent)] uppercase tracking-wide transition-colors">
           {lang === "es" ? "English" : "Español"}
         </a>
-        <a href="#contacto" class="btn-primary text-sm py-2 px-5">
+        <a href={ctaHref} class="btn-primary text-sm py-2 px-5">
           {t.nav.cta}
         </a>
       </li>
