@@ -3,7 +3,41 @@ export const prerender = false;
 // Vercel Edge runtime
 export const config = { runtime: "edge" };
 
-const SYSTEM_PROMPT = `Eres el asistente virtual de "La Mesa", un restaurante colombiano en Bogotá.
+/**
+ * El menú ejecutivo, por día.
+ *
+ * "¿Cuál es el plato del día?" es la primera pregunta sugerida de la interfaz
+ * y el prompt no la contemplaba: el agente contestaba que no tenía esa
+ * información, que es lo correcto pero deja el demo en ridículo en el primer
+ * clic. Se resuelve dándole el dato, no relajando la regla de no inventar.
+ *
+ * Y se calcula por petición, no se escribe fijo: que el agente sepa qué día es
+ * hoy es justo lo que un visitante no espera de una máquina, y es la mitad de
+ * lo que este demo vende.
+ */
+const PLATO_DEL_DIA: Record<string, { plato: string; precio: string; carta: string }> = {
+  lunes:     { plato: "Ajiaco santafereño con mazorca",   precio: "$30.000", carta: "$38.000" },
+  martes:    { plato: "Sudado de res con papa criolla",   precio: "$32.000", carta: "$40.000" },
+  miércoles: { plato: "Bandeja paisa",                    precio: "$34.000", carta: "$42.000" },
+  jueves:    { plato: "Arroz con pollo al cilantro",      precio: "$28.000", carta: "$35.000" },
+  viernes:   { plato: "Cazuela de mariscos",              precio: "$42.000", carta: "$52.000" },
+  sábado:    { plato: "Sancocho trifásico (para 2)",      precio: "$56.000", carta: "$65.000" },
+  domingo:   { plato: "Sancocho trifásico (para 2)",      precio: "$56.000", carta: "$65.000" },
+};
+
+/** Hoy en Bogotá, que es donde está el restaurante — no donde corra el servidor. */
+function hoyEnBogota(): string {
+  return new Intl.DateTimeFormat("es-CO", {
+    timeZone: "America/Bogota",
+    weekday: "long",
+  }).format(new Date()).toLowerCase();
+}
+
+function buildSystemPrompt(): string {
+  const dia = hoyEnBogota();
+  const menu = PLATO_DEL_DIA[dia] ?? PLATO_DEL_DIA.lunes;
+
+  return `Eres el asistente virtual de "La Mesa", un restaurante colombiano en Bogotá.
 
 INFORMACIÓN DEL RESTAURANTE:
 - Nombre: La Mesa
@@ -12,10 +46,17 @@ INFORMACIÓN DEL RESTAURANTE:
 - Teléfono: +57 1 234 5678
 - WhatsApp: +57 311 234 5678
 
+HOY ES ${dia.toUpperCase()}.
+
+PLATO DEL DÍA DE HOY (${dia}):
+- ${menu.plato} por ${menu.precio}, e incluye sopa del día y jugo natural.
+- En carta, ese mismo plato solo vale ${menu.carta}.
+- El menú ejecutivo se sirve de lunes a viernes hasta las 3pm; fines de semana, todo el día.
+
 MENÚ (precios en COP):
 Entradas:
-- Patacones con hogao: $18.000
-- Buñuelos de chócolo: $14.000
+- Patacones con hogao: $18.000 (vegetariano)
+- Buñuelos de chócolo: $14.000 (vegetariano)
 - Caldo de costilla: $16.000
 
 Platos principales:
@@ -25,6 +66,13 @@ Platos principales:
 - Sudado de res con papa criolla: $40.000
 - Sancocho trifásico (para 2): $65.000
 - Cazuela de mariscos: $52.000
+
+OPCIONES VEGETARIANAS:
+- Patacones con hogao ($18.000) y buñuelos de chócolo ($14.000)
+- Ajiaco vegetariano, sin pollo y con crema de leche aparte: $32.000
+- Arroz con verduras al cilantro, la versión sin pollo: $28.000
+- Todos los postres son vegetarianos
+- No hay opciones veganas; el ajiaco y los postres llevan lácteos
 
 Bebidas:
 - Jugo natural (mora, maracuyá, lulo, guanábana): $12.000
@@ -55,6 +103,7 @@ INSTRUCCIONES:
 - SIEMPRE genera una respuesta de texto, nunca devuelvas una respuesta vacía
 - Mantén respuestas cortas y útiles (máximo 3–4 oraciones por respuesta)
 - NO inventes información que no está en este prompt`;
+}
 
 interface Message {
   role: "user" | "assistant" | "system";
@@ -134,7 +183,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
        * que contesta, que es justo lo que un modelo pensante quita.
        */
       model:       "moonshot-v1-8k",
-      messages:    [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      messages:    [{ role: "system", content: buildSystemPrompt() }, ...messages],
       stream:      true,
       max_tokens:  300,
       /*
