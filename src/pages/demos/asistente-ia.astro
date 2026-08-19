@@ -129,7 +129,7 @@ import { breadcrumbs } from "../../lib/schema";
                 aria-label="Enviar"
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M2 8h12M10 4l4 4-4 4" stroke="#070B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 8h12M10 4l4 4-4 4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
             </form>
@@ -183,7 +183,7 @@ import { breadcrumbs } from "../../lib/schema";
     div.className = "flex items-end justify-end gap-2";
     div.innerHTML = `
       <div class="max-w-[80%]">
-        <div class="bg-[var(--color-accent)] rounded-2xl rounded-br-sm px-4 py-3 text-sm text-[#070B14] font-body leading-relaxed">${escapeHtml(text)}</div>
+        <div class="bg-[var(--color-accent)] rounded-2xl rounded-br-sm px-4 py-3 text-sm text-white font-body leading-relaxed">${escapeHtml(text)}</div>
         <p class="text-[10px] text-[var(--color-muted)] mt-1 mr-1 text-right font-body">Tú · ${now()}</p>
       </div>`;
     messages.appendChild(div);

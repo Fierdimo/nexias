@@ -5,23 +5,22 @@ export const en = {
     howItWorks: "How it works",
     results: "Results",
     demos: "Demos",
-    cta: "Book your diagnosis",
+    cta: "Let's talk",
   },
 
   // Hero
   hero: {
-    headlineA: "AI agents",
-    headlineB: "that call, answer",
-    headlineC: "and book for you.",
-    sub: "Plus automation for the repetitive work eating your team's hours. For clinics, collections, insurance and service businesses in Colombia.",
-    ctaPrimary: "Book your free assessment",
-    ctaSecondary: "Talk to an agent now",
+    headlineA: "So no customer",
+    headlineB: "is left without an answer.",
+    sub: "An assistant that answers the phone, confirms appointments and makes the calls your team never gets to. Every day, at any hour.",
+    ctaPrimary: "Let's talk for 30 minutes, free",
+    ctaSecondary: "Try it yourself",
     proof1Value: "24/7",
-    proof1Label: "no shifts, absences or turnover",
+    proof1Label: "Sundays and small hours included",
     proof2Value: "< 1 sec",
-    proof2Label: "to reply on the call",
+    proof2Label: "replies with no awkward silence",
     proof3Value: "Ley 2300",
-    proof3Label: "auditable compliance for collections",
+    proof3Label: "meets the collections law, and proves it",
   },
 
   // WhyNow / The Problem

@@ -4,13 +4,18 @@
 
 /* ── CSS Variables ────────────────────────────────────────── */
 :root {
-  --color-bg:       #070B14;
-  --color-surface:  #0D1526;
-  --color-border:   #2E4670;
-  --color-accent:   #00D4FF;
-  --color-accent2:  #7B5EA7;
-  --color-text:     #E8EDF5;
-  --color-muted:    #93A6C4;
+  /* Tema claro y cálido. El cian neón anterior daba 1.70:1 sobre fondo
+     claro — inusable para texto — así que el acento baja a un teal
+     profundo que conserva el parentesco y sí se puede leer. */
+  --color-bg:        #FDFAF6;  /* blanco cálido, no blanco clínico */
+  --color-surface:   #FFFFFF;
+  --color-border:    #E6DCCD;
+  --color-accent:    #08616F;  /* 6.84:1 como texto, 7.12:1 como botón */
+  --color-accent-soft: #E3F0F2;
+  --color-accent2:   #9A4A16;  /* terracota: la calidez que el violeta no daba */
+  --color-on-accent: #FFFFFF;
+  --color-text:      #1F1A15;
+  --color-muted:     #5C5249;
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -24,8 +29,6 @@ body {
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Grain overlay */
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
 /* ── Typography ───────────────────────────────────────────── */
@@ -50,42 +53,36 @@ h1, h2, h3, h4, h5, h6 {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .border-glow:hover {
-  border-color: rgba(0, 212, 255, 0.5);
-  box-shadow: 0 0 24px rgba(0, 212, 255, 0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 6px 24px rgba(31, 26, 21, 0.08);
 }
 
 /* ── CTA Button ───────────────────────────────────────────── */
 .btn-primary {
-  @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-body font-medium text-[#070B14] bg-[var(--color-accent)] transition-all duration-200;
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-body font-medium bg-[var(--color-accent)] transition-all duration-200;
+  color: var(--color-on-accent);
+  box-shadow: 0 2px 8px rgba(8, 97, 111, 0.18);
 }
 .btn-primary:hover {
-  @apply brightness-110 -translate-y-0.5;
-  box-shadow: 0 0 32px rgba(0, 212, 255, 0.5);
+  @apply -translate-y-0.5;
+  box-shadow: 0 8px 20px rgba(8, 97, 111, 0.26);
 }
 
 .btn-secondary {
   @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-body text-[var(--color-text)] border border-[var(--color-border)] transition-all duration-200;
 }
 .btn-secondary:hover {
-  @apply border-[rgba(0,212,255,0.4)] text-[var(--color-accent)];
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
 }
 
 /* ── Scroll reveal — GSAP sets initial state at runtime ─────── */
 /* Do not hide here: if GSAP fails to load, content stays visible */
 
-/* ── Cursor glow ─────────────────────────────────────────── */
-#cursor-glow {
-  pointer-events: none;
-  position: fixed;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  transition: opacity 0.3s ease;
-}
+/* El glow que seguía al cursor se retiró: en un tema claro no se ve,
+   y su mensaje era "demo técnica", no "aquí te van a atender". */
+#cursor-glow { display: none; }
 
 /* ── Scrollbar ───────────────────────────────────────────── */
 ::-webkit-scrollbar {
@@ -99,7 +96,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 255, 0.4);
+  background: var(--color-accent);
 }
 
 /* ── Focus visible ───────────────────────────────────────── */

@@ -23,7 +23,7 @@ export default {
       },
       backgroundImage: {
         "grid-blueprint":
-          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(0%2C212%2C255%2C0.04)' stroke-width='1'/%3E%3C/svg%3E\")",
+          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='rgba(31%2C26%2C21%2C0.045)' stroke-width='1'/%3E%3C/svg%3E\")",
       },
       animation: {
         "blob-float": "blob-float 8s ease-in-out infinite",
@@ -46,9 +46,9 @@ export default {
         },
       },
       boxShadow: {
-        "glow-cyan": "0 0 24px rgba(0,212,255,0.25)",
-        "glow-cyan-lg": "0 0 48px rgba(0,212,255,0.2)",
-        "glow-violet": "0 0 24px rgba(123,94,167,0.25)",
+        "glow-cyan": "0 4px 16px rgba(31,26,21,0.08)",
+        "glow-cyan-lg": "0 10px 32px rgba(31,26,21,0.10)",
+        "glow-violet": "0 4px 16px rgba(154,74,22,0.12)",
       },
     },
   },

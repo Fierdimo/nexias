@@ -31,7 +31,7 @@ export function organization(lang: Lang, description: string) {
       addressRegion: "Bolívar",
       addressCountry: "CO",
     },
-    areaServed: { "@type": "Country", name: "Colombia" },
+    areaServed: { "@type": "Place", name: "América Latina" },
     knowsLanguage: ["es-CO", "en-US"],
     // Perfil del fundador: para una práctica de una persona es la referencia
     // real. Un sameAs que apunta a un 404 le estropea a Google la resolución

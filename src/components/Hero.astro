@@ -13,13 +13,13 @@ const t = useTranslations(lang);
 <section class="relative flex items-center pt-32 pb-20 lg:pt-36 lg:pb-24 overflow-hidden bg-grid-blueprint" id="inicio">
   <!-- Glow blobs -->
   <div
-    class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full opacity-20 animate-blob-float pointer-events-none"
-    style="background: radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%); filter: blur(60px);"
+    class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full opacity-60 animate-blob-float pointer-events-none"
+    style="background: radial-gradient(circle, rgba(8,97,111,0.10) 0%, transparent 70%); filter: blur(60px);"
     aria-hidden="true"
   ></div>
   <div
-    class="absolute bottom-[-5%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
-    style="background: radial-gradient(circle, rgba(123,94,167,0.3) 0%, transparent 70%); filter: blur(80px); animation: blob-float 10s ease-in-out infinite reverse;"
+    class="absolute bottom-[-5%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-60 pointer-events-none"
+    style="background: radial-gradient(circle, rgba(154,74,22,0.09) 0%, transparent 70%); filter: blur(80px); animation: blob-float 10s ease-in-out infinite reverse;"
     aria-hidden="true"
   ></div>
 
@@ -29,17 +29,15 @@ const t = useTranslations(lang);
       <div class="hero-item inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/60">
         <span class="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" aria-hidden="true"></span>
         <span class="text-xs text-[var(--color-muted)] font-body tracking-wide">
-          {lang === "es" ? "Consultoría de IA · Colombia" : "AI Consulting · Colombia"}
+          {lang === "es" ? "Desde Cartagena, Colombia" : "From Cartagena, Colombia"}
         </span>
       </div>
 
       <!-- Main headline -->
-      <h1 class="hero-item font-display font-800 text-4xl sm:text-5xl lg:text-[3.25rem] leading-[1.08] tracking-tight mb-6">
-        <span class="text-gradient">{t.hero.headlineA}</span>
+      <h1 class="hero-item font-display font-800 text-4xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight mb-6">
+        <span class="text-[var(--color-accent)]">{t.hero.headlineA}</span>
         <br />
         <span class="text-[var(--color-text)]">{t.hero.headlineB}</span>
-        <br />
-        <span class="text-[var(--color-text)]">{t.hero.headlineC}</span>
       </h1>
 
       <!-- Subheadline -->

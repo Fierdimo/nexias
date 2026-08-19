@@ -5,7 +5,7 @@ export const es = {
     howItWorks: "Cómo funciona",
     results: "Resultados",
     demos: "Demos",
-    cta: "Agenda tu diagnóstico",
+    cta: "Hablemos",
   },
 
   // Hero
@@ -15,77 +15,76 @@ export const es = {
   // la podía firmar cualquier consultora de IA del mundo, y por eso no la
   // firmaba nadie.
   hero: {
-    headlineA: "Agentes de IA",
-    headlineB: "que llaman, responden",
-    headlineC: "y agendan por ti.",
-    sub: "Y automatizamos el trabajo repetitivo que hoy le consume horas a tu equipo. Para clínicas, cobranza, seguros y empresas de servicios en Colombia.",
-    ctaPrimary: "Agenda tu diagnóstico gratuito",
-    ctaSecondary: "Habla con un agente ahora",
+    headlineA: "Que ningún cliente",
+    headlineB: "se quede sin respuesta.",
+    sub: "Un asistente que contesta el teléfono, confirma las citas y hace las llamadas que tu equipo no alcanza. Todos los días, a la hora que sea.",
+    ctaPrimary: "Hablemos 30 minutos, sin costo",
+    ctaSecondary: "Pruébalo tú mismo",
     // Cifras del producto, verificables. Antes había conteos de clientes que
     // no existían: una afirmación que el primer prospecto curioso desmonta.
     proof1Value: "24/7",
-    proof1Label: "sin turnos, ausencias ni rotación",
+    proof1Label: "también domingos y de madrugada",
     proof2Value: "< 1 seg",
-    proof2Label: "para responder en la llamada",
+    proof2Label: "responde sin silencios incómodos",
     proof3Value: "Ley 2300",
-    proof3Label: "cumplimiento auditable en cobranza",
+    proof3Label: "cumple la ley de cobranza, y lo demuestra",
   },
 
   // WhyNow / El Problema
   whyNow: {
-    label: "El problema",
-    heading: "Tu equipo trabaja duro. Pero trabaja manual.",
-    pain1Title: "Datos dispersos, decisiones a ciegas",
+    label: "Lo que pasa hoy",
+    heading: "No es que tu equipo lo haga mal. Es que no da abasto.",
+    pain1Title: "El teléfono suena cuando no hay quién conteste",
     pain1Body:
-      "La información está en hojas de cálculo, correos y sistemas desconectados. Sin una visión unificada, las decisiones se toman tarde y con datos incompletos.",
-    pain2Title: "Tareas repetitivas que drenan talento",
+      "A las siete de la tarde, el sábado, en plena consulta. La llamada entra, nadie la toma, y esa persona rara vez vuelve a llamar.",
+    pain2Title: "Las mismas cinco preguntas, todos los días",
     pain2Body:
-      "Conciliaciones, reportes, carga de datos, aprobaciones — procesos que consumen horas cada día y que pueden automatizarse esta semana.",
-    pain3Title: "Lo que no alcanzas a atender, lo atiende otro",
+      "Cuánto cuesta, a qué hora abren, si reciben tal seguro. Tu gente contesta lo mismo veinte veces al día en vez de atender a quien ya está esperando.",
+    pain3Title: "Lo que no alcanzas a hacer, simplemente no se hace",
     pain3Body:
-      "El cliente que escribe un domingo, la cita que nadie confirmó, la cartera que no se alcanzó a llamar. No es que se haga mal: es que no se hace.",
+      "La cita que nadie confirmó. La cartera que se quedó sin llamar. La renovación que venció el martes. Nadie hizo nada mal — no hubo tiempo, y ya.",
     stat1: "¿Cuántas?",
-    stat1Label: "llamadas al día quedan sin hacer por falta de tiempo",
+    stat1Label: "llamadas se quedan sin hacer cada día",
     stat2: "¿Cuánto vale?",
-    stat2Label: "una cita perdida o una cartera que no se recuperó",
-    stat3: "¿Qué pasa?",
-    stat3Label: "con quien te escribe a las 9 de la noche o un domingo",
+    stat2Label: "una cita que se perdió por no confirmarla",
+    stat3: "¿Y el domingo?",
+    stat3Label: "cuando alguien escribe y no hay nadie del otro lado",
   },
 
   // Services
   services: {
     label: "Servicios",
-    heading: "Todo lo que necesitas para competir con datos e IA",
-    sub: "Cinco líneas de servicio diseñadas para el ciclo completo: diagnóstico, implementación y acompañamiento.",
+    heading: "Empezamos por lo que más tiempo te está costando",
+    sub: "Cinco frentes. No hay que hacerlos todos, ni todos a la vez — casi siempre conviene empezar por uno solo.",
     badge: "Más solicitado",
     demoBadge: "Ver demo en vivo →",
     list: [
       {
-        name: "Diagnóstico de datos y procesos",
+        name: "Ver dónde se te va el tiempo",
         page: "/servicios/diagnostico-datos-procesos/",
-        desc: "Mapeamos tus operaciones y encontramos las oportunidades de mayor retorno. Entregable: lista priorizada de automatizaciones con ROI estimado.",
+        desc: "Miramos cómo trabajan hoy y te decimos qué conviene automatizar primero, cuánto costaría y cuánto te ahorraría. Te queda por escrito, aunque no sigas con nosotros.",
       },
       {
-        name: "Analítica y BI predictivo",
+        name: "Reportes que se entienden de una mirada",
         page: "/servicios/analitica-datos-dashboards-bi/",
-        desc: "Dashboards e insights que anticipan demanda, riesgo y rendimiento. Toma decisiones antes de que el problema ocurra.",
+        desc: "Tus números en una sola pantalla, actualizados solos y legibles desde el celular. Para decidir con datos y no con corazonadas.",
         demo: "/demos/dashboard",
       },
       {
-        name: "Automatización RPA + APIs",
+        name: "Quitarle a tu equipo lo repetitivo",
         page: "/servicios/automatizacion-procesos-rpa/",
-        desc: "Eliminamos tareas repetitivas: conciliaciones contables, reportes automáticos, flujos de aprobación y carga de datos.",
+        desc: "Esa tarea que alguien hace todos los lunes copiando de un lado a otro: conciliaciones, reportes, aprobaciones, carga de datos. Pasa a hacerse sola.",
         badge: true,
       },
       {
-        name: "Asistentes y agentes de IA",
+        name: "Un asistente que atiende por ti",
         page: "/servicios/agentes-ia-whatsapp/",
-        desc: "Chatbots y agentes que atienden clientes, generan leads y apoyan a tu equipo interno — disponibles 24/7.",
+        desc: "Contesta el teléfono y el WhatsApp con la información real de tu negocio, agenda citas y te pasa la conversación cuando hace falta una persona.",
         demo: "/demos/asistente-ia",
       },
       {
-        name: "Acompañamiento continuo",
-        desc: "Monitoreo, ajustes y mejoras mensuales de tus sistemas. Tu inversión no se deprecia, evoluciona.",
+        name: "Seguir contigo después",
+        desc: "Los negocios cambian y lo que montamos también tiene que cambiar. Revisamos, ajustamos y mejoramos cada mes. O lo operas tú: te enseñamos cómo.",
       },
     ],
   },
@@ -93,24 +92,24 @@ export const es = {
   // HowItWorks
   howItWorks: {
     label: "Proceso",
-    heading: "De tu problema a resultados en semanas, no meses",
+    heading: "Así trabajamos, sin sorpresas en la factura",
     steps: [
       {
         number: "01",
         title: "Diagnóstico",
-        desc: "Analizamos tus procesos, fuentes de datos y prioridades. En 1–2 semanas tienes un mapa de oportunidades con ROI estimado.",
+        desc: "Nos sentamos contigo y con quien hace el trabajo hoy. Salimos con una lista de qué conviene automatizar y cuánto vale cada cosa.",
         time: "1–2 semanas",
       },
       {
         number: "02",
         title: "Implementación",
-        desc: "Construimos, probamos y desplegamos las soluciones priorizadas. Iteramos en ciclos cortos con resultados visibles desde la primera entrega.",
+        desc: "Construimos y te vamos mostrando cada semana. Nada de desaparecer dos meses y volver con una sorpresa.",
         time: "4–10 semanas",
       },
       {
         number: "03",
         title: "Acompañamiento",
-        desc: "Monitoreamos, ajustamos y mejoramos mensualmente. Tu equipo gana autonomía; nosotros garantizamos que el sistema evoluciona.",
+        desc: "Nos quedamos pendientes de que siga funcionando y lo ajustamos cuando tu negocio cambie. Si prefieres manejarlo tú, te dejamos listo para eso.",
         time: "Mensual",
       },
     ],
@@ -126,7 +125,7 @@ export const es = {
   results: {
     label: "Lo que ya funciona",
     heading: "No te pedimos que nos creas. Pruébalo.",
-    sub: "El agente de la demo está en vivo y responde ahora mismo. Estos son los ejemplos de aplicación por sector, no clientes referenciados.",
+    sub: "El asistente de la demo está funcionando ahora mismo: escríbele lo que quieras. Abajo, cómo se aplica en cada sector — son ejemplos, no clientes referenciados.",
     metrics: [
       { value: 24, suffix: "/7", label: "atiende sin turnos ni ausencias" },
       { value: 100, suffix: "%", label: "de las llamadas quedan transcritas y analizadas" },
@@ -186,23 +185,23 @@ export const es = {
 
   // Final CTA / Contact Form
   contact: {
-    label: "Empieza hoy",
-    heading: "Agenda tu diagnóstico gratuito",
-    sub: "30 minutos. Sin compromiso. Saldrás con un mapa claro de las oportunidades de automatización en tu empresa.",
+    label: "Cuando quieras",
+    heading: "Cuéntanos qué te está quitando tiempo",
+    sub: "Treinta minutos, sin compromiso y sin tecnicismos. Sales sabiendo qué se puede automatizar en tu negocio y cuánto costaría — aunque decidas no hacerlo con nosotros.",
     namePlaceholder: "Tu nombre",
     companyPlaceholder: "Empresa",
     whatsappPlaceholder: "WhatsApp (con código de país)",
     sectorLabel: "Sector",
-    sectors: ["Restaurantes", "Turismo", "Comercio", "Manufactura", "Servicios financieros", "Otro"],
-    submit: "Solicitar diagnóstico gratuito →",
-    altCTA: "O escríbenos directo por WhatsApp",
-    successTitle: "¡Listo! Te contactamos en menos de 24 horas.",
-    successBody: "Revisa tu WhatsApp. Agendaremos una llamada de 30 minutos para explorar tu caso.",
+    sectors: ["Salud y clínicas", "Cobranza", "Seguros", "Restaurantes", "Turismo", "Comercio", "Otro"],
+    submit: "Quiero que me cuenten →",
+    altCTA: "O escríbenos por WhatsApp, es más rápido",
+    successTitle: "¡Listo! Te escribimos hoy mismo.",
+    successBody: "Pendiente del WhatsApp. Buscamos media hora que te sirva y nos cuentas tu caso.",
   },
 
   // Footer
   footer: {
-    tagline: "Automatiza lo repetitivo. Decide con datos. Escala sin límites.",
+    tagline: "Para que ningún cliente se quede sin respuesta. Atendemos en español, donde estés.",
     services: "Servicios",
     company: "Empresa",
     legal: "Legal",

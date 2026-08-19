@@ -44,7 +44,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     const fromAddress = (import.meta.env.RESEND_FROM as string | undefined) ?? "onboarding@resend.dev";
     const emailHtml = `
       <div style="font-family: sans-serif; color: #222; max-width: 520px; margin: 0 auto;">
-        <h2 style="color: #00D4FF;">✅ Reserva confirmada — Nexias</h2>
+        <h2 style="color: #08616F;">✅ Reserva confirmada — Nexias</h2>
         <p>Hola <strong>${payload.nombre}</strong>,</p>
         <p>Tu cita de diagnóstico ha sido confirmada:</p>
         <table style="width:100%; border-collapse:collapse; margin:16px 0;">
