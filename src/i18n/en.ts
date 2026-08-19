@@ -14,7 +14,7 @@ export const en = {
     headlineB: "is left without an answer.",
     sub: "An assistant that answers the phone, confirms appointments and makes the calls your team never gets to. Every day, at any hour.",
     ctaPrimary: "Let's talk for 30 minutes, free",
-    ctaSecondary: "Try it yourself",
+    ctaSecondary: "Try the chat now",
     proof1Value: "24/7",
     proof1Label: "Sundays and small hours included",
     proof2Value: "< 1 sec",
@@ -108,7 +108,25 @@ export const en = {
   results: {
     label: "What already works",
     heading: "Don't take our word for it. Try it.",
-    sub: "The demo agent is live and answering right now. These are sector use cases, not referenced clients.",
+    sub: "There are two ways to check, and one is instant. Below, how it applies per sector — examples, not referenced clients.",
+    demos: [
+      {
+        badge: "Right now",
+        title: "Message it on chat",
+        body: "It is running this second. Ask it prices, hours, anything — it answers from a sample business's real information. No signup.",
+        cta: "Open the chat",
+        href: "/demos/asistente-ia/",
+        instant: true,
+      },
+      {
+        badge: "By appointment",
+        title: "Have it call your phone",
+        body: "The agent dials you and holds a real conversation: interrupt it mid-sentence and it books the appointment before hanging up. We agree a time with you.",
+        cta: "Request the call",
+        href: "https://wa.me/573028308008?text=Hi%2C%20I%27d%20like%20to%20schedule%20a%20call%20with%20the%20voice%20agent",
+        instant: false,
+      },
+    ],
     metrics: [
       { value: 24, suffix: "/7", label: "answers with no shifts or absences" },
       { value: 100, suffix: "%", label: "of calls are transcribed and analysed" },

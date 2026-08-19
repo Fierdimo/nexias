@@ -19,7 +19,7 @@ export const es = {
     headlineB: "se quede sin respuesta.",
     sub: "Un asistente que contesta el teléfono, confirma las citas y hace las llamadas que tu equipo no alcanza. Todos los días, a la hora que sea.",
     ctaPrimary: "Hablemos 30 minutos, sin costo",
-    ctaSecondary: "Pruébalo tú mismo",
+    ctaSecondary: "Prueba el chat ahora",
     // Cifras del producto, verificables. Antes había conteos de clientes que
     // no existían: una afirmación que el primer prospecto curioso desmonta.
     proof1Value: "24/7",
@@ -125,7 +125,25 @@ export const es = {
   results: {
     label: "Lo que ya funciona",
     heading: "No te pedimos que nos creas. Pruébalo.",
-    sub: "El asistente de la demo está funcionando ahora mismo: escríbele lo que quieras. Abajo, cómo se aplica en cada sector — son ejemplos, no clientes referenciados.",
+    sub: "Hay dos formas de comprobarlo, y una es inmediata. Más abajo, cómo se aplica en cada sector — son ejemplos, no clientes referenciados.",
+    demos: [
+      {
+        badge: "Ahora mismo",
+        title: "Escríbele por chat",
+        body: "Está funcionando en este momento. Pregúntale precios, horarios, lo que quieras — responde con la información real de un negocio de ejemplo. Sin registro.",
+        cta: "Abrir el chat",
+        href: "/demos/asistente-ia/",
+        instant: true,
+      },
+      {
+        badge: "Con cita",
+        title: "Que te llame por teléfono",
+        body: "El agente te marca y sostiene la conversación de verdad: lo puedes interrumpir a mitad de frase y te agenda la cita antes de colgar. Coordinamos día y hora contigo.",
+        cta: "Pedir la llamada",
+        href: "https://wa.me/573028308008?text=Hola%2C%20quiero%20agendar%20una%20llamada%20con%20el%20agente%20de%20voz",
+        instant: false,
+      },
+    ],
     metrics: [
       { value: 24, suffix: "/7", label: "atiende sin turnos ni ausencias" },
       { value: 100, suffix: "%", label: "de las llamadas quedan transcritas y analizadas" },
