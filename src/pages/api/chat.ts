@@ -119,11 +119,30 @@ export async function POST({ request }: { request: Request }): Promise<Response>
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model:       "kimi-k2.6",
+      /*
+       * Modelo sin razonamiento, a propósito.
+       *
+       * kimi-k2.6 es de razonamiento: emite su cadena de pensamiento en
+       * `delta.reasoning_content` y no en `delta.content`. En una pregunta
+       * corriente gastaba los 300 tokens completos pensando y terminaba con
+       * finish_reason "length" sin haber escrito una sola palabra de
+       * respuesta — 299 de 302 fragmentos eran razonamiento. El cliente
+       * mostraba su mensaje de respaldo y el demo parecía roto.
+       *
+       * Para un FAQ de restaurante tampoco hace falta: la respuesta está en
+       * el prompt, no hay nada que deducir. Y el demo vende por lo rápido
+       * que contesta, que es justo lo que un modelo pensante quita.
+       */
+      model:       "moonshot-v1-8k",
       messages:    [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream:      true,
       max_tokens:  300,
-      temperature: 1,
+      /*
+       * Baja de 1 a 0.3: este agente dicta precios y horarios. La variedad
+       * creativa aquí solo sirve para que dos visitantes reciban dos precios
+       * distintos de la misma bandeja paisa.
+       */
+      temperature: 0.3,
     }),
   });
 
