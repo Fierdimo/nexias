@@ -5,7 +5,7 @@ description: "Rangos reales en pesos para un negocio local, para una empresa con
 keyword: "cuánto cuesta un chatbot de whatsapp / precio chatbot colombia / costo whatsapp business api"
 servicio: "agentes-ia-whatsapp"
 publishedAt: 2026-08-23
-draft: true
+draft: false
 faq:
   - q: "¿Cuánto cuesta enviarle un mensaje de WhatsApp a un cliente en Colombia?"
     a: "Depende de la categoría. Si el cliente te escribió a ti en las últimas 24 horas, responderle no tiene costo de plataforma. Si eres tú quien inicia la conversación, pagas por mensaje entregado y la tarifa cambia según sea de marketing, utility o autenticación: marketing es varias veces más cara que las otras dos. Colombia está entre los mercados más baratos de la tarifa de Meta."
