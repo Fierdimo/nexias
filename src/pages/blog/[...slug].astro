@@ -1,0 +1,155 @@
+---
+import { render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { blogPosting, person, breadcrumbs, faqFor } from "../../lib/schema";
+import { getServicio } from "../../data/servicios";
+import { listarPosts, fechaLarga, minutosDeLectura } from "../../lib/blog";
+
+export async function getStaticPaths() {
+  const posts = await listarPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const path = `/blog/${post.id}/`;
+const servicio = getServicio(post.data.servicio)!;
+const minutos = minutosDeLectura(post.body ?? "");
+
+// Otros artículos, empezando por los del mismo servicio: son los que de verdad
+// le sirven a quien acaba de leer este.
+const todos = await listarPosts();
+const relacionados = todos
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => Number(b.data.servicio === post.data.servicio) - Number(a.data.servicio === post.data.servicio))
+  .slice(0, 3);
+
+const waLink = `https://wa.me/573028308008?text=${encodeURIComponent(
+  `Hola, leí el artículo sobre ${post.data.h1} y quiero saber más`,
+)}`;
+---
+
+<Layout
+  lang="es"
+  title={post.data.title}
+  description={post.data.description}
+  schema={[
+    blogPosting({
+      title: post.data.h1,
+      description: post.data.description,
+      path,
+      publishedAt: post.data.publishedAt,
+      updatedAt: post.data.updatedAt,
+      keywords: post.data.keyword,
+    }),
+    person(),
+    ...(post.data.faq.length > 0 ? [faqFor(path, post.data.faq)] : []),
+    breadcrumbs([
+      { name: "Inicio", path: "/" },
+      { name: "Blog", path: "/blog/" },
+      { name: post.data.h1, path },
+    ]),
+  ]}
+>
+  <Header lang="es" currentPath="/blog/" />
+
+  <main class="min-h-screen pt-24 pb-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-accent)] transition-colors">Inicio</a>
+        <span>›</span>
+        <a href="/blog/" class="hover:text-[var(--color-accent)] transition-colors">Blog</a>
+      </nav>
+    </div>
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="pt-6 pb-10 border-b border-[var(--color-border)]">
+        {post.data.draft && (
+          <p class="mb-5 rounded-lg border border-[var(--color-accent2)]/40 bg-[var(--color-accent2)]/10 px-4 py-3 text-sm font-body text-[var(--color-accent2)]">
+            Borrador. Esta página no se publica ni entra al sitemap hasta que <code>draft</code> pase a <code>false</code>.
+          </p>
+        )}
+        <h1 class="font-display font-800 text-3xl sm:text-4xl lg:text-[2.75rem] text-[var(--color-text)] leading-[1.15] mb-6">
+          {post.data.h1}
+        </h1>
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-body text-[var(--color-muted)]">
+          <span>Por Gregorio Morales</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={post.data.publishedAt.toISOString()}>{fechaLarga(post.data.publishedAt)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{minutos} min de lectura</span>
+        </div>
+        {post.data.updatedAt && (
+          <p class="mt-2 text-sm font-body text-[var(--color-muted)]">
+            Actualizado el <time datetime={post.data.updatedAt.toISOString()}>{fechaLarga(post.data.updatedAt)}</time>.
+          </p>
+        )}
+      </header>
+
+      <div class="prose-article py-10">
+        <Content />
+      </div>
+
+      <!-- Enlace al servicio: es la razón por la que existe el artículo. -->
+      <aside class="my-10 border border-[var(--color-border)] rounded-2xl p-7 bg-[var(--color-surface)]">
+        <p class="text-xs font-body uppercase tracking-widest text-[var(--color-accent)] mb-3">Servicio relacionado</p>
+        <h2 class="font-display font-700 text-xl text-[var(--color-text)] mb-2">{servicio.h1}</h2>
+        <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed mb-5">{servicio.lead}</p>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={`/servicios/${servicio.slug}/`}
+            class="inline-flex items-center px-5 py-2.5 rounded-lg bg-[var(--color-accent)] text-[var(--color-on-accent)] font-body font-medium text-sm hover:shadow-glow-cyan transition-shadow"
+          >
+            Ver {servicio.nav.toLowerCase()} →
+          </a>
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center px-5 py-2.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text)] font-body font-medium text-sm hover:border-[var(--color-accent)] transition-colors"
+          >
+            Escribir por WhatsApp
+          </a>
+        </div>
+      </aside>
+
+      {post.data.faq.length > 0 && (
+        <section class="py-10 border-t border-[var(--color-border)]">
+          <h2 class="font-display font-800 text-2xl text-[var(--color-text)] mb-6">Preguntas frecuentes</h2>
+          <div class="flex flex-col gap-3">
+            {post.data.faq.map((item) => (
+              <details class="border border-[var(--color-border)] rounded-xl bg-[var(--color-surface)] overflow-hidden group">
+                <summary class="cursor-pointer list-none px-6 py-4 font-body font-medium text-[var(--color-text)] flex justify-between items-center gap-4">
+                  <span>{item.q}</span>
+                  <span class="text-[var(--color-accent)] shrink-0 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="px-6 pb-5 text-sm text-[var(--color-muted)] font-body leading-relaxed">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {relacionados.length > 0 && (
+        <section class="py-10 border-t border-[var(--color-border)]">
+          <h2 class="font-display font-800 text-2xl text-[var(--color-text)] mb-6">Sigue leyendo</h2>
+          <div class="grid gap-4 sm:grid-cols-3">
+            {relacionados.map((p) => (
+              <a
+                href={`/blog/${p.id}/`}
+                class="border border-[var(--color-border)] rounded-xl p-5 bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors"
+              >
+                <h3 class="font-display font-700 text-base text-[var(--color-text)] leading-snug">{p.data.h1}</h3>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+  </main>
+
+  <Footer lang="es" />
+</Layout>

@@ -9,18 +9,28 @@ import Results from "../components/Results.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTA from "../components/FinalCTA.astro";
 import Footer from "../components/Footer.astro";
-import { organization, webSite, faqPage } from "../lib/schema";
+import { organization, webSite, faqPage, homeServices } from "../lib/schema";
 
+/*
+ * El título y la descripción son el texto que compite en la página de
+ * resultados, así que empiezan por la consulta ("agentes de IA en Colombia")
+ * y no por el nombre de la marca, que solo busca quien ya nos conoce.
+ */
 const description =
-  "Agentes de IA que contestan, llaman y agendan por ti, y automatización del trabajo repetitivo de tu equipo. Diagnóstico gratuito de 30 minutos.";
+  "Agentes de IA y chatbots para empresas en Colombia: atienden WhatsApp y llamadas 24/7, responden con la información de tu negocio y agendan citas. También automatización de procesos y dashboards. Diagnóstico gratuito de 30 minutos.";
 ---
 
 <Layout
   lang="es"
-  title="Consultoría de IA y Automatización de Procesos | Nexias"
+  title="Agentes de IA y Chatbots para Empresas en Colombia | Nexias"
   description={description}
   alternates={{ es: "/", en: "/en/" }}
-  schema={[organization("es", description), webSite("es"), faqPage("es")]}
+  schema={[
+    organization("es", description),
+    webSite("es"),
+    faqPage("es"),
+    ...homeServices(),
+  ]}
 >
   <Header lang="es" />
   <main>

@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/index";
 import { useTranslations } from "../i18n/index";
+import { listarPosts } from "../lib/blog";
 
 interface Props {
   lang: Lang;
@@ -9,6 +10,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+const hayArticulos = (await listarPosts()).length > 0;
 const waLink = "https://wa.me/573028308008?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Nexias";
 ---
 
@@ -61,11 +63,14 @@ const waLink = "https://wa.me/573028308008?text=Hola%2C%20quiero%20saber%20m%C3%
         <h3 class="font-display text-sm font-700 text-[var(--color-text)] mb-4 uppercase tracking-wider">{t.footer.services}</h3>
         <ul class="space-y-3 list-none">
           {[
-            { label: "Diagnóstico", href: "/servicios/diagnostico-datos-procesos/" },
-            { label: "Analítica BI", href: "/servicios/analitica-datos-dashboards-bi/" },
-            { label: "Automatización RPA", href: "/servicios/automatizacion-procesos-rpa/" },
-            { label: "Agentes de IA", href: "/servicios/agentes-ia-whatsapp/" },
-            { label: "Acompañamiento", href: "/servicios/" },
+            { label: "Agentes de IA por WhatsApp", href: "/servicios/agentes-ia-whatsapp/" },
+            { label: "Chatbots con IA", href: "/servicios/chatbots-ia-empresas/" },
+            { label: "Agentes de voz para llamadas", href: "/servicios/agentes-voz-ia-llamadas/" },
+            { label: "Automatización de procesos (RPA)", href: "/servicios/automatizacion-procesos-rpa/" },
+            { label: "Dashboards y analítica de datos", href: "/servicios/analitica-datos-dashboards-bi/" },
+            { label: "Diagnóstico de procesos", href: "/servicios/diagnostico-datos-procesos/" },
+            { label: "Ver todos los servicios", href: "/servicios/" },
+            ...(hayArticulos ? [{ label: "Blog", href: "/blog/" }] : []),
           ].map(({ label, href }) => (
             <li>
               {/* Las páginas de servicio solo existen en español; en inglés se

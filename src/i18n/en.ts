@@ -5,14 +5,15 @@ export const en = {
     howItWorks: "How it works",
     results: "Results",
     demos: "Demos",
+    blog: "Blog",
     cta: "Let's talk",
   },
 
   // Hero
   hero: {
-    headlineA: "So no customer",
-    headlineB: "is left without an answer.",
-    sub: "An assistant that answers the phone, confirms appointments and makes the calls your team never gets to. Every day, at any hour.",
+    headlineA: "AI agents for business",
+    headlineB: "so no customer is left without an answer.",
+    sub: "WhatsApp chatbots and AI voice agents that answer the phone, handle the questions you get every day, confirm appointments and make the calls your team never gets to. Every day, at any hour.",
     ctaPrimary: "Let's talk for 30 minutes, free",
     ctaSecondary: "Try the chat now",
     proof1Value: "24/7",
@@ -47,8 +48,8 @@ export const en = {
   // Services
   services: {
     label: "Services",
-    heading: "Everything you need to compete with data and AI",
-    sub: "Five service lines designed for the complete cycle: diagnosis, implementation and ongoing support.",
+    heading: "AI agents, chatbots and automation for your business",
+    sub: "Six service lines designed for the complete cycle: diagnosis, implementation and ongoing support.",
     badge: "Most requested",
     demoBadge: "See live demo →",
     list: [
@@ -67,9 +68,13 @@ export const en = {
         badge: true,
       },
       {
-        name: "AI assistants & agents",
+        name: "AI agents & WhatsApp chatbots",
         desc: "Chatbots and agents that serve customers, generate leads and support your internal team — available 24/7.",
         demo: "/demos/asistente-ia",
+      },
+      {
+        name: "AI voice agents for phone calls",
+        desc: "A voice agent that answers incoming calls and places outgoing ones: confirming appointments, chasing overdue accounts and booking, in Spanish and English.",
       },
       {
         name: "Continuous support",

@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { blog, breadcrumbs } from "../../lib/schema";
+import { getServicio } from "../../data/servicios";
+import { listarPosts, fechaLarga, minutosDeLectura } from "../../lib/blog";
+
+const posts = await listarPosts();
+
+const description =
+  "Artículos sobre agentes de IA, chatbots de WhatsApp, agentes de voz y automatización de procesos para empresas en Colombia. Sin relleno: precios reales, normativa y casos concretos.";
+---
+
+<Layout
+  lang="es"
+  title="Blog: Agentes de IA, Chatbots y Automatización | Nexias"
+  description={description}
+  noindex={posts.length === 0}
+  schema={[
+    blog(posts.map((p) => ({ name: p.data.h1, path: `/blog/${p.id}/` }))),
+    breadcrumbs([
+      { name: "Inicio", path: "/" },
+      { name: "Blog", path: "/blog/" },
+    ]),
+  ]}
+>
+  <Header lang="es" currentPath="/blog/" />
+
+  <main class="min-h-screen pt-24 pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <nav class="flex items-center gap-2 text-xs text-[var(--color-muted)] font-body" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-accent)] transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-[var(--color-text)]">Blog</span>
+      </nav>
+    </div>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-14">
+      <div class="max-w-3xl">
+        <p class="text-xs font-body font-medium tracking-[0.2em] uppercase text-[var(--color-accent)] mb-4">Blog</p>
+        <h1 class="font-display font-800 text-4xl sm:text-5xl text-[var(--color-text)] mb-5 leading-[1.12]">
+          Agentes de IA y automatización, explicados para quien decide
+        </h1>
+        <p class="text-lg text-[var(--color-muted)] leading-relaxed">
+          Lo que no encuentras escrito en ninguna parte: cuánto cuesta esto de verdad en Colombia, qué exige la
+          normativa local y qué pasa cuando estas cosas se ponen en producción. Sin relleno y sin cifras inventadas.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      {posts.length === 0 ? (
+        <p class="text-[var(--color-muted)] font-body">Todavía no hay artículos publicados.</p>
+      ) : (
+        <div class="grid gap-5 md:grid-cols-2">
+          {posts.map((post) => {
+            const servicio = getServicio(post.data.servicio)!;
+            return (
+              <article class="border border-[var(--color-border)] rounded-2xl bg-[var(--color-surface)] hover:border-[var(--color-accent)] transition-colors flex flex-col">
+                <a href={`/blog/${post.id}/`} class="p-7 flex flex-col flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-4">
+                    <span class="inline-flex items-center px-2.5 py-1 text-xs rounded-full bg-[var(--color-accent)]/12 text-[var(--color-accent)] border border-[var(--color-accent)]/25 font-body font-medium">
+                      {servicio.nav}
+                    </span>
+                    {post.data.draft && (
+                      <span class="inline-flex items-center px-2.5 py-1 text-xs rounded-full bg-[var(--color-accent2)]/12 text-[var(--color-accent2)] border border-[var(--color-accent2)]/25 font-body font-medium">
+                        Borrador
+                      </span>
+                    )}
+                  </div>
+                  <h2 class="font-display font-700 text-xl text-[var(--color-text)] leading-snug mb-3">
+                    {post.data.h1}
+                  </h2>
+                  <p class="text-sm text-[var(--color-muted)] font-body leading-relaxed flex-1">
+                    {post.data.description}
+                  </p>
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-body text-[var(--color-muted)] mt-5">
+                    <time datetime={post.data.publishedAt.toISOString()}>{fechaLarga(post.data.publishedAt)}</time>
+                    <span aria-hidden="true">·</span>
+                    <span>{minutosDeLectura(post.body ?? "")} min de lectura</span>
+                  </div>
+                </a>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  </main>
+
+  <Footer lang="es" />
+</Layout>

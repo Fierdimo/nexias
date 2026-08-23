@@ -14,6 +14,8 @@ export interface Servicio {
   slug: string;
   nav: string;
   keyword: string;
+  /** Valor de `serviceType` en el marcado Schema.org. */
+  serviceType: string;
   title: string;
   description: string;
   h1: string;
@@ -32,6 +34,7 @@ export const servicios: Servicio[] = [
     slug: "automatizacion-procesos-rpa",
     nav: "Automatización RPA",
     keyword: "automatización de procesos / RPA para empresas en Colombia",
+    serviceType: "Automatización de procesos y RPA",
     title: "Automatización de Procesos y RPA en Colombia | Nexias",
     description:
       "Eliminamos tareas repetitivas: conciliaciones, reportes, flujos de aprobación y carga de datos. Automatización RPA y APIs para empresas colombianas.",
@@ -131,6 +134,7 @@ export const servicios: Servicio[] = [
     slug: "agentes-ia-whatsapp",
     nav: "Agentes de IA",
     keyword: "chatbot / agente de IA por WhatsApp para empresas",
+    serviceType: "Agentes de IA y chatbots para WhatsApp",
     title: "Agentes de IA y Chatbots por WhatsApp | Nexias Colombia",
     description:
       "Agentes de IA que atienden clientes por WhatsApp 24/7, responden con la información de tu negocio, califican leads y agendan citas. Demo en vivo.",
@@ -227,9 +231,210 @@ export const servicios: Servicio[] = [
   },
 
   {
+    slug: "agentes-voz-ia-llamadas",
+    nav: "Agentes de voz",
+    keyword: "agente de voz con IA / llamadas automáticas / call center con inteligencia artificial",
+    serviceType: "Agentes de voz con inteligencia artificial",
+    title: "Agentes de Voz con IA para Llamadas | Nexias Colombia",
+    description:
+      "Agentes de voz con inteligencia artificial que contestan el teléfono de tu empresa y hacen las llamadas salientes: confirman citas, cobran cartera y agendan. En español, 24/7.",
+    h1: "Agentes de voz con IA que contestan el teléfono y hacen las llamadas",
+    lead: "No es una grabación con menú de opciones. Es un agente de voz que sostiene la conversación: lo puedes interrumpir a mitad de frase, entiende lo que le dices en español normal y termina la llamada con la cita agendada o el acuerdo de pago registrado.",
+    senales: [
+      "El teléfono suena a las siete de la noche y no hay quién conteste.",
+      "Nadie alcanza a confirmar las citas del día siguiente, y aparecen sillas vacías.",
+      "La cartera se queda sin llamar porque marcar uno por uno toma el día entero.",
+      "Tienes una base de clientes que no vuelve hace un año y nadie la ha reactivado.",
+      "Contratar más gente para el teléfono no cuadra con lo que deja cada llamada.",
+    ],
+    entregables: [
+      {
+        titulo: "Agente de voz entrante y saliente",
+        detalle:
+          "Contesta lo que entra y marca lo que hay que marcar, sobre tu número o uno nuevo. La voz es en español latino y se afina hasta que no suene a robot.",
+      },
+      {
+        titulo: "Agendamiento y registro en tus sistemas",
+        detalle:
+          "Consulta la disponibilidad real, agenda en el calendario y deja el resultado escrito en tu CRM o en tu planilla. La llamada no termina en una nota que alguien tiene que transcribir después.",
+      },
+      {
+        titulo: "Transcripción y auditoría de cada llamada",
+        detalle:
+          "Todas las llamadas quedan grabadas, transcritas y clasificadas. Para cobranza, eso es además lo que permite demostrar el cumplimiento de la Ley 2300 sobre horarios y frecuencia de contacto.",
+      },
+    ],
+    proceso: [
+      {
+        paso: "Guion y límites",
+        tiempo: "3–5 días",
+        detalle:
+          "Definimos qué debe lograr la llamada, qué puede prometer el agente y en qué momento pasa a una persona. En voz el límite importa más que en chat: no hay tiempo de corregir.",
+      },
+      {
+        paso: "Ajuste de voz y conversación",
+        tiempo: "2–4 semanas",
+        detalle:
+          "Afinamos voz, ritmo e interrupciones contra llamadas de prueba, hasta que la conversación fluya con acento y modismos locales.",
+      },
+      {
+        paso: "Salida con volumen controlado",
+        tiempo: "1 semana",
+        detalle:
+          "Arranca con un lote pequeño y supervisión. Escuchamos las llamadas de la primera semana, corregimos y recién ahí se abre el volumen completo.",
+      },
+    ],
+    ejemplos: [
+      {
+        sector: "Cobranza",
+        texto:
+          "Marca el portafolio completo, filtra a quien no contesta y solo escala a un asesor al deudor que respondió y mostró intención de pago. Cada intento queda auditado dentro de los horarios que permite la Ley 2300.",
+      },
+      {
+        sector: "Salud y estética",
+        texto:
+          "Confirma las citas del día siguiente y reagenda en la misma llamada. También reactiva a los pacientes que no vuelven hace meses y hoy son una base muerta en el sistema.",
+      },
+      {
+        sector: "Seguros",
+        texto:
+          "Llama antes de que venza la póliza o el SOAT, resuelve las dudas con la información real del corredor y deja la renovación lista para confirmar.",
+      },
+    ],
+    herramientas: [
+      "Telefonía SIP y números locales",
+      "WhatsApp Business API",
+      "Google Calendar",
+      "CRM propio o de terceros",
+      "Transcripción y análisis de llamadas",
+      "Base de conocimiento sobre tus documentos",
+    ],
+    faq: [
+      {
+        q: "¿Se nota que es una inteligencia artificial?",
+        a: "La gente suele notar que algo es distinto, sí. Lo que no pasa es que la conversación se rompa: el agente responde a interrupciones, entiende preguntas fuera de guion y no obliga a repetir. Y la instrucción es identificarse como asistente cuando se lo preguntan — negarlo destruye la confianza y no aporta nada.",
+      },
+      {
+        q: "¿Un agente de voz para cobranza cumple la Ley 2300?",
+        a: "Se configura para cumplirla: respeta los horarios permitidos, el límite de contactos por semana y la solicitud de no volver a llamar. Y como cada intento queda registrado y transcrito, el cumplimiento se puede demostrar, que es distinto de afirmarlo.",
+      },
+      {
+        q: "¿Qué pasa si la persona pide hablar con alguien de verdad?",
+        a: "La llamada se transfiere a tu equipo en el momento, con el contexto de lo que ya se conversó. Si es fuera de horario, el agente agenda la devolución de llamada y la deja registrada.",
+      },
+      {
+        q: "¿Puedo escucharlo antes de contratar?",
+        a: "Sí, y es la mejor forma de decidir. Coordinamos día y hora, el agente te marca a ti y sostienes la conversación completa, incluida la parte de agendar la cita.",
+      },
+    ],
+  },
+
+  {
+    slug: "chatbots-ia-empresas",
+    nav: "Chatbots con IA",
+    keyword: "chatbot / chatbot con inteligencia artificial para página web y empresas",
+    serviceType: "Chatbots con inteligencia artificial",
+    title: "Chatbots con IA para Empresas y Páginas Web | Nexias",
+    description:
+      "Chatbots con inteligencia artificial para tu página web, WhatsApp e Instagram: responden con la información real de tu negocio, capturan datos y agendan citas. Demo en vivo.",
+    h1: "Chatbots con IA para tu página web y tus canales de atención",
+    lead: "Los chatbots de menú —los de \"marque 1, marque 2\"— fallan apenas alguien pregunta algo que no estaba previsto. Un chatbot con IA lee tu documentación y responde a la pregunta real, escrita como la escribió el cliente, con sus errores de tipeo incluidos.",
+    demo: { href: "/demos/asistente-ia", label: "Prueba el chatbot ahora" },
+    senales: [
+      "Tienes un formulario de contacto y casi nadie lo llena.",
+      "Las visitas a tu página no se convierten en conversaciones.",
+      "El chat que instalaste responde con un menú y la gente lo cierra.",
+      "Contestas las mismas preguntas en la web, en WhatsApp y en Instagram por separado.",
+      "No sabes qué le preguntan a tu negocio antes de comprar.",
+    ],
+    entregables: [
+      {
+        titulo: "Chatbot instalado en tu sitio",
+        detalle:
+          "Una línea de código en tu página, con los colores y el tono de tu marca. Funciona igual en celular que en escritorio, sin ralentizar el sitio.",
+      },
+      {
+        titulo: "Respuestas desde tu propia información",
+        detalle:
+          "Cargamos tus documentos, precios y políticas. El chatbot responde desde ahí y no desde lo que el modelo cree saber; cuando la pregunta se sale de tu información, lo dice y pasa a una persona.",
+      },
+      {
+        titulo: "Captura de datos y panel de conversaciones",
+        detalle:
+          "Cada conversación deja nombre, contacto y qué buscaba, clasificado por tema. Ese panel suele revelar en dos semanas qué le falta explicar a tu página.",
+      },
+    ],
+    proceso: [
+      {
+        paso: "Inventario de preguntas",
+        tiempo: "2–4 días",
+        detalle:
+          "Partimos de lo que ya te preguntan hoy por WhatsApp, correo y teléfono. Es la fuente más fiable de qué tiene que saber responder.",
+      },
+      {
+        paso: "Carga de conocimiento y ajuste de tono",
+        tiempo: "1–3 semanas",
+        detalle:
+          "Cargamos tu información y afinamos las respuestas contra conversaciones reales, hasta que responda como responde tu mejor persona de atención.",
+      },
+      {
+        paso: "Instalación y medición",
+        tiempo: "3–5 días",
+        detalle:
+          "Se instala en el sitio y se mide desde el primer día: cuántos escriben, cuántos dejan datos y qué preguntas quedaron sin respuesta.",
+      },
+    ],
+    ejemplos: [
+      {
+        sector: "Servicios profesionales",
+        texto:
+          "Responde dudas sobre tarifas y alcance, entiende qué necesita quien escribe y agenda la cita directamente en el calendario del profesional.",
+      },
+      {
+        sector: "Comercio",
+        texto:
+          "Resuelve disponibilidad, tiempos de envío y política de cambios sin que nadie del equipo tenga que responder el mismo mensaje veinte veces al día.",
+      },
+      {
+        sector: "Educación",
+        texto:
+          "Explica requisitos, fechas y costos de los programas, y deja registrado al interesado con el programa que estaba mirando.",
+      },
+    ],
+    herramientas: [
+      "Widget web para tu sitio",
+      "WhatsApp Business API",
+      "Instagram y Messenger",
+      "Telegram",
+      "Google Calendar",
+      "CRM propio o de terceros",
+      "Base de conocimiento sobre tus documentos",
+    ],
+    faq: [
+      {
+        q: "¿Qué diferencia hay entre un chatbot y un agente de IA?",
+        a: "Un chatbot responde; un agente además actúa. Si solo necesitas resolver preguntas frecuentes, un chatbot basta. Si quieres que consulte disponibilidad, agende, registre en tu CRM o escale con contexto, eso ya es un agente. Se construyen igual: lo que cambia es a qué sistemas se conecta.",
+      },
+      {
+        q: "¿Se puede instalar en mi página web actual?",
+        a: "Sí. Funciona sobre WordPress, Shopify, Wix, Webflow o un sitio hecho a la medida: es un fragmento de código que se pega una vez. No hay que rehacer la página.",
+      },
+      {
+        q: "¿El chatbot se inventa respuestas?",
+        a: "Responde desde tu documentación cargada, no desde conocimiento general. Cuando la pregunta se sale de ahí, la instrucción es reconocer que no lo sabe y pasar a una persona — es preferible a una respuesta inventada sobre un precio.",
+      },
+      {
+        q: "¿Puedo probarlo antes de contratar?",
+        a: "Sí. Hay un chatbot funcionando en esta misma web, montado sobre un restaurante ficticio, al que puedes escribirle ahora mismo sin registrarte.",
+      },
+    ],
+  },
+
+  {
     slug: "analitica-datos-dashboards-bi",
     nav: "Analítica y BI",
     keyword: "dashboards / business intelligence / analítica de datos para pymes",
+    serviceType: "Analítica de datos y business intelligence",
     title: "Dashboards y Analítica de Datos para Pymes | Nexias",
     description:
       "Dashboards de BI y analítica predictiva para empresas colombianas: ventas, inventario, demanda y rentabilidad en una sola pantalla. Demo en vivo.",
@@ -329,6 +534,7 @@ export const servicios: Servicio[] = [
     slug: "diagnostico-datos-procesos",
     nav: "Diagnóstico",
     keyword: "consultoría de procesos / por dónde empezar a automatizar",
+    serviceType: "Consultoría y diagnóstico de procesos",
     title: "Diagnóstico de Datos y Procesos Empresariales | Nexias",
     description:
       "Mapeamos tus operaciones y entregamos una lista priorizada de automatizaciones con ROI estimado. Diagnóstico gratuito de 30 minutos para empezar.",

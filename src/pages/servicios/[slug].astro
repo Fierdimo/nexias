@@ -26,7 +26,7 @@ const waLink = `https://wa.me/573028308008?text=${encodeURIComponent(
       name: servicio.nav,
       description: servicio.description,
       path,
-      serviceType: servicio.keyword.split("/")[0].trim(),
+      serviceType: servicio.serviceType,
     }),
     faqFor(path, servicio.faq),
     breadcrumbs([

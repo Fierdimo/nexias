@@ -5,6 +5,7 @@ export const es = {
     howItWorks: "Cómo funciona",
     results: "Resultados",
     demos: "Demos",
+    blog: "Blog",
     cta: "Hablemos",
   },
 
@@ -14,10 +15,16 @@ export const es = {
   // anterior ("Automatiza lo repetitivo. Decide con datos. Escala sin límites")
   // la podía firmar cualquier consultora de IA del mundo, y por eso no la
   // firmaba nadie.
+  //
+  // La primera línea, además, es la única frase de la portada que Google lee
+  // como H1. Antes decía "Que ningún cliente se quede sin respuesta": buena
+  // promesa, cero coincidencia con lo que la gente escribe en el buscador.
+  // Ahora nombra la categoría y el país —"agentes de IA en Colombia"— y deja
+  // la promesa en la segunda línea, que es donde sigue funcionando.
   hero: {
-    headlineA: "Que ningún cliente",
-    headlineB: "se quede sin respuesta.",
-    sub: "Un asistente que contesta el teléfono, confirma las citas y hace las llamadas que tu equipo no alcanza. Todos los días, a la hora que sea.",
+    headlineA: "Agentes de IA en Colombia",
+    headlineB: "para que ningún cliente se quede sin respuesta.",
+    sub: "Chatbots de WhatsApp y agentes de voz con inteligencia artificial que contestan el teléfono, responden las preguntas de siempre, confirman las citas y hacen las llamadas que tu equipo no alcanza. Todos los días, a la hora que sea.",
     ctaPrimary: "Hablemos 30 minutos, sin costo",
     ctaSecondary: "Prueba el chat ahora",
     // Cifras del producto, verificables. Antes había conteos de clientes que
@@ -54,36 +61,46 @@ export const es = {
   // Services
   services: {
     label: "Servicios",
-    heading: "Empezamos por lo que más tiempo te está costando",
-    sub: "Cinco frentes. No hay que hacerlos todos, ni todos a la vez — casi siempre conviene empezar por uno solo.",
+    heading: "Agentes de IA, chatbots y automatización para empresas",
+    sub: "Seis frentes: agentes de voz, chatbots de WhatsApp, automatización de procesos, dashboards y diagnóstico. No hay que hacerlos todos, ni todos a la vez — casi siempre conviene empezar por uno solo, el que más tiempo te esté costando.",
     badge: "Más solicitado",
     demoBadge: "Ver demo en vivo →",
     list: [
       {
-        name: "Ver dónde se te va el tiempo",
+        name: "Diagnóstico: ver dónde se te va el tiempo",
         page: "/servicios/diagnostico-datos-procesos/",
+        linkLabel: "Ver el diagnóstico de procesos",
         desc: "Miramos cómo trabajan hoy y te decimos qué conviene automatizar primero, cuánto costaría y cuánto te ahorraría. Te queda por escrito, aunque no sigas con nosotros.",
       },
       {
-        name: "Reportes que se entienden de una mirada",
+        name: "Dashboards y analítica de datos",
         page: "/servicios/analitica-datos-dashboards-bi/",
+        linkLabel: "Ver dashboards y analítica de datos",
         desc: "Tus números en una sola pantalla, actualizados solos y legibles desde el celular. Para decidir con datos y no con corazonadas.",
         demo: "/demos/dashboard",
       },
       {
-        name: "Quitarle a tu equipo lo repetitivo",
+        name: "Automatización de procesos (RPA)",
         page: "/servicios/automatizacion-procesos-rpa/",
+        linkLabel: "Ver automatización de procesos y RPA",
         desc: "Esa tarea que alguien hace todos los lunes copiando de un lado a otro: conciliaciones, reportes, aprobaciones, carga de datos. Pasa a hacerse sola.",
         badge: true,
       },
       {
-        name: "Un asistente que atiende por ti",
+        name: "Agentes de IA y chatbots de WhatsApp",
         page: "/servicios/agentes-ia-whatsapp/",
-        desc: "Contesta el teléfono y el WhatsApp con la información real de tu negocio, agenda citas y te pasa la conversación cuando hace falta una persona.",
+        linkLabel: "Ver agentes de IA y chatbots de WhatsApp",
+        desc: "Un chatbot con IA que responde por WhatsApp con la información real de tu negocio, agenda citas y te pasa la conversación cuando hace falta una persona.",
         demo: "/demos/asistente-ia",
       },
       {
-        name: "Seguir contigo después",
+        name: "Agentes de voz que contestan el teléfono",
+        page: "/servicios/agentes-voz-ia-llamadas/",
+        linkLabel: "Ver agentes de voz con IA",
+        desc: "Un agente de voz con IA que atiende las llamadas entrantes y marca las salientes: confirma citas, cobra cartera y agenda, en español y sin sonar a grabación.",
+      },
+      {
+        name: "Soporte y mejora continua",
         desc: "Los negocios cambian y lo que montamos también tiene que cambiar. Revisamos, ajustamos y mejoramos cada mes. O lo operas tú: te enseñamos cómo.",
       },
     ],
@@ -173,7 +190,23 @@ export const es = {
   faq: {
     label: "Preguntas frecuentes",
     heading: "Lo que siempre preguntan antes de empezar",
+    // Las tres primeras existen tanto por el visitante como por el buscador:
+    // son consultas que la gente escribe tal cual en Google ("qué es un agente
+    // de IA", "cuánto cuesta un chatbot"), y como el acordeón alimenta el
+    // marcado FAQPage, la respuesta puede aparecer en el propio resultado.
     items: [
+      {
+        q: "¿Qué es un agente de IA y en qué se diferencia de un chatbot?",
+        a: "Un chatbot responde preguntas; un agente de IA además hace cosas: consulta tu calendario, agenda la cita, registra el dato en tu CRM o te pasa la conversación a una persona con el contexto completo. Los chatbots de menú —los de \"marque 1, marque 2\"— responden con guiones fijos. Un agente entiende lo que le escriben o le dicen en lenguaje normal y actúa sobre tus sistemas.",
+      },
+      {
+        q: "¿Cuánto cuesta un chatbot o un agente de IA en Colombia?",
+        a: "Depende de los canales (WhatsApp, voz, web), de cuánta información hay que cargarle y de con qué sistemas se conecta. Un agente de IA para WhatsApp con base de conocimiento y agendamiento arranca como proyecto cerrado de pocas semanas; un agente de voz saliente cuesta más porque exige más ajuste. En el diagnóstico gratuito de 30 minutos te damos la cifra exacta antes de que te comprometas a nada.",
+      },
+      {
+        q: "¿Atienden empresas fuera de Cartagena o de Colombia?",
+        a: "Sí. Estamos en Cartagena y trabajamos con empresas de Bogotá, Medellín, Barranquilla, Cali y el resto del país de forma remota, además de clientes en el resto de América Latina. Los agentes atienden en español —con acento y modismos locales— y también en inglés.",
+      },
       {
         q: "¿Cuánto cuesta un proyecto con Nexias?",
         a: "Cada proyecto es diferente. Los proyectos cerrados parten desde diagnósticos de alcance definido. En el diagnóstico gratuito establecemos el alcance y el presupuesto exacto. Sin sorpresas.",
@@ -219,7 +252,7 @@ export const es = {
 
   // Footer
   footer: {
-    tagline: "Para que ningún cliente se quede sin respuesta. Atendemos en español, donde estés.",
+    tagline: "Agentes de IA, chatbots y automatización para empresas en Colombia. Para que ningún cliente se quede sin respuesta, en español y donde estés.",
     services: "Servicios",
     company: "Empresa",
     legal: "Legal",
