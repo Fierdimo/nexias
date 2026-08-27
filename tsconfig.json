@@ -2,6 +2,10 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "ignoreDeprecations": "6.0",
+    // Los componentes React (.tsx) necesitan el runtime JSX de React; el
+    // preset de Astro deja "jsx": "preserve", que en el editor marca error.
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],

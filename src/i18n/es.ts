@@ -37,7 +37,7 @@ export const es = {
     proof3Label: "cumple la ley de cobranza, y lo demuestra",
   },
 
-  // WhyNow / El Problema
+  // El problema (primer slide de contenido del recorrido)
   whyNow: {
     label: "Lo que pasa hoy",
     heading: "No es que tu equipo lo haga mal. Es que no da abasto.",
@@ -106,7 +106,7 @@ export const es = {
     ],
   },
 
-  // HowItWorks
+  // El proceso, que el recorrido dibuja como línea de tiempo
   howItWorks: {
     label: "Proceso",
     heading: "Así trabajamos, sin sorpresas en la factura",
@@ -139,6 +139,11 @@ export const es = {
   // la conversación muerta, y la SIC sanciona la publicidad engañosa
   // (Ley 1480). Se reemplazan por hechos del producto, que además son mejores:
   // son comprobables en el demo, en vivo, durante la propia reunión.
+  slides: {
+    /* Único texto propio del recorrido: el resto sale de whyNow,
+       services, howItWorks y results, para no mantener dos copias. */
+    hint: "Baja para avanzar",
+  },
   results: {
     label: "Lo que ya funciona",
     heading: "No te pedimos que nos creas. Pruébalo.",

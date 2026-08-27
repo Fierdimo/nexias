@@ -165,8 +165,9 @@ import { breadcrumbs } from "../../lib/schema";
 </Layout>
 
 <script>
+  import gsap from "gsap";
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!prefersReduced && typeof gsap !== "undefined") {
+  if (!prefersReduced) {
     gsap.from(".group", {
       opacity: 0,
       y: 30,

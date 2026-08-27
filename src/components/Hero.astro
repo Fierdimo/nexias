@@ -1,6 +1,7 @@
 ---
 import type { Lang } from "../i18n/index";
 import { useTranslations } from "../i18n/index";
+import HeroCanvas from "./HeroCanvas";
 
 interface Props {
   lang: Lang;
@@ -17,6 +18,26 @@ const t = useTranslations(lang);
     style="background: radial-gradient(circle, rgba(8,97,111,0.10) 0%, transparent 70%); filter: blur(60px);"
     aria-hidden="true"
   ></div>
+
+  <!--
+    Fondo 3D. Decorativo, así que va aria-hidden y sin capturar el puntero:
+    los CTAs quedan por encima y siguen siendo clicables. El degradado de
+    máscara lo desvanece por la izquierda para que nunca compita con el
+    titular, y `hidden lg:block` lo deja fuera de móvil.
+  -->
+  <div
+    class="hidden lg:block absolute inset-y-0 right-0 w-[54%] pointer-events-none select-none opacity-[0.5]"
+    style="mask-image: linear-gradient(to right, transparent 0%, black 32%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 32%);"
+    aria-hidden="true"
+  >
+    <!--
+      client:media y no client:idle: así el runtime de React (182 KB) tampoco
+      se descarga en móvil, donde el efecto no se muestra. HeroCanvas no
+      importa three arriba del todo — lo carga en diferido — así que se puede
+      renderizar en servidor sin romper el build.
+    -->
+    <HeroCanvas client:media="(min-width: 1024px)" />
+  </div>
   <div
     class="absolute bottom-[-5%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-60 pointer-events-none"
     style="background: radial-gradient(circle, rgba(154,74,22,0.09) 0%, transparent 70%); filter: blur(80px); animation: blob-float 10s ease-in-out infinite reverse;"
@@ -74,11 +95,3 @@ const t = useTranslations(lang);
   <!-- Bottom fade -->
   <div class="absolute bottom-0 left-0 right-0 h-32 pointer-events-none" style="background: linear-gradient(to top, var(--color-bg), transparent);" aria-hidden="true"></div>
 </section>
-
-<script>
-  /*
-   * El glow del cursor y el desplazamiento suave siguen siendo mejoras
-   * opcionales. La entrada del hero ya no: vive en global.css, porque el
-   * contenido no puede depender de que un CDN responda.
-   */
-</script>

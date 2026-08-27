@@ -2,10 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Hero from "../../components/Hero.astro";
-import WhyNow from "../../components/WhyNow.astro";
-import Services from "../../components/Services.astro";
-import HowItWorks from "../../components/HowItWorks.astro";
-import Results from "../../components/Results.astro";
+import SlideStage from "../../components/SlideStage.astro";
 import FAQ from "../../components/FAQ.astro";
 import FinalCTA from "../../components/FinalCTA.astro";
 import Footer from "../../components/Footer.astro";
@@ -25,35 +22,18 @@ const description =
 >
   <Header lang="en" />
   <main>
-    <Hero lang="en" />
-    <WhyNow lang="en" />
-    <Services lang="en" />
-    <HowItWorks lang="en" />
-    <Results lang="en" />
-    <FAQ lang="en" />
-    <FinalCTA lang="en" />
+    <SlideStage lang="en">
+      <div class="slides__slide slides__slide--full" data-slide slot="first">
+        <Hero lang="en" />
+      </div>
+      <div class="slides__slide slides__slide--wide" data-slide>
+        <FAQ lang="en" />
+      </div>
+      <div class="slides__slide slides__slide--wide" data-slide>
+        <FinalCTA lang="en" />
+      </div>
+    </SlideStage>
   </main>
   <Footer lang="en" />
 </Layout>
 
-<script>
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!prefersReduced && typeof gsap !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll<HTMLElement>(".reveal-section").forEach((el) => {
-      gsap.set(el, { opacity: 0, y: 60 });
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none none",
-          once: true,
-        },
-      });
-    });
-  }
-</script>

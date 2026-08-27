@@ -104,25 +104,21 @@ const hreflangs = alternates
       rel="stylesheet"
     />
 
-    <!-- GSAP + ScrollTrigger via CDN -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/gsap.min.js"
-      is:inline
-      defer
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/gsap@3.12/dist/ScrollTrigger.min.js"
-      is:inline
-      defer
-    ></script>
 
 
   </head>
   <body class="min-h-screen overflow-x-hidden">
+    <!-- Progreso de lectura -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
     <!-- Cursor glow (desktop) -->
     <div id="cursor-glow" aria-hidden="true"></div>
 
     <slot />
+
+    <script>
+      import "../scripts/animations";
+    </script>
 
     <!-- Cursor glow script -->
     <script is:inline>

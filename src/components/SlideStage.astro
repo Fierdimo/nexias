@@ -1,0 +1,163 @@
+---
+/*
+ * Recorrido por slides.
+ *
+ * La escena se queda fija y las secciones se reemplazan entre sí conforme
+ * bajas, mientras una sola imagen —la escultura del hero— viaja de un estado
+ * al siguiente.
+ *
+ * El movimiento sale de `pin` + `scrub` de ScrollTrigger: la página sigue
+ * avanzando de forma normal y el scroll no se intercepta nunca. Rueda,
+ * teclado, barra lateral y saltarse el bloque entero funcionan como en el
+ * resto del sitio.
+ *
+ * Cada slide toma la forma de lo que cuenta, no un formato único: el problema
+ * es un diagnóstico en tarjetas, los servicios una rejilla que enlaza a sus
+ * páginas, el proceso una línea de tiempo, y la prueba cifras y demos. El
+ * contenido sale del mismo i18n que alimentaba a las secciones originales,
+ * así que no queda una copia paralela que se desincronice.
+ *
+ * Sobre el marcado: por defecto los slides son bloques apilados y legibles,
+ * uno debajo de otro. Solo cuando el JS confirma que va a animar añade
+ * `data-slides-active`, y ahí el CSS los superpone. Así, si el bundle no
+ * llega o el navegador pide menos movimiento, esto degrada a secciones
+ * normales en vez de a una pantalla en blanco — y el contenido siempre está
+ * en el HTML que rastrea Google.
+ */
+
+import type { Lang } from "../i18n/index";
+import { useTranslations } from "../i18n/index";
+import { iconosProblema, iconosServicio } from "../data/iconos";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const problemas = [
+  { title: t.whyNow.pain1Title, body: t.whyNow.pain1Body, icon: iconosProblema[0] },
+  { title: t.whyNow.pain2Title, body: t.whyNow.pain2Body, icon: iconosProblema[1] },
+  { title: t.whyNow.pain3Title, body: t.whyNow.pain3Body, icon: iconosProblema[2] },
+];
+---
+
+<section class="slides" data-slides aria-label={lang === "es" ? "Recorrido" : "Walkthrough"}>
+  <div class="slides__pin" data-slides-pin>
+    <!-- La imagen que viaja. Decorativa: el texto de cada slide ya lo dice todo. -->
+    <div class="slides__travel" data-slides-travel aria-hidden="true">
+      <img src="/hero/hero-color.png" alt="" width="626" height="626" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="slides__viewport">
+      <slot name="first" />
+
+      {/* El problema: diagnóstico en tres tarjetas, una por dolor. */}
+      <article class="slides__slide slides__slide--wide" data-slide id="el-problema">
+        <header class="slides__head">
+          <span class="slides__label">{t.whyNow.label}</span>
+          <h2 class="slides__title">{t.whyNow.heading}</h2>
+        </header>
+        <div class="slides__grid slides__grid--3">
+          {problemas.map(({ title, body, icon }) => (
+            <div class="slides__card" data-spotlight>
+              <span class="slides__icon" set:html={icon} />
+              <h3 class="slides__card-title">{title}</h3>
+              <p class="slides__card-body">{body}</p>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      {/*
+        Servicios: rejilla que enlaza a cada página de servicio. Los enlaces
+        importan — al desaparecer la sección original, la portada había dejado
+        de apuntar a /servicios/*.
+      */}
+      <article class="slides__slide slides__slide--wide" data-slide id="servicios">
+        <header class="slides__head">
+          <span class="slides__label">{t.services.label}</span>
+          <h2 class="slides__title">{t.services.heading}</h2>
+        </header>
+        <div class="slides__grid slides__grid--3">
+          {t.services.list.map((service, i) => (
+            <a href={service.page} class="slides__card slides__card--link" data-spotlight aria-label={service.linkLabel}>
+              <span class="slides__icon" set:html={iconosServicio[i]} />
+              <h3 class="slides__card-title">{service.name}</h3>
+              <p class="slides__card-body slides__card-body--clamp">{service.desc}</p>
+            </a>
+          ))}
+        </div>
+      </article>
+
+      {/* Proceso: línea de tiempo. Tres hitos con su duración. */}
+      <article class="slides__slide slides__slide--wide" data-slide id="como-funciona">
+        <header class="slides__head">
+          <span class="slides__label">{t.howItWorks.label}</span>
+          <h2 class="slides__title">{t.howItWorks.heading}</h2>
+        </header>
+        <ol class="slides__timeline" data-timeline>
+          <span class="slides__timeline-track" aria-hidden="true" data-timeline-track></span>
+          {t.howItWorks.steps.map((step) => (
+            <li class="slides__step" data-tl-step>
+              <span class="slides__step-dot"><b>{step.number}</b></span>
+              <span class="slides__step-time">{step.time}</span>
+              <h3 class="slides__card-title">{step.title}</h3>
+              <p class="slides__card-body">{step.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </article>
+
+      {/* La prueba: cifras que suben, y las dos formas de comprobarlo. */}
+      <article class="slides__slide slides__slide--wide" data-slide id="resultados">
+        <header class="slides__head">
+          <span class="slides__label">{t.results.label}</span>
+          <h2 class="slides__title">{t.results.heading}</h2>
+        </header>
+        <div class="slides__metrics">
+          {t.results.metrics.map((m) => (
+            <div class="slides__metric" data-spotlight>
+              <span class="slides__metric-value">
+                <span class="counter" data-target={m.value} aria-label={`${m.value}${m.suffix} ${m.label}`}>{String(m.value)}</span><span class="slides__metric-suffix">{m.suffix}</span>
+              </span>
+              <span class="slides__metric-label">{m.label}</span>
+            </div>
+          ))}
+        </div>
+        <div class="slides__demos">
+          {t.results.demos.map((d) => (
+            <a
+              href={d.href}
+              {...(d.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+              class={`slides__demo ${d.instant ? "slides__demo--now" : ""}`}
+              data-spotlight
+            >
+              <span class="slides__demo-badge">
+                {d.instant && <span class="slides__pulse" aria-hidden="true"></span>}
+                {d.badge}
+              </span>
+              <h3 class="slides__card-title">{d.title}</h3>
+              <span class="slides__demo-cta">{d.cta} →</span>
+            </a>
+          ))}
+        </div>
+      </article>
+
+      <slot />
+    </div>
+
+    <!--
+      Indicador de posición. Va aria-hidden porque no es navegable: el orden
+      real de lectura son los <article> de arriba, que un lector de pantalla
+      recorre enteros sin depender de esto.
+    -->
+    <ol class="slides__dots" data-slides-dots aria-hidden="true"></ol>
+
+    <p class="slides__hint" data-slides-hint aria-hidden="true">
+      {t.slides.hint}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+    </p>
+  </div>
+</section>

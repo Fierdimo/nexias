@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import sitemap from "@astrojs/sitemap";
 
@@ -36,6 +37,7 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [
     tailwind({ applyBaseStyles: false }),
+    react(),
     sitemap({
       /*
        * Sin lastmod, el sitemap solo dice qué URLs existen. Con él dice

@@ -24,7 +24,7 @@ export const en = {
     proof3Label: "meets the collections law, and proves it",
   },
 
-  // WhyNow / The Problem
+  // The problem (first content slide of the walkthrough)
   whyNow: {
     label: "What happens today",
     heading: "It is not that your team does it badly. They just cannot keep up.",
@@ -83,7 +83,7 @@ export const en = {
     ],
   },
 
-  // HowItWorks
+  // The process, drawn as a timeline in the walkthrough
   howItWorks: {
     label: "Process",
     heading: "From your problem to results in weeks, not months",
@@ -110,6 +110,11 @@ export const en = {
   },
 
   // Results
+  slides: {
+    /* Único texto propio del recorrido: el resto sale de whyNow,
+       services, howItWorks y results, para no mantener dos copias. */
+    hint: "Scroll to advance",
+  },
   results: {
     label: "What already works",
     heading: "Don't take our word for it. Try it.",

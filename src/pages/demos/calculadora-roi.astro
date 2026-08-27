@@ -270,6 +270,7 @@ import { breadcrumbs } from "../../lib/schema";
 </style>
 
 <script>
+  import gsap from "gsap";
   // ── ROI Calculator logic ──────────────────────────────────────
   const sliders = {
     empleados: document.getElementById("empleados") as HTMLInputElement,
@@ -356,7 +357,7 @@ import { breadcrumbs } from "../../lib/schema";
 
   // GSAP entrance
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!prefersReduced && typeof gsap !== "undefined") {
+  if (!prefersReduced) {
     gsap.from(["#roi-form-card", "#roi-results"], {
       opacity: 0, y: 30,
       duration: 0.7,
